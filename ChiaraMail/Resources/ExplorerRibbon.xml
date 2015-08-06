@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="RibbonLoad">
+  <backstage>
+    <tab idMso="TabAccounts">
+      <firstColumn>
+        <group id="groupChiaraAccount" insertAfterMso="GroupAccountInformation"
+                getLabel="GetLabel" getHelperText="GetDescription" style="normal">
+          <primaryItem>
+            <menu id="buttonChiaraMailMenu" getLabel="GetLabel" getScreentip="GetScreentip"
+                    getImage="GetImage"  >
+              <menuGroup id="menuGroupChiaraMailSettings">
+                <button id="buttonChiaraMailAccount" getLabel="GetLabel" getDescription="GetDescription"
+                    getImage="GetImage" isDefinitive="false" onAction="OnClick" visible="true"/>
+              </menuGroup>
+              <menuGroup id ="menuGroupChiaraMailHelp">
+                <button id="taskChiaraMailHelp" getLabel="GetLabel"  getDescription="GetDescription"
+                    imageMso="Help" onAction="OnClick"  isDefinitive="false" visible="true"/>
+                <button id="taskChiaraMailSupport" getLabel="GetLabel" getDescription="GetDescription"
+                    imageMso="MessageOptions" onAction="OnClick" isDefinitive="false" visible="true"/>
+              </menuGroup>
+            </menu>
+          </primaryItem>
+          <topItems>
+            <layoutContainer id="layoutCM" layoutChildren="vertical">
+              <labelControl id="blankCM" label="    "/>
+              <button id="buttonInviteECS" getLabel="GetLabel" getScreentip="GetScreentip"
+                    imageMso="AddressBook" onAction="OnClick" isDefinitive="false" style="normal"/>
+            </layoutContainer>
+          </topItems>
+        </group>
+      </firstColumn>
+    </tab>
+    <!--<tab idMso="TabHelp">
+      <firstColumn>
+        <taskGroup idMso="GroupContactMicrosoft">
+          <category id="groupChiaraMailHelp" getLabel="GetLabel">
+            <task id="taskChiaraMailHelp" getLabel="GetLabel"  getDescription="GetDescription"
+                    getImage="GetImage" onAction="OnClick"  isDefinitive="false" />
+            <task id="taskChiaraMailSupport" getLabel="GetLabel" getDescription="GetDescription" 
+                  imageMso="MessageOptions" onAction="OnClick" isDefinitive="false"/>
+          </category>
+        </taskGroup>
+      </firstColumn>
+    </tab>-->
+  </backstage>
+</customUI>
+

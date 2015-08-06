@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="description_dynamic_content" xml:space="preserve">
+    <value>Send mail using ECS</value>
+  </data>
+  <data name="description_encrypted" xml:space="preserve">
+    <value>Encrypt ECS-enabled content</value>
+  </data>
+  <data name="label_config_button" xml:space="preserve">
+    <value>ChiaraMail for Outlook Settings</value>
+  </data>
+  <data name="label_dynamic_content" xml:space="preserve">
+    <value>Send as ECS</value>
+  </data>
+  <data name="label_encrypted" xml:space="preserve">
+    <value>Encrypt content</value>
+  </data>
+  <data name="product_name" xml:space="preserve">
+    <value>ChiaraMail for Outlook</value>
+  </data>
+  <data name="screentip_dynamic_content" xml:space="preserve">
+    <value>Send this email with ECS-enabled content</value>
+  </data>
+  <data name="screentip_encrypted" xml:space="preserve">
+    <value>Encrypt the ECS-enabled content</value>
+  </data>
+  <data name="tooltip_config_button" xml:space="preserve">
+    <value>Configure account settings for ChiaraMail for Outlook</value>
+  </data>
+  <data name="content_header" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Pointer</value>
+  </data>
+  <data name="description_edit_content" xml:space="preserve">
+    <value>Update ECS-enabled content</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ExplorerRibbon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExplorerRibbon.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="InspectorRibbonCompose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InspectorRibbonCompose.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="InspectorRibbonRead" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InspectorRibbonRead.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="label_edit_content" xml:space="preserve">
+    <value>Update Content</value>
+  </data>
+  <data name="message_class_CM" xml:space="preserve">
+    <value>IPM.Note.ChiaraMail</value>
+  </data>
+  <data name="placeholder_html" xml:space="preserve">
+    <value>For your protection and privacy, this message was sent using ECS® technology, but your mail client is not yet enabled for ECS. To read this secure message, please download the appropriate ECS extension for your mail client or one of our ECS-enabled mobile mail clients (http://www.chiaramailcorp.com/downloads/).</value>
+  </data>
+  <data name="port_header" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Server-Port</value>
+  </data>
+  <data name="encrypt_key_header" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Key</value>
+  </data>
+  <data name="screentip_edit_content" xml:space="preserve">
+    <value>Update the content of this email</value>
+  </data>
+  <data name="server_header" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Server-Name</value>
+  </data>
+  <data name="snake_loader_cornflower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\snake-loader-cornflower.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChiaraMail_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChiaraMail_1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="public_strings_root" xml:space="preserve">
+    <value>http://schemas.microsoft.com/mapi/string/{00020386-0000-0000-C000-000000000046}/</value>
+  </data>
+  <data name="meta" xml:space="preserve">
+    <value>&lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=us-ascii"&gt;</value>
+  </data>
+  <data name="placeholder_text" xml:space="preserve">
+    <value>For your protection and privacy, this message was sent using ECS technology, but your mail client is not yet enabled for ECS. To read this secure message, please download (https://web.chiaramail.com/downloads) the appropriate ECS extension for your mail client or one of our ECS-enabled mobile mail clients.</value>
+  </data>
+  <data name="config_server" xml:space="preserve">
+    <value>If your organization has its own ECS server then you should also enter the server URL and port.</value>
+  </data>
+  <data name="default_port" xml:space="preserve">
+    <value>443</value>
+  </data>
+  <data name="default_server" xml:space="preserve">
+    <value>www.chiaramail.com</value>
+  </data>
+  <data name="Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveAs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveAs.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="account_validation" xml:space="preserve">
+    <value>You haven't supplied the {0} for this e-mail address so it won't be enabled for ECS.{1}{1}Do you want to continue? </value>
+  </data>
+  <data name="final_validation_prompt" xml:space="preserve">
+    <value>You haven't configured {0} e-mail address{1}to send or receive ECS-enabled content!{1}{1}Do you still want to close this form?</value>
+  </data>
+  <data name="InspectorRibbonCompose2010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InspectorRibbonCompose2010.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="InspectorRibbonRead2010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InspectorRibbonRead2010.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="encrypt_key_header2" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Key2</value>
+  </data>
+  <data name="ItemSend_Upload_Problem" xml:space="preserve">
+    <value>There was a problem uploading the message to the ECS server:</value>
+  </data>
+  <data name="Embedded_Image_Prompt" xml:space="preserve">
+    <value>This message has embedded (inline) images
+so the content can't be separated from the envelope.
+Select OK to send the existing content with the envelope
+or Cancel to edit the message and remove the images.</value>
+  </data>
+  <data name="Config_Alert_Missing_Props" xml:space="preserve">
+    <value>Please specify ECS server password, name and port for the given e-mail address</value>
+  </data>
+  <data name="Missing_Password" xml:space="preserve">
+    <value>Please supply the password.</value>
+  </data>
+  <data name="Missing_Server_Name" xml:space="preserve">
+    <value>Please supply the ECS server name.</value>
+  </data>
+  <data name="Missing_Port" xml:space="preserve">
+    <value>Please supply the ECS server port number.</value>
+  </data>
+  <data name="port_out_of_range" xml:space="preserve">
+    <value>Port number out of range [1-1023].</value>
+  </data>
+  <data name="prompt_save_config_changes" xml:space="preserve">
+    <value>Do you want to save changes for the '{0}' account?</value>
+  </data>
+  <data name="label_config_group" xml:space="preserve">
+    <value>ChiaraMail for Outlook Settings</value>
+  </data>
+  <data name="label_invite" xml:space="preserve">
+    <value>Create ECS Invitation</value>
+  </data>
+  <data name="screentip_invite" xml:space="preserve">
+    <value>Invite your contacts to use ECS</value>
+  </data>
+  <data name="wait_check_registered" xml:space="preserve">
+    <value>Checking to see who is already registered for ECS...</value>
+  </data>
+  <data name="invite_alert_caption" xml:space="preserve">
+    <value>ECS Invitation</value>
+  </data>
+  <data name="invite_prompt" xml:space="preserve">
+    <value>Would you like to invite your contacts to register for ECS, so they are able to read your ECS-enabled messages?</value>
+  </data>
+  <data name="invite_registered_alert" xml:space="preserve">
+    <value>These names have been removed from the invitation{0}because they already have ECS accounts:{0}{1}</value>
+  </data>
+  <data name="invite_subject" xml:space="preserve">
+    <value>Write to me with ECSMail, the next-generation e-mail program!</value>
+  </data>
+  <data name="invite_text" xml:space="preserve">
+    <value>Hi,{0}{0}I don't want Google to read my e-mail anymore, so I installed ECS support into my mail programs and I invite you to do the same. Besides protecting our privacy, the ECS products from ChiaraMail help protect us from email spoofing, in which others try to trick us into revealing our bank login credentials and such, and also enable us to change our e-mail after we've sent it (Yes! Really!). As if that weren't enough, ECS technology allows us to send attachments of practically unlimited size and also speeds up mail delivery, while greatly reducing mail storage requirements for our mail recipients.{0}{0}I think ECS is a big deal and wanted to share the news about it with you. If you have an Android phone or tablet, download ECSMail for Android from https://play.google.com/store/apps/details?id=com.chiaramail.chiaramailforandroid. For Mozilla Thunderbird or Microsoft Outlook users, download free extensions from http://www.chiaramail.com/download_extension.html and take control of your e-mail today like I did!{0}{0}Regards,{0}{0}{1}</value>
+  </data>
+  <data name="invite_all_registered" xml:space="preserve">
+    <value>Everyone that you selected with a valid address has already registered for ECS</value>
+  </data>
+  <data name="content_updated" xml:space="preserve">
+    <value>Content updated</value>
+  </data>
+  <data name="open_for_editing" xml:space="preserve">
+    <value>Open for Editing</value>
+  </data>
+  <data name="open_menu_option" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Application__exe" xml:space="preserve">
+    <value>Application |*.exe</value>
+  </data>
+  <data name="from_label" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="to_label" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="cc_label" xml:space="preserve">
+    <value>Cc:</value>
+  </data>
+  <data name="subject_label" xml:space="preserve">
+    <value>Subject:</value>
+  </data>
+  <data name="file_name_label" xml:space="preserve">
+    <value>File name:</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>Size:</value>
+  </data>
+  <data name="blank_label" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="sent_label" xml:space="preserve">
+    <value>Sent:</value>
+  </data>
+  <data name="placeholder_html2" xml:space="preserve">
+    <value>This mail client is not enabled/configured for Envelope-Content Splitting (ECS) technology. In order to send or view ECS messages, your mail client must be enabled and configured for ECS. Mozilla Thunderbird and Microsoft Outlook users must install the free ECS extension
+(&lt;a href="http://www.chiaramail.com/download_extension.html"&gt;http://www.chiaramail.com/download_extension.html&lt;/a&gt;) and Thunderbird users must register for content service, also free (&lt;a href="http://www.chiaramail.com/index.jsp"&gt;http://www.chiaramail.com/index.jsp&lt;/a&gt;). ECSMail for Android users need only install the app and configure their mail accounts; content server registration is done automatically in ECSMail and Outlook.</value>
+  </data>
+  <data name="placeholder_text2" xml:space="preserve">
+    <value>This mail client is not enabled/configured for Envelope-Content Splitting (ECS) technology. In order to send or view ECS messages, your mail client must be enabled and configured for ECS. Mozilla Thunderbird and Microsoft Outlook users must install the free ECS extension
+(http://www.chiaramail.com/download_extension.html) and Thunderbird users must register for content service, also free (http://www.chiaramail.com/index.jsp). ECSMail for Android users need only install the app and configure their mail accounts; content server registration is done automatically in ECSMail and Outlook.</value>
+  </data>
+  <data name="fetch_content_error" xml:space="preserve">
+    <value>There was a problem retrieving content from the ECS server for '{0}':{1}{2}</value>
+  </data>
+  <data name="placeholder_html3" xml:space="preserve">
+    <value>This message was sent using &lt;a href='http://www.chiaramail.com/technology.html'&gt;ECS technology&lt;/a&gt;, but your mail client does not support ECS. Please download and install the appropriate ECS-enabling software for your mail client (&lt;a href='http://www.chiaramail.com/download_ecs.html'&gt;http://www.chiaramail.com/download_ecs.html&lt;/a&gt;) to read this message.</value>
+  </data>
+  <data name="placeholder_text3" xml:space="preserve">
+    <value>This message was sent using ECS technology (http://www.chiaramail.com/technology.html), but your mail client does not support ECS. Please download and install the appropriate ECS-enabling software for your mail client (http://www.chiaramail.com/download_ecs.html) to read this message.</value>
+  </data>
+  <data name="placeholder_text0" xml:space="preserve">
+    <value>This mail client requires the dynamic content extension in order to view dynamic content mail. Select the following link to download and install the extension: http://www.chiaramail.com/download_extension.html.</value>
+  </data>
+  <data name="description_help" xml:space="preserve">
+    <value>Get help for using ChiaraMail for Outlook</value>
+  </data>
+  <data name="label_help" xml:space="preserve">
+    <value>ChiaraMail for Outlook Help</value>
+  </data>
+  <data name="label_help_backstage" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="label_help_group" xml:space="preserve">
+    <value>ChiaraMail for Outlook</value>
+  </data>
+  <data name="label_no_placeholder" xml:space="preserve">
+    <value>Include content</value>
+  </data>
+  <data name="description_no_placeholder" xml:space="preserve">
+    <value>Include original content</value>
+  </data>
+  <data name="auto_register_info" xml:space="preserve">
+    <value>Account registration confirmation has been e-mailed to you.{0}{0}To activate your ChiaraMail account, select the link in the message{0}and then enter your content server password into the password field.</value>
+  </data>
+  <data name="default_on_caption" xml:space="preserve">
+    <value>When this box is checked, mail will be sent using ECS.</value>
+  </data>
+  <data name="default_encrypt_caption" xml:space="preserve">
+    <value>When this box is checked the message content will be encrypted before sending it to the server.</value>
+  </data>
+  <data name="default_include_content_caption" xml:space="preserve">
+    <value>When this box and the 'Send as ECS' box are checked, messages will include the actual content, rather than placeholders.</value>
+  </data>
+  <data name="missing_password_setting" xml:space="preserve">
+    <value>Missing ECS Password</value>
+  </data>
+  <data name="placeholder_text1" xml:space="preserve">
+    <value>This message was sent using HYPERLINK "http://www.chiaramail.com/technology.html"ECS technology, but your mail client does not support ECS. Please download and install the appropriate ECS-enabling software for your mail client (http://www.chiaramail.com/download_extension.html) to read this message.</value>
+  </data>
+  <data name="config_hdr1" xml:space="preserve">
+    <value>ECS messaging may be hosted by the public content server (managed by ChiaraMail and whose server name is www.chiaramail.com) or by a private server, e.g., by your bank. You may configure private servers here, by specifying the content server name, port, account password and other settings. The owner of the content server will provide those values when you register.</value>
+  </data>
+  <data name="config_hdr2" xml:space="preserve">
+    <value>When you receive an ECS message, the address of the content server (public or private) will be specified in the message header and the configuration you have created for that server will be used to retrieve the message content.</value>
+  </data>
+  <data name="config_hdr3" xml:space="preserve">
+    <value>The configuration of the default content server is used when you send an ECS message or when you reply to or forward one whose content is hosted on a different server.</value>
+  </data>
+  <data name="prompt_config_duplicate_name" xml:space="preserve">
+    <value>This mail account already has a configuration named '{0}'!</value>
+  </data>
+  <data name="prompt_config_invalid_server_name" xml:space="preserve">
+    <value>'{0}' does not appear to be a valid server name!</value>
+  </data>
+  <data name="prompt_config_missing_server" xml:space="preserve">
+    <value>You must supply the name of the content server!</value>
+  </data>
+  <data name="prompt_config_missing_name" xml:space="preserve">
+    <value>You must supply a name for this configuration!</value>
+  </data>
+  <data name="prompt_config_duplicate_host" xml:space="preserve">
+    <value>This mail account already has a configuration for '{0}'!{1}{1}Please enter a different content server name or select another port.</value>
+  </data>
+  <data name="config_default_tag" xml:space="preserve">
+    <value> (Default)</value>
+  </data>
+  <data name="config_public_server_description" xml:space="preserve">
+    <value>ChiaraMail Content Server</value>
+  </data>
+  <data name="label_delete_content" xml:space="preserve">
+    <value>Delete Content</value>
+  </data>
+  <data name="description_delete_content" xml:space="preserve">
+    <value>Delete Message Content</value>
+  </data>
+  <data name="ecs" xml:space="preserve">
+    <value>ECS</value>
+  </data>
+  <data name="delete_content" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete_content32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_content" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit_content32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="prompt_delete_content_confirm" xml:space="preserve">
+    <value>Are you sure you want to delete the content in this message?</value>
+  </data>
+  <data name="duration_header" xml:space="preserve">
+    <value>X-ChiaraMail-Content-Duration</value>
+  </data>
+  <data name="ephemeral_content" xml:space="preserve">
+    <value>This is an ECS ephemeral message which can only be displayed on Android devices.</value>
+  </data>
+  <data name="update_header_pointer" xml:space="preserve">
+    <value>X-ChiaraMail-Update-Pointer</value>
+  </data>
+  <data name="update_header_port" xml:space="preserve">
+    <value>X-ChiaraMail-Update-Port</value>
+  </data>
+  <data name="update_header_sender" xml:space="preserve">
+    <value>X-ChiaraMail-Update-Sender</value>
+  </data>
+  <data name="update_header_server" xml:space="preserve">
+    <value>X-ChiaraMail-Update-Server</value>
+  </data>
+  <data name="ChiaraMailIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChiaraMailIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChiaraMailIcon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChiaraMailIcon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="form_version" xml:space="preserve">
+    <value>1.0</value>
+  </data>
+  <data name="ChiaraMail" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChiaraMail.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReadECS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadECS.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UnreadECS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UnreadECS.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spoofed_sender_address" xml:space="preserve">
+    <value>Sender does not appear to be legitimate</value>
+  </data>
+  <data name="sender_not_registered" xml:space="preserve">
+    <value>Sender '{0}' is not registered for ECS</value>
+  </data>
+  <data name="error_fetching_content" xml:space="preserve">
+    <value>Error fetching content: {0}{1}</value>
+  </data>
+  <data name="error_storing_content" xml:space="preserve">
+    <value>Error storing content: {0){1}</value>
+  </data>
+  <data name="invalid_server" xml:space="preserve">
+    <value>Unlicensed content server name/port</value>
+  </data>
+  <data name="missing_settings" xml:space="preserve">
+    <value>Missing ECS setting(s): {0}{1}</value>
+  </data>
+  <data name="unknown_server" xml:space="preserve">
+    <value>Unknown content server name/port</value>
+  </data>
+  <data name="error_updating_content" xml:space="preserve">
+    <value>Error updating content: {0}{1}</value>
+  </data>
+  <data name="error_deleting_content" xml:space="preserve">
+    <value>There was a problem updating the message content: {0}{1}</value>
+  </data>
+  <data name="register_user_failed" xml:space="preserve">
+    <value>Connection error, unable to get content server password</value>
+  </data>
+  <data name="label_support" xml:space="preserve">
+    <value>Request Support from ChiaraMail</value>
+  </data>
+  <data name="description_support" xml:space="preserve">
+    <value>Create an email request to ChiaraMail support</value>
+  </data>
+  <data name="label_account_settings" xml:space="preserve">
+    <value>ChiaraMail for Outlook Account Settings</value>
+  </data>
+  <data name="ExplorerRibbon2013" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExplorerRibbon2013.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DummyUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DummyUser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Envelope2013" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Envelope2013.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ForwardTrans.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Reply" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReplyTrans.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReplyAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReplyAllTrans.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="invalid_password" xml:space="preserve">
+    <value>Your ECS password is not valid</value>
+  </data>
+  <data name="error_checking_registration" xml:space="preserve">
+    <value>Unable to verify ECS sender {0}: {1}</value>
+  </data>
+</root>

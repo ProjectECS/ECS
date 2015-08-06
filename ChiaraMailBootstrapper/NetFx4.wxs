@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+    <WixVariable Id="WixMbaPrereqPackageId" Value="Netfx4Full" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="NetfxLicense.rtf" />
+    <PackageGroup Id="NetFx4">
+      <ExePackage Id="NetFx4"
+                  Cache="no"
+                  Compressed="no"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  SourceFile="PreReqs\dotNetFx40_Full_x86_x64.exe"
+                  DetectCondition="Net40 = 1"
+                  DownloadUrl="http://download.microsoft.com/download/7/B/6/7B629E05-399A-4A92-B5BC-484C74B5124B/dotNetFx40_Full_setup.exe">
+        <ExitCode Behavior="forceReboot"/>
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>

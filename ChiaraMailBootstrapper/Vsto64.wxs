@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+    <PackageGroup Id="Vsto64">
+      <ExePackage Id="Vsto64"
+                  InstallCondition="(VersionNT64)"
+                  Cache="no"
+                  Compressed="no"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  SourceFile="PreReqs\vstor40_x64.exe"
+                  SuppressSignatureVerification="no"
+                  DetectCondition="VstoInstalled >= v10.0.31007 OR Vsto64Installed >= v10.0.31007"
+                  DownloadUrl="http://download.microsoft.com/download/F/3/9/F395E3C2-28A0-4F0D-9E20-FF4D1ADB08D8/vstor40_x64.exe"/>
+    </PackageGroup>
+  </Fragment>
+</Wix>

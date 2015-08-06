@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="RibbonLoad" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab idMso="TabNewMailMessage">
+                <group id="groupChiaraMail" getLabel="GetLabel">
+                    <toggleButton id="toggleDynamic" getLabel="GetLabel" size="normal"
+                       onAction="OnPress" getPressed="GetPressed" getImage="GetImage"
+                        getScreentip="GetScreentip" getDescription="GetDescription"
+                        getEnabled="GetEnabled"/>
+                    <toggleButton id="toggleEncrypted" imageMso="FileDocumentEncrypt"
+                       onAction="OnPress" getPressed="GetPressed" getLabel="GetLabel" 
+                       size="normal" getScreentip="GetScreentip" getDescription="GetDescription"
+                       getEnabled="GetEnabled"/>
+                  <toggleButton id="toggleNoPlaceholder" imageMso="ColumnsDialog"
+                       onAction="OnPress" getPressed="GetPressed" getLabel="GetLabel"
+                       size="normal" getScreentip="GetScreentip" getDescription="GetDescription"
+                       getEnabled="GetEnabled"/>
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>

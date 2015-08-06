@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+   xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Bundle
+    Name="ChiaraMail for Outlook"
+    Version="1.0.32.0"
+    Manufacturer="ChiaraMail Corp."
+    UpgradeCode="40BF5C14-277C-4ef3-A2BD-8C1897090D01"
+    Copyright="© 2014 ChiaraMail Corp."
+    DisableModify="yes"
+    DisableRemove="no"
+    IconSourceFile="Resources\ChiaraMail.ico"
+    Condition="((VersionNT > v5.1) OR (VersionNT64 > v5.1))">
+    <WixVariable Id="WixStdbaLicenseUrl" Value =""/>
+    <WixVariable Id="WixStdbaLogo" Value="Resources\logo.png" />
+    <WixVariable Id="WixStdbaThemeXml" Value="Resources\Theme.xml" />
+    <WixVariable Id="WixStdbaThemeWxl" Value="Resources\Theme.wxl" />
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense" />
+    <util:RegistrySearch Root='HKLM' Key='SOFTWARE\Classes\Outlook.Application\CurVer' Result='value' Format='raw' Variable='OutlookVersion'/>
+    <util:RegistrySearch Variable="OutlookBitness14" Root="HKLM" Key="SOFTWARE\Microsoft\Office\14.0\Outlook" Value="Bitness" Format="raw" Result="value" Win64="no"/>
+    <util:RegistrySearch Variable="OutlookBitness15" Root="HKLM" Key="SOFTWARE\Microsoft\Office\15.0\Outlook" Value="Bitness" Format="raw" Result="value" Win64="no"/>
+    <util:RegistrySearch Variable="OutlookBitness14x64" Root="HKLM" Key="SOFTWARE\Microsoft\Office\14.0\Outlook" Value="Bitness" Format="raw" Result="value" Win64="yes"/>
+    <util:RegistrySearch Variable="OutlookBitness15x64" Root="HKLM" Key="SOFTWARE\Microsoft\Office\15.0\Outlook" Value="Bitness" Format="raw" Result="value" Win64="yes"/>
+    <util:RegistrySearch Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\OUTLOOK.EXE' Format='raw' Result='value'
+                         Variable='LaunchTarget' Condition='NOT WixBundleInstalled'/>
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\VSTO Runtime Setup\v4R" Value="Version" Variable="VstoInstalled" />
+    <util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\VSTO Runtime Setup\v4R" Value="Version" Variable="Vsto64Installed" Win64="yes"/>
+    <Variable Name='AllUsersRB' Value='0' Type='numeric'/>
+    <Variable Name='CurrentUserRB' Value='1' Type='numeric'/>
+    <Chain>
+      <PackageGroupRef Id='NetFx40Web'/>
+      <PackageGroupRef Id='Vsto32'/>
+      <PackageGroupRef Id='Vsto64'/>
+      <PackageGroupRef Id='ChiaraMail'/>
+      <PackageGroupRef Id='ChiaraMail64'/>
+    </Chain>
+  </Bundle>
+  <Fragment>
+    <Icon Id="ChiaraMail.ico" SourceFile="Resources\ChiaraMail.ico"/>
+  </Fragment>
+</Wix>

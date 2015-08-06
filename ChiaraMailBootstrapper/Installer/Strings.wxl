@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LaunchCondition_AdminPrivs">You must have Administrative rights on this machine to install [ProductName]. Please contact your system administrator.</String>
+  <String Id="LaunchCondition_LaterVersion">You cannot install this version of [ProductName] because a newer version is already installed.</String>
+  <String Id="LaunchCondition_AnotherBuild">[ProductName] is already installed. Please uninstall [ProductName] before running this installation procedure.</String>
+  <String Id="LaunchCondition_WrongOSVersion">[ProductName] cannot be installed on this operating system. Please visit [Property_ArpHelpLink] to view supported operating systems.</String>
+  <String Id="LaunchCondition_OutlookNotInstalled">You must have MS Outlook installed on this machine before installing [ProductName]. Please run this installation again after installing MS Outlook.</String>
+  <String Id="LaunchCondition_NetFramework">The .NET Framework 4.0 must be installed.</String>
+  <String Id="Property_ArpHelpLink">http://www.chiaramail.com</String>
+  <String Id="Property_ArpUrlInfoAbout">http://www.chiaramail.com</String>
+  <String Id="Property_ProductLanguage">1033</String>
+  <String Id="Property_ProductName">ChiaraMail for Outlook</String>
+  <String Id="Property_CompanyName">ChiaraMail Corp.</String>
+  <String Id="Property_OutlookSearchKey">SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\OUTLOOK.EXE</String>
+
+  <String Id="Package_Description">ChiaraMail for Outlook</String>
+  <String Id="Package_Comments">This Installer database contains the logic and data required to install ChiaraMail for Outlook.</String>
+
+  <String Id="WarningDlgIcon" Overridable="yes">WixUI_Ico_Exclam</String>
+  <String Id="UpgradeDlgDescription">{\WixUI_Font_Title}Upgrade Information</String>
+  <String Id="UpgradeDlgTitle">Upgrade</String>
+  <String Id="UpgradeMessage">An older version of [ProductName] is already installed. If you continue your current version will be upgraded to [ProductVersion].</String>
+  <String Id="UpgradeMessage1">Choose 'Next' to upgrade.</String>
+  <String Id="UpgradeMessage2">Choose 'Cancel' to stop the installation.</String>
+  <String Id="Property_Thank_You">{\WixUI_Font_Large}Thank you for installing [ProductName].</String>
+  <String Id="Message_Continue_Config">{\WixUI_Font_Bigger}Launch Outlook</String>
+  <String Id="UserExitTitle">{\UI_Font_Bigger_Bold_Red}ERROR: [ProductName] Setup was interrupted</String>
+  <String Id="ExitDialogDescription">{\WixUI_Font_Large}To complete the installation you must launch Outlook and configure [ProductName].</String>
+  <String Id="OptionalExitDialogDescription">{\WixUI_Font_Large}Click the Finish button to exit the Setup Wizard.</String>
+</WixLocalization>

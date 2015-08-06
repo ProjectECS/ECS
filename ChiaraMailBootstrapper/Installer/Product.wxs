@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductVersion = "1.0.32.0" ?>
+<?define PackageCode= "{????????-????-????-????-????????????}"?>
+<?define UpgradeCode = "{40BF5C14-277C-4ef3-A2BD-8C1897090D01}" ?>
+<?if $(var.Platform) = x64 ?>
+  <?define Win64 = "yes" ?>
+  <!--<?define ChiaraMailUpgradeCode = "BD3F6AEF-94AA-40E8-87BD-2C76525E21AC" ?>-->
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+<?else ?>
+  <?define Win64 = "no" ?>
+  <!--<?define ChiaraMailUpgradeCode = "310393F9-CA6F-42B8-A6C7-9FB283815208" ?>-->  
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+<?endif ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="!(loc.Property_ProductName)" Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer="!(loc.Property_CompanyName)"
+           UpgradeCode="$(var.UpgradeCode)">
+    <?if $(var.Platform) = x64 ?>
+    <Package Id="$(var.PackageCode)"
+        InstallerVersion="200"
+        Manufacturer="!(loc.Property_CompanyName)"
+        Compressed="yes" 
+        Description="!(loc.Package_Description)"
+        Comments="!(loc.Package_Comments)"
+        Platform="x64"/>
+    <?else ?>
+    <Package Id="$(var.PackageCode)"
+        InstallerVersion="200"
+        Manufacturer="!(loc.Property_CompanyName)"
+        Compressed="yes" 
+        Description="!(loc.Package_Description)"
+        Comments="!(loc.Package_Comments)"
+        Platform="x86"/>
+    <?endif ?>
+    
+    <!--<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />-->
+    
+    <MediaTemplate EmbedCab="yes" />
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <!-- Install only if .net 4.0 is available -->
+    <Condition Message="!(loc.LaunchCondition_NetFramework)">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+    <Property Id="INSTALLALLUSERS" Secure="yes"/>
+    <Property Id="BITNESS14">
+      <RegistrySearch Id="Ol2010Bitness"
+                      Root="HKLM"
+                      Key="Software\Microsoft\Office\14.0\Outlook"
+                      Name="Bitness"
+                      Type="raw" Win64="no" />
+    </Property>
+    <Property Id="BITNESS15">
+      <RegistrySearch Id="Ol2013Bitness"
+                      Root="HKLM"
+                      Key="Software\Microsoft\Office\15.0\Outlook"
+                      Name="Bitness"
+                      Type="raw" Win64="no" />
+    </Property>
+    <Property Id="BITNESS14_64">
+      <RegistrySearch Id="Ol2010Bitness64"
+                      Root="HKLM"
+                      Key="Software\Microsoft\Office\14.0\Outlook"
+                      Name="Bitness"
+                      Type="raw" Win64="yes" />
+    </Property>
+    <Property Id="BITNESS15_64">
+      <RegistrySearch Id="Ol2013Bitness_64"
+                      Root="HKLM"
+                      Key="Software\Microsoft\Office\15.0\Outlook"
+                      Name="Bitness"
+                      Type="raw" Win64="yes" />
+    </Property>
+
+    <Feature Id="ProductFeature" Title="!(loc.Property_ProductName)" Level="1">
+      <ComponentGroupRef Id="Files" />
+    </Feature>
+    <!--<Feature Id="AddInHKCU" Level="1">
+      <Condition Level="0">INSTALLALLUSERS = 1</Condition>
+      <ComponentRef Id="RegistryHKCU" Primary="yes"/>
+    </Feature>
+    <Feature Id="AddInHKLM" Level="0">
+      <Condition Level="1">INSTALLALLUSERS = 1</Condition>
+      <ComponentRef Id="RegistryHKLM" Primary="yes"/>
+    </Feature>-->
+
+    <!-- Handle Upgrade -->
+    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Property Id="ECSINSTALLED" Secure="yes"/>
+    <Property Id="ECS64INSTALLED" Secure="yes"/>
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion
+         Minimum="1.0.0.0" Maximum="$(var.ProductVersion)"
+         Property="PREVIOUSVERSIONSINSTALLED"
+         IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade>
+    <Upgrade Id="{310393F9-CA6F-42B8-A6C7-9FB283815208}">
+      <UpgradeVersion
+         Minimum="1.0.0.0" Maximum="1.0.29.0"
+         Property="ECSINSTALLED"
+         IncludeMinimum="yes" IncludeMaximum="yes"
+         OnlyDetect="no"/>
+    </Upgrade>
+    <Upgrade Id="{BD3F6AEF-94AA-40E8-87BD-2C76525E21AC}">
+      <UpgradeVersion
+         Minimum="1.0.0.0" Maximum="1.0.29.0"
+         Property="ECS64INSTALLED"
+         IncludeMinimum="yes" IncludeMaximum="yes"
+         OnlyDetect="no"/>
+    </Upgrade>
+    <!--<?include UI.wxi ?>
+  <UI>
+      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="CA.LaunchOutlook">
+        NOT Installed AND NOT UPGRADINGPRODUCTCODE AND NOT REMOVE="ALL"
+      </Publish>
+    </UI>
+    -->
+    <Binary Id="CustomAction.dll"
+            SourceFile="..\CustomActions\bin\Release\ChiaraMail.CustomActions.CA.dll" />
+    <CustomAction Id="CA.EvalAllUsers" Execute="immediate" Return="check"
+                 BinaryKey="CustomAction.dll"
+                 DllEntry="EvalAllUsers" />
+    <CustomAction Id="CA.PromptToCloseOutlook" Return="check" Execute="immediate"
+                  BinaryKey="CustomAction.dll"
+                  DllEntry="PromptToCloseOutlook" />
+    <!--<CustomAction Id="CA.FindEcsInstalls" Execute="immediate" Return="check"
+                 BinaryKey="CustomAction.dll"
+                 DllEntry="FindEcsProductCode" />
+    <CustomAction Id="UninstallECS" Directory="SystemFolder" 
+                  ExeCommand="&quot;[SystemFolder]msiexec.exe&quot; /X [ECSINSTALLED] /qn" 
+                  Execute="immediate" Return="asyncWait" />-->
+
+    <InstallExecuteSequence>
+      <FindRelatedProducts  Before="LaunchConditions" />
+      <Custom Action="CA.EvalAllUsers" Before="FindRelatedProducts" />
+      <Custom Action="CA.PromptToCloseOutlook" Before="InstallValidate">
+        (NOT REMOVE="ALL")
+      </Custom>
+      <!--<Custom Action="CA.FindEcsInstalls" After="LaunchConditions" />-->
+      <!--<Custom Action='UninstallECS' Before='InstallInitialize'>ECSINSTALLED</Custom>-->
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <!-- Banner bitmap -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)..\Resources\ChiaraMailBanner.bmp" />
+    <!-- Welcome bitmap -->
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)..\Resources\ChiaraMailDialog.bmp" />
+    <UIRef Id="WixUI_ChiaraMail" />
+    <!-- Icon for Programs and Features-->
+    <!--<Icon Id="icon.ico" SourceFile="$(var.ProjectDir)\Images\ChiaraMail.ico"/>-->
+    <Property Id="ARPPRODUCTICON" Value="ChiaraMail.ico" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="!(loc.Property_ProductName)" />
+      </Directory>
+      <Directory Id="SystemFolder" Name="SystemFolder"/>
+    </Directory>
+
+    <!--<Component Guid="{11E38699-D657-4ebd-8604-66764250AE82}" Id="RegistryHKCU" Directory="INSTALLFOLDER">
+      <RegistryKey Id="AddInRegKeyCU" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+                   Root="HKCU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" />
+      <RegistryValue Id="AddInLoadBehaviorKeyCU" KeyPath="yes"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="LoadBehavior"
+                     Type="integer" Value="3" />
+      <RegistryValue Id="AddInDescriptionKeyCU"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Description"
+                     Type="string" Value="!(loc.Property_ProductName)" />
+      <RegistryValue Id="AddInFriendlyNameKeyCU"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="FriendlyName"
+                     Type="string" Value="!(loc.Property_ProductName)" />
+      <RegistryValue Id="AddInManifestKeyCU"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Manifest"
+                     Type="string" Value="[INSTALLFOLDER]OutlookECS.vsto|vstolocal" />
+      <RegistryKey Id="FormRegionKeyCU" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+                   Root="HKCU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"/>
+      <RegistryValue Id="InspectorFormRegionCU"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                     Name="ChiaraMail.DynamicInspector" Type="string" Value="=OutlookECS"/>
+      <RegistryValue Id="ReadingPaneFormRegionCU"
+                     Root="HKCU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                     Name="ChiaraMail.DynamicReadingPane" Type="string" Value="=OutlookECS"/>
+      <RemoveRegistryKey Root="HKCU"
+                         Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS"
+                         Action="removeOnUninstall" />
+    </Component>
+    <Component Guid="{A01EEED8-BDE2-477f-957F-E43A7AEECF33}" Id="RegistryHKLM" Directory="INSTALLFOLDER">
+      <RegistryKey Id="AddInRegKeyLM" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+                   Root="HKLM" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" />
+      <RegistryValue Id="AddInLoadBehaviorKeyLM" KeyPath="yes"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="LoadBehavior"
+                     Type="integer" Value="3" />
+      <RegistryValue Id="AddInDescriptionKeyLM"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Description"
+                     Type="string" Value="!(loc.Property_ProductName)" />
+      <RegistryValue Id="AddInFriendlyNameKeyLM"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="FriendlyName"
+                     Type="string" Value="!(loc.Property_ProductName)" />
+      <RegistryValue Id="AddInManifestKeyLM"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Manifest"
+                     Type="string" Value="[INSTALLFOLDER]OutlookECS.vsto|vstolocal" />
+      <RegistryKey Id="FormRegionKeyLM" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+                   Root="HKLM" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"/>
+      <RegistryValue Id="InspectorFormRegionLM"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                     Name="ChiaraMail.DynamicInspector" Type="string" Value="=OutlookECS"/>
+      <RegistryValue Id="ReadingPaneFormRegionLM"
+                     Root="HKLM" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                     Name="ChiaraMail.DynamicReadingPane" Type="string" Value="=OutlookECS"/>
+      <RemoveRegistryKey Root="HKLM"
+                         Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS"
+                         Action="removeOnUninstall" />
+
+    </Component>-->
+
+    <ComponentGroup Id="Files" Directory="INSTALLFOLDER">
+      <Component Guid="1CD44022-AAF4-4369-AEFC-13AD4A7F9C12" Id="AddInFiles">
+        <File Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll"  Checksum="no" Source="C:\Program Files\Reference Assemblies\Microsoft\VSTO40\v4.0.Framework\Microsoft.Office.Tools.Common.v4.0.Utilities.dll" />
+        <File Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Checksum="no" Source="C:\Program Files\Reference Assemblies\Microsoft\VSTO40\v4.0.Framework\Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
+        <File Id="Newtonsoft.Json.dll"          Checksum="no" Source="$(var.ProjectDir)..\..\packages\Newtonsoft.Json.5.0.5\lib\net40\Newtonsoft.Json.dll" />
+        <File Id="OutlookECS.dll"               Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\bin\$(var.Configuration)\OutlookECS.dll" />
+        <File Id="OutlookECS.dll.config"        Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\bin\$(var.Configuration)\OutlookECS.dll.config" />
+        <File Id="OutlookECS.dll.manifest"      Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\bin\$(var.Configuration)\OutlookECS.dll.manifest" />
+        <File Id="OutlookECS.vsto"              Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\bin\$(var.Configuration)\OutlookECS.vsto" />
+        <File Id="Ionic.Zip.dll"                Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\Ionic.Zip.dll" />
+        <File Id="Microsoft.mshtml.dll"                Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\Microsoft.mshtml.dll" />
+        <File Id="WinFormHtmlEditor.dll"                Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\WinFormHtmlEditor.dll" />
+        <File Id="WinHTMLEditorControl.dll"                Checksum="no" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\WinHTMLEditorControl.dll" />
+      </Component>
+      <?if $(var.Platform) = x64?>
+      <Component Id="Redemption64.dll" Guid="{511DECCD-60B3-49fa-A171-EC1DCA74C486}">
+        <File Id="redemption64.dll" Name="Redemption64.dll" KeyPath="yes"  Vital="no" DiskId="1" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\redemption64.dll" />
+      </Component>
+      <?else?>
+      <Component Id="Redemption.dll" Guid="{511DECCD-60B3-49FA-A171-EC1DCA74C486}">
+        <File Id="redemption.dll" Name="Redemption.dll" KeyPath="yes"  Vital="no" DiskId="1" Source="$(var.ProjectDir)..\..\ChiaraMail\ref\redemption.dll" />
+      </Component>
+      <?endif?>
+      <Component Guid="{98A08FDC-33E1-4b4b-AE21-92553D0D0AF1}" Id="RegistryHKMU">
+        <RegistryKey Id="AddInRegKey" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+               Root="HKMU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" />
+        <RegistryValue Id="AddInLoadBehaviorKey" KeyPath="yes"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="LoadBehavior"
+                       Type="integer" Value="3" />
+        <RegistryValue Id="AddInDescriptionKey"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Description"
+                       Type="string" Value="!(loc.Property_ProductName)" />
+        <RegistryValue Id="AddInFriendlyNameKey"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="FriendlyName"
+                       Type="string" Value="!(loc.Property_ProductName)" />
+        <RegistryValue Id="AddInManifestKey"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\AddIns\OutlookECS" Name="Manifest"
+                       Type="string" Value="[INSTALLFOLDER]OutlookECS.vsto|vstolocal" />
+        <RegistryKey Id="FormRegionKey" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes"
+                     Root="HKMU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"/>
+        <RegistryValue Id="InspectorFormRegion"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                       Name="ChiaraMail.DynamicInspector" Type="string" Value="=OutlookECS"/>
+        <RegistryValue Id="ReadingPaneFormRegion"
+                       Root="HKMU" Key="Software\Microsoft\Office\Outlook\FormRegions\IPM.Note.ChiaraMail"
+                       Name="ChiaraMail.DynamicReadingPane" Type="string" Value="=OutlookECS"/>
+      </Component>
+    </ComponentGroup>
+  </Product>
+</Wix>

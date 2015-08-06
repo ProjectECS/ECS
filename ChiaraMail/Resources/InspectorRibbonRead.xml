@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="RibbonLoad" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabReadMessage">
+        <group id="groupChiaraMailRead" getLabel="GetLabel">
+          <button id="buttonEditContent" getLabel="GetLabel" size="large"
+             onAction="OnClick" getImage="GetImage" getEnabled="GetEnabled"
+              getScreentip="GetScreentip" getDescription="GetDescription"/>
+          <button id="buttonDeleteContent" getLabel="GetLabel" size="large"
+             onAction="OnClick" getImage="GetImage" getEnabled="GetEnabled"
+              getScreentip="GetScreentip" getDescription="GetDescription"/>
+        </group>
+      </tab>
+    </tabs>    
+  </ribbon>  
+</customUI>

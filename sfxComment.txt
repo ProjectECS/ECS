@@ -1,0 +1,5 @@
+;The comment below contains SFX script commands
+
+Setup=setup.exe
+TempMode
+Silent=1

@@ -1,0 +1,16 @@
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi' xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Fragment>
+    <PackageGroup Id='ChiaraMail64'>
+      <MsiPackage Id='ChiaraMailForOutlook64' Cache='no'                  
+                  Compressed='yes'
+                  SourceFile='Installer\bin\Release\en-us\ChiaraMailForOutlook64.msi'
+                  DisplayInternalUI='no'
+                  InstallCondition='(OutlookVersion="Outlook.Application.11" OR OutlookVersion="Outlook.Application.12" OR OutlookVersion="Outlook.Application.14" OR OutlookVersion="Outlook.Application.15") AND (OutlookBitness14="x64" OR OutlookBitness15="x64" OR OutlookBitness14x64="x64" OR OutlookBitness15x64="x64")' >
+        <MsiProperty Name='ARPPRODUCTICON' Value='ChiaraMail.ico'/>
+        <MsiProperty Name='INSTALLALLUSERS' Value='[AllUsersRB]'/>
+        <MsiProperty Name='ALLUSERS' Value='2'/>
+        <MsiProperty Name='MSIINSTALLPERUSER' Value='1'/>
+      </MsiPackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>

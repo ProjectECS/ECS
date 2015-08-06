@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customUI onLoad="RibbonLoad" xmlns="http://schemas.microsoft.com/office/2009/07/customui">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabReadMessage">
+        <group id="groupChiaraMailRead" getLabel="GetLabel">
+          <button id="buttonEditContent" getLabel="GetLabel" size="large"
+             onAction="OnClick" getImage="GetImage" getEnabled="GetEnabled"
+              getScreentip="GetScreentip" getDescription="GetDescription"/>
+          <button id="buttonDeleteContent" getLabel="GetLabel" size="large"
+             onAction="OnClick" getImage="GetImage" getEnabled="GetEnabled"
+              getScreentip="GetScreentip" getDescription="GetDescription"/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+  <backstage>
+    <tab idMso="TabHelp">
+      <firstColumn>
+        <taskGroup idMso="GroupContactMicrosoft">
+          <category id="groupChiaraMailHelp" getLabel="GetLabel">
+            <task id="taskChiaraMailHelp" getLabel="GetLabel"  getDescription="GetDescription"
+                    getImage="GetImage" onAction="OnClick"  isDefinitive="false" />
+          </category>
+        </taskGroup>
+      </firstColumn>
+    </tab>
+  </backstage>
+</customUI>
