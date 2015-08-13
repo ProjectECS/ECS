@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ChiaraMail
@@ -26,7 +28,8 @@ namespace ChiaraMail
         static int[] AES_xtime;
         static int[] AES_Sbox_Inv;
         static int[] AES_ShiftRowTab_Inv;
- 
+        private const string AesIV = "dsfergvnjDASFAFf";
+
         private static void Initialize() {
           AES_Sbox_Inv = new int[256];
           for(var i = 0; i < 256; i++)
@@ -136,7 +139,61 @@ namespace ChiaraMail
             }
             return block;
         }
-        
+
+        /// <summary>
+        /// To encrypt content with using CBC mode
+        /// </summary>
+        /// <param name="block"></param>
+        /// <param name="AesKey"></param>
+        /// <returns></returns>
+        internal static byte[] EnCryptCBC(byte[] block, string AesKey)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.BlockSize = 128;
+            aes.KeySize = 128;
+            aes.Padding = PaddingMode.Zeros;
+            aes.Mode = CipherMode.CBC;
+            aes.Key = System.Text.Encoding.UTF8.GetBytes(AesKey);
+            aes.IV = System.Text.Encoding.UTF8.GetBytes( AesIV );
+
+            ICryptoTransform encrypt = aes.CreateEncryptor();
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptStream = new CryptoStream(memoryStream, encrypt, CryptoStreamMode.Write);
+
+            cryptStream.Write(block, 0, block.Length);
+            cryptStream.FlushFinalBlock();
+
+            byte[] encrypted = memoryStream.ToArray();
+
+            return encrypted;
+        }
+
+        /// <summary>
+        /// To decrypt content with using CBC mode
+        /// </summary>
+        /// <param name="block"></param>
+        /// <param name="AesKey"></param>
+        /// <returns></returns>
+        internal static byte[] DecryptCBC(byte[] block, string AesKey)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.BlockSize = 128;
+            aes.KeySize = 128;
+            aes.Padding = PaddingMode.Zeros;
+            aes.Mode = CipherMode.CBC;
+            aes.Key = System.Text.Encoding.UTF8.GetBytes(AesKey);
+            aes.IV = System.Text.Encoding.UTF8.GetBytes(AesIV);
+
+            ICryptoTransform decryptor = aes.CreateDecryptor();
+            byte[] planeText = new byte[block.Length];
+            MemoryStream memoryStream = new MemoryStream(block);
+            CryptoStream cryptStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+
+            cryptStream.Read(planeText, 0, planeText.Length);
+
+            return planeText;
+        }
+
         private static void Encrypt(ref byte[] block, byte[] key) 
         {
             Initialize();

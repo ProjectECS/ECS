@@ -792,7 +792,7 @@ namespace ChiaraMail
                 }
                 else if (!string.IsNullOrEmpty(encryptKey2))
                 {
-                    buf = AES_JS.Encrypt(buf, encryptKey2);
+                    buf = AES_JS.EnCryptCBC(buf, encryptKey2);
                 }
                 if (buf == null) return "";
                 //convert to base64 

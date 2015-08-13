@@ -198,8 +198,9 @@ namespace ChiaraMail.Wrappers
                     var key = "";
                     var key2 = "";
                     var duration = "";
+                    var user_agent = "";
                     Utils.ReadHeaders(MailItem, ref pointer, ref server, ref port,
-                        ref key, ref key2, ref duration);
+                        ref key, ref key2, ref duration, ref user_agent);
                     if (!string.IsNullOrEmpty(duration) && duration != "0")
                     {
                         MailItem.Actions["Reply"].Enabled = false;
@@ -360,8 +361,9 @@ namespace ChiaraMail.Wrappers
                     var key = "";
                     var key2 = "";
                     var duration = "";
+                    var user_agent = "";
                     Utils.ReadHeaders(mail, ref pointer, ref  server, ref port,
-                        ref key, ref key2, ref duration);
+                        ref key, ref key2, ref duration, ref user_agent);
                     if (string.IsNullOrEmpty(storeAddress))
                         storeAddress = mail.InternetAccountName();
                     var editable = ThisAddIn.IsEditable(mail,senderAddress, server, port, storeAddress);

@@ -149,8 +149,9 @@ namespace ChiaraMail.Wrappers
                     var key = "";
                     var key2 = "";
                     var duration = "";
-                    Utils.ReadHeaders(MailItem, ref pointer,ref server, ref port, 
-                        ref key, ref key2, ref duration);
+                    var user_agent = "";
+                    Utils.ReadHeaders(MailItem, ref pointer,ref server, ref port,
+                        ref key, ref key2, ref duration, ref user_agent);
                     if (!string.IsNullOrEmpty(duration) && duration != "0")
                     {
                         MailItem.Actions["Reply"].Enabled = false;

@@ -1333,6 +1333,15 @@ namespace ChiaraMail.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X-ChiaraMail-User-Agent.
+        /// </summary>
+        internal static string user_agent_header {
+            get {
+                return ResourceManager.GetString("user_agent_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking to see who is already registered for ECS....
         /// </summary>
         internal static string wait_check_registered {

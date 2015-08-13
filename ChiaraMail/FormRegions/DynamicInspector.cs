@@ -26,6 +26,7 @@ namespace ChiaraMail.FormRegions
         private string _encryptKey = "";
         private string _encryptKey2 = "";
         private string _duration = "";
+        private string _userAgent = "";
         private Dictionary<string, Attachment> _attachList = new Dictionary<string, Attachment>();
         private string _recordKey = "";
         private string _content;
@@ -314,7 +315,8 @@ namespace ChiaraMail.FormRegions
 
                 //read props from the header
                 Utils.ReadHeaders(item, ref _pointerString, ref _serverName,
-                        ref _serverPort, ref _encryptKey, ref _encryptKey2, ref _duration);
+                        ref _serverPort, ref _encryptKey, ref _encryptKey2, 
+                        ref _duration, ref _userAgent);
 
                 // first check for matching/complete configuration
                 var storeAddress = Globals.ThisAddIn.GetStoreAddress(folder.StoreID);

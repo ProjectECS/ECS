@@ -525,4 +525,7 @@ or Cancel to edit the message and remove the images.</value>
   <data name="error_checking_registration" xml:space="preserve">
     <value>Unable to verify ECS sender {0}: {1}</value>
   </data>
+  <data name="user_agent_header" xml:space="preserve">
+    <value>X-ChiaraMail-User-Agent</value>
+  </data>
 </root>

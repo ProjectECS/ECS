@@ -1629,8 +1629,9 @@ namespace ChiaraMail
                     var encryptKey = string.Empty;
                     var encryptKey2 = string.Empty;
                     var duration = string.Empty;
+                    var userAgent = string.Empty;
                     Utils.ReadHeaders(parent, ref contentPointer, ref serverName,
-                        ref serverPort, ref encryptKey, ref encryptKey2, ref duration);
+                        ref serverPort, ref encryptKey, ref encryptKey2, ref duration, ref userAgent);
                     if (!string.IsNullOrEmpty(contentPointer))
                     {
                         string[] pointers = contentPointer.Split(' ');

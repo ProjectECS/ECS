@@ -27,6 +27,7 @@ namespace ChiaraMail.FormRegions
         private string _encryptKey = "";
         private string _encryptKey2 = "";
         private string _duration = "";
+        private string _userAgent = "";
         private Dictionary<string, Attachment> _attachList = new Dictionary<string, Attachment>();
         private string _recordKey = "";
         private string _content;
@@ -90,6 +91,11 @@ namespace ChiaraMail.FormRegions
         internal string EncryptKey2
         {
             get { return _encryptKey2; }
+        }
+        
+        internal string UserAgent
+        {
+            get { return _userAgent; }
         }
 
         internal Dictionary<string, Attachment> AttachList
@@ -186,7 +192,8 @@ namespace ChiaraMail.FormRegions
                 }
 
                 Utils.ReadHeaders(item, ref _pointerString, ref _serverName,
-                    ref _serverPort, ref _encryptKey, ref _encryptKey2, ref _duration);
+                    ref _serverPort, ref _encryptKey, ref _encryptKey2, 
+                    ref _duration, ref _userAgent);
                 
                 // check for missing/incomplete configuration first
                 //Logger.Verbose(SOURCE,string.Format("checking for store address; store: {0}, supplying {1}",
@@ -415,8 +422,18 @@ namespace ChiaraMail.FormRegions
                         {
                             //content is still base64 - decode first
                             byte[] encrypted = Convert.FromBase64String(content);
-                            content = Encoding.UTF8.GetString(
+                            
+                            //if user-agent field have value then decrypt with CBC mode or decrypt with ECB mode (earlier solution)
+                            if (!string.IsNullOrEmpty(UserAgent))
+                            {
+                                content = Encoding.UTF8.GetString(
+                                AES_JS.DecryptCBC(encrypted, EncryptKey2));
+                            }
+                            else
+                            {
+                                content = Encoding.UTF8.GetString(
                                 AES_JS.Decrypt(encrypted, EncryptKey2));
+                            }
                         }
                         else
                         {
