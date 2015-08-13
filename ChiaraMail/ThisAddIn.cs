@@ -1568,6 +1568,7 @@ namespace ChiaraMail
                     };
                     continue;
                 }
+
                 foreach (var config in acct.Configurations.Values)
                 {
                     sb.Append(string.Format(
