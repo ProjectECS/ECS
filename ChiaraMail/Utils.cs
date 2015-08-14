@@ -1621,6 +1621,10 @@ namespace ChiaraMail
                                          Resources.encrypt_key_header2,
                                          encryptKey);
                 }
+                accessor.SetProperty(
+                    ThisAddIn.MAIL_HEADER_GUID +
+                    Resources.user_agent_header,
+                    Resources.label_help_group + " " + AssemblyFullVersion);
             }
             catch (Exception ex)
             {
