@@ -7,6 +7,8 @@ using System.Web;
 using System.ComponentModel;
 using System.Threading;
 using System.IO.Compression;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ChiaraMail
 {
@@ -843,7 +845,7 @@ namespace ChiaraMail
         }
 
         internal static void SaveAttachment(string content, string encryptKey,
-            string encryptKey2, string path)
+            string encryptKey2, string userAgent, string path)
         {
             const string SOURCE = CLASS_NAME + "SaveAttachment";
             try
@@ -860,12 +862,33 @@ namespace ChiaraMail
                 }
                 else if (!string.IsNullOrEmpty(encryptKey2))
                 {
-                    //no UTF8 decoding
-                    //just decrypt
-                    buf = AES_JS.Decrypt(buf, encryptKey2);
+                    //if user-agent field have value then decrypt with CBC mode or decrypt with ECB mode (earlier solution)
+                    if (!string.IsNullOrEmpty(userAgent))
+                    {
+                        //no UTF8 decoding
+                        //just decrypt
+                        buf = AES_JS.DecryptCBC(buf, encryptKey2);
+                    }
+                    else
+                    {
+                        //no UTF8 decoding
+                        //just decrypt
+                        buf = AES_JS.Decrypt(buf, encryptKey2);
+                    }
                 }
 
-                File.WriteAllBytes(path, buf);
+                if (Path.GetExtension(path) == ".bmp" || Path.GetExtension(path) == ".jpg" || Path.GetExtension(path) == ".jpeg" || Path.GetExtension(path) == ".gif")
+                {
+                    using (Image image = Image.FromStream(new MemoryStream(buf)))
+                    {
+                        image.Save(path, ImageFormat.Png);
+                    }
+                }
+                else
+                {
+                    File.WriteAllBytes(path, buf);
+                }
+                
             }
             catch (Exception ex)
             {

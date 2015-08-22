@@ -450,7 +450,7 @@ namespace ChiaraMail.FormRegions
                     {
                         content = Utils.FetchEmbeddedFileImages(content, imageLinks, imageMap,
                             htmlEditor1.BaseUrl, _account, _configuration, _senderAddress, 
-                            ServerName, ServerPort, EncryptKey2, ref embeddedFileNames);
+                            ServerName, ServerPort, EncryptKey2, UserAgent, ref embeddedFileNames);
                     }
                     else
                     {
@@ -507,7 +507,7 @@ namespace ChiaraMail.FormRegions
                     //{
                     //    content = Utils.LoadEmbeddedVideos(content, videoLinks, _attachList,
                     //                                       htmlEditor1.BaseUrl, _account, _configuration,
-                    //                                       _senderAddress, ServerName, ServerPort, _encryptKey2);
+                    //                                       _senderAddress, ServerName, ServerPort, _encryptKey2, _userAgent);
                     //}
                 }
                 if(!string.IsNullOrEmpty(content))
@@ -682,7 +682,7 @@ namespace ChiaraMail.FormRegions
                     string path;
                     Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
                                   _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
-                                  EncryptKey, EncryptKey2, out path, out hash);
+                                  EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                     _currentFilePath = path;
                     AttachList[pointer].Hash = hash;
                     LoadAttachmentHeader(pointer, _currentFilePath, "", "");
@@ -791,7 +791,7 @@ namespace ChiaraMail.FormRegions
                 string hash;
                 Utils.GetFile(btn.Pointer, AttachList[btn.Pointer].Name, AttachList[btn.Pointer].Index,
                     _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
-                    EncryptKey, EncryptKey2, out path, out hash);
+                    EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                 if (string.IsNullOrEmpty(path)) return;
                 AttachList[btn.Pointer].Hash = hash;
                 var frm = new OpenSaveEditForm
@@ -1091,7 +1091,7 @@ namespace ChiaraMail.FormRegions
                 string hash;
                 Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
                     _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
-                    EncryptKey, EncryptKey2, out path, out hash);
+                    EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                 if (string.IsNullOrEmpty(path) || !File.Exists(path))
                 {
                     Logger.Warning(SOURCE, "failed to retrieve file for " + pointer);
@@ -1124,7 +1124,7 @@ namespace ChiaraMail.FormRegions
                 string hash;
                 Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
                     _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
-                    EncryptKey, EncryptKey2, out path, out hash);
+                    EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                 if (string.IsNullOrEmpty(path))
                 {
                     return;
@@ -1162,7 +1162,7 @@ namespace ChiaraMail.FormRegions
                 string hash;
                 Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
                     _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
-                    EncryptKey, EncryptKey2, out path, out hash);
+                    EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                 if (string.IsNullOrEmpty(path))
                 {
                     Logger.Warning(SOURCE, "failed to return path for " + pointer);

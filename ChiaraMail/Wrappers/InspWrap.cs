@@ -684,7 +684,8 @@ namespace ChiaraMail.Wrappers
             string serverName;
             string serverPort;
             string encryptKey2;
-            Utils.GetChiaraHeaders(msg, out pointerString, out serverName, out serverPort, out encryptKey2);
+            string userAgent;
+            Utils.GetChiaraHeaders(msg, out pointerString, out serverName, out serverPort, out encryptKey2, out userAgent);
             var sender = msg.Sender.SMTPAddress;
             var config = account.Configurations.Values.
                 First(cfg => cfg.Server.Equals(serverName, 

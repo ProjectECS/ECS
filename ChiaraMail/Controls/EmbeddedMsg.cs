@@ -21,6 +21,7 @@ namespace ChiaraMail.Controls
         private string _serverName;
         private string _serverPort;
         private string _encryptKey2;
+        private string _userAgent;
         private string[] _pointers;
         private string _sender;
         private string _className = "EmbeddedMsg.";
@@ -81,7 +82,7 @@ namespace ChiaraMail.Controls
             if (Utils.HasChiaraHeader(item))
             {
                 string pointers;               
-                Utils.GetChiaraHeaders(item, out pointers, out _serverName, out _serverPort, out _encryptKey2);
+                Utils.GetChiaraHeaders(item, out pointers, out _serverName, out _serverPort, out _encryptKey2, out _userAgent);
                 _configuration = _account.Configurations.Values.First(config => config.Server == _serverName);
                 if (!string.IsNullOrEmpty(pointers))
                 {
@@ -290,7 +291,7 @@ namespace ChiaraMail.Controls
                         string hash;
                         Utils.GetFile(ecsPointer, attach.DisplayName, index, 
                             Path.Combine(_parentKey, Key), _account, _configuration,
-                            _sender, _serverName, _serverPort, "", _encryptKey2, out path, out hash);
+                            _sender, _serverName, _serverPort, "", _encryptKey2, _userAgent, out path, out hash);
 
                     }
                     else

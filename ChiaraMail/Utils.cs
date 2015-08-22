@@ -209,12 +209,13 @@ namespace ChiaraMail
         }
 
         internal static void GetChiaraHeaders(MessageItem item, out string pointer, 
-            out string server, out string port, out string contentKey)
+            out string server, out string port, out string contentKey, out string userAgent)
         {
             pointer = GetHeader(item, Resources.content_header);
             server = GetHeader(item, Resources.server_header);
             port = GetHeader(item, Resources.port_header);
             contentKey = GetHeader(item, Resources.encrypt_key_header2);
+            userAgent = GetHeader(item, Resources.user_agent_header);
         }
 
         internal static string GetMailItemHeader(Outlook.MailItem item, string header)
@@ -789,7 +790,7 @@ namespace ChiaraMail
         internal static string FetchEmbeddedFileImages(string content, List<Match> matches, Dictionary<string,string> pointerMap, 
                                                        string baseUrl, Account account, EcsConfiguration configuration,
                                                        string senderAddress, string serverName, string serverPort, string encryptKey2,
-                 ref List<string> embeddedFileNames)
+                 string userAgent, ref List<string> embeddedFileNames)
         {
             //extract the src paths, if any
             foreach (var match in matches)
@@ -813,7 +814,7 @@ namespace ChiaraMail
                 {
                     //get the content and write it to the path
                     GetEmbeddedFile(pointer, path, account, configuration, senderAddress,
-                                    serverName, serverPort, "", encryptKey2);
+                                    serverName, serverPort, "", encryptKey2, userAgent);
                 }
                 //replace the path
                 var newPath = "file:///" + path.Replace("\\", "/");
@@ -830,7 +831,7 @@ namespace ChiaraMail
 
         internal static string FetchEmbeddedImages(string content, List<Match> matches, 
             string baseUrl, Account account, EcsConfiguration configuration, string senderAddress, 
-            string serverName, string serverPort, string encryptKey2)
+            string serverName, string serverPort, string encryptKey2, string userAgent)
         {
             //extract the src paths, if any
             foreach (var match in matches)
@@ -852,7 +853,7 @@ namespace ChiaraMail
                 {
                     //get the content and write it to the path
                     GetEmbeddedFile(pointer, path, account, configuration, senderAddress,
-                                    serverName, serverPort, "", encryptKey2);
+                                    serverName, serverPort, "", encryptKey2, userAgent);
                 }
                 //read the bytes, base64 encode 
                 var data = Convert.ToBase64String(File.ReadAllBytes(path));
@@ -904,16 +905,16 @@ namespace ChiaraMail
             return content;
         }
 
-        //internal static string LoadEmbeddedVideos(string content, List<Match> matches, 
-        //    Dictionary<string,Attachment> attachList, string baseUrl, Account account, 
+        //internal static string LoadEmbeddedVideos(string content, List<Match> matches,
+        //    Dictionary<string,Attachment> attachList, string baseUrl, Account account,
         //    EcsConfiguration configuration, string senderAddress,
-        //    string serverName, string serverPort, string encryptKey2)
+        //    string serverName, string serverPort, string encryptKey2, string userAgent)
         //{
         //    //extract the src paths
         //    foreach (var match in matches)
         //    {
         //        //extract the filename from the src 
-        //        var filePath = match.Groups[2].Value;                
+        //        var filePath = match.Groups[2].Value;
         //        var fileName = HttpUtility.UrlDecode(filePath.Substring(filePath.LastIndexOf("/")).Replace("/",""));
         //        if (string.IsNullOrEmpty(fileName)) continue;
         //        //find pointer for matching attachment
@@ -930,7 +931,7 @@ namespace ChiaraMail
         //        {
         //            //get the content and write it to the path
         //            GetEmbeddedFile(pointer, path, account, configuration, senderAddress,
-        //                            serverName, serverPort, "", encryptKey2);
+        //                            serverName, serverPort, "", encryptKey2, userAgent);
         //        }
         //        //read the bytes, base64 encode 
         //        var data = Convert.ToBase64String(File.ReadAllBytes(path));
@@ -1169,7 +1170,7 @@ namespace ChiaraMail
 
         internal static void GetFile(string pointer, string name, int index, string recordKey,
             Account account, EcsConfiguration configuration, string senderAddress, string serverName, 
-            string serverPort, string encryptKey, string encryptKey2, out string path, out string hash)
+            string serverPort, string encryptKey, string encryptKey2, string userAgent, out string path, out string hash)
         {
             const string SOURCE = CLASS_NAME + "GetFile";
             path = "";
@@ -1194,7 +1195,7 @@ namespace ChiaraMail
                         return;
                     }
                     ContentHandler.SaveAttachment(
-                        content, encryptKey, encryptKey2, path);                    
+                        content, encryptKey, encryptKey2, userAgent, path);                    
                 }
                 //return the hash
                 byte[] buf = File.ReadAllBytes(path);
@@ -1675,7 +1676,8 @@ namespace ChiaraMail
             string serverName;
             string serverPort;
             string encryptKey2;
-            GetChiaraHeaders(msg, out pointerString, out serverName, out serverPort, out encryptKey2);
+            string userAgent;
+            GetChiaraHeaders(msg, out pointerString, out serverName, out serverPort, out encryptKey2, out userAgent);
             var sender = msg.Sender.SMTPAddress;
             var config = account.Configurations.Values.
                 First(cfg => cfg.Server.Equals(serverName,
@@ -1704,7 +1706,6 @@ namespace ChiaraMail
             }
         }
 
-        
         #region Private methods
 
         private static string ConnectedAddIns(Outlook._Application app)
@@ -1749,7 +1750,7 @@ namespace ChiaraMail
 
         private static void GetEmbeddedFile(string pointer, string path, Account account,
             EcsConfiguration configuration, string senderAddress, string serverName, string serverPort, 
-            string encryptKey, string encryptKey2)
+            string encryptKey, string encryptKey2, string userAgent)
         {
             const string SOURCE = CLASS_NAME + "GetEmbeddedFile";
             try
@@ -1767,7 +1768,7 @@ namespace ChiaraMail
                         Path.GetFileName(path), pointer, senderAddress, error));
                     return;
                 }
-                ContentHandler.SaveAttachment(content, encryptKey, encryptKey2, path);
+                ContentHandler.SaveAttachment(content, encryptKey, encryptKey2, userAgent, path);
             }
             catch (Exception ex)
             {
