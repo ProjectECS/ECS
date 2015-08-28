@@ -73,6 +73,8 @@ namespace ChiaraMail.Wrappers
 
         internal bool NoPlaceholder { get; set; }
 
+        internal bool AllowForwarding { get; set; }
+
         internal string RecordKey { get; private set; }
 
         internal bool Inherited { get; set; }
@@ -150,8 +152,9 @@ namespace ChiaraMail.Wrappers
                     var key2 = "";
                     var duration = "";
                     var user_agent = "";
+                    var allow_forwarding = false;
                     Utils.ReadHeaders(MailItem, ref pointer,ref server, ref port,
-                        ref key, ref key2, ref duration, ref user_agent);
+                        ref key, ref key2, ref duration, ref user_agent, ref allow_forwarding);
                     if (!string.IsNullOrEmpty(duration) && duration != "0")
                     {
                         MailItem.Actions["Reply"].Enabled = false;
@@ -289,7 +292,7 @@ namespace ChiaraMail.Wrappers
                         originalContent, Resources.placeholder_html);
                 }
                 //assign the headers
-                AssignHeaders(account, pointers, encryptKey);
+                AssignHeaders(account, pointers, encryptKey, AllowForwarding);
 
                 //change message class
                 _mailItem.MessageClass = Resources.message_class_CM;
@@ -612,7 +615,7 @@ namespace ChiaraMail.Wrappers
             return false;
         }
 
-        private void AssignHeaders(Account account, List<string> pointers, string encryptKey)
+        private void AssignHeaders(Account account, List<string> pointers, string encryptKey, bool allowForwarding)
         {
             string source = CLASS_NAME + "AssignHeaders";
             try
@@ -645,6 +648,10 @@ namespace ChiaraMail.Wrappers
                     ThisAddIn.MAIL_HEADER_GUID +
                     Resources.user_agent_header,
                     Resources.label_help_group + " " + Utils.AssemblyFullVersion);
+                accessor.SetProperty(
+                    ThisAddIn.MAIL_HEADER_GUID +
+                    Resources.user_allow_forwarding_header,
+                    allowForwarding.ToString().ToLower());
             }
             catch (Exception ex)
             {

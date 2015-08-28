@@ -150,6 +150,8 @@ namespace ChiaraMail.Wrappers
         internal bool Encrypted { get; set; }
 
         internal bool NoPlaceholder { get; set; }
+        
+        internal bool AllowForwarding { get; set; }
 
         internal MailItem MailItem
         {
@@ -199,8 +201,9 @@ namespace ChiaraMail.Wrappers
                     var key2 = "";
                     var duration = "";
                     var user_agent = "";
+                    var allow_forwarding = false;
                     Utils.ReadHeaders(MailItem, ref pointer, ref server, ref port,
-                        ref key, ref key2, ref duration, ref user_agent);
+                        ref key, ref key2, ref duration, ref user_agent, ref allow_forwarding);
                     if (!string.IsNullOrEmpty(duration) && duration != "0")
                     {
                         MailItem.Actions["Reply"].Enabled = false;
@@ -340,6 +343,10 @@ namespace ChiaraMail.Wrappers
             foreach (var mail in selection.OfType<MailItem>().Select(item => item))
             {
                 var hasHeader = Utils.HasChiaraHeader(mail);
+
+                if (!hasHeader)
+                    ThisAddIn.IsMailAllowForwarding = true;
+
                 var change = false;
                 if (hasHeader)
                 {
@@ -362,8 +369,9 @@ namespace ChiaraMail.Wrappers
                     var key2 = "";
                     var duration = "";
                     var user_agent = "";
+                    var allow_forwarding = false;
                     Utils.ReadHeaders(mail, ref pointer, ref  server, ref port,
-                        ref key, ref key2, ref duration, ref user_agent);
+                        ref key, ref key2, ref duration, ref user_agent, ref allow_forwarding);
                     if (string.IsNullOrEmpty(storeAddress))
                         storeAddress = mail.InternetAccountName();
                     var editable = ThisAddIn.IsEditable(mail,senderAddress, server, port, storeAddress);

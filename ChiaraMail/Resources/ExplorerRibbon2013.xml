@@ -17,6 +17,10 @@
                 onAction="OnPress" getPressed="GetPressed" getLabel="GetLabel"
                 size="normal" getScreentip="GetScreentip" getDescription="GetDescription"
                 getEnabled="GetEnabled"/>
+            <toggleButton id="toggleAllowForwardingEx" imageMso="ColumnsDialog"
+                onAction="OnPress" getPressed="GetPressed" getLabel="GetLabel"
+                size="normal" getScreentip="GetScreentip" getDescription="GetDescription"
+                getEnabled="GetEnabled"/>
           </group>
         </tab>
       </tabSet>

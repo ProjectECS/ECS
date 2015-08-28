@@ -111,6 +111,8 @@ namespace ChiaraMail
             }
         }
 
+        public static bool IsMailAllowForwarding { get; set; }
+
         internal static string PublicKey { get; set; }
 
         internal static Dictionary<string, Account> Accounts { get; set; }
@@ -1631,8 +1633,10 @@ namespace ChiaraMail
                     var encryptKey2 = string.Empty;
                     var duration = string.Empty;
                     var userAgent = string.Empty;
+                    var allowForwarding = false;
                     Utils.ReadHeaders(parent, ref contentPointer, ref serverName,
-                        ref serverPort, ref encryptKey, ref encryptKey2, ref duration, ref userAgent);
+                        ref serverPort, ref encryptKey, ref encryptKey2, ref duration, 
+                        ref userAgent, ref allowForwarding);
                     if (!string.IsNullOrEmpty(contentPointer))
                     {
                         string[] pointers = contentPointer.Split(' ');

@@ -16,6 +16,10 @@
               onAction="OnPress" getPressed="GetPressed" getLabel="GetLabel"
               size="normal" getScreentip="GetScreentip" getDescription="GetDescription"
               getEnabled="GetEnabled"/>
+          <toggleButton id="toggleAllowForwarding" getLabel="GetLabel" size="normal"
+             onAction="OnPress" getPressed="GetPressed" getImage="GetImage"
+              getScreentip="GetScreentip" getDescription="GetDescription"
+              getEnabled="GetEnabled"/>
         </group>
       </tab>
     </tabs>

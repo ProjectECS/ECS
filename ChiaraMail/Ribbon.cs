@@ -59,6 +59,7 @@ namespace ChiaraMail
             {
                 case "toggleDynamic":
                 case "toggleDynamicEx":
+                case "toggleAllowForwarding":
                 case "buttonChiaraMailMenu":
                 case "buttonChiaraMailAccount":
                     return Resources.ChiaraMailIcon;
@@ -87,6 +88,9 @@ namespace ChiaraMail
                 case "toggleNoPlaceholder":
                 case "toggleNoPlaceholderEx":
                     return Resources.label_no_placeholder;
+                case "toggleAllowForwarding":
+                case "toggleAllowForwardingEx":
+                    return Resources.label_allow_forwarding;
                 case "buttonChiaraMailAccount":
                     return Resources.label_account_settings;
                 case "buttonChiaraMailMenu":
@@ -123,6 +127,9 @@ namespace ChiaraMail
                 case "toggleEncrypted":
                 case "toggleEncryptedEx":
                     return  Resources.description_encrypted;
+                case "toggleAllowForwarding":
+                case "toggleAllowForwardingEx":
+                    return Resources.description_allow_forwarding;
                 case "toggleNoPlaceholder":
                 case "toggleNoPlaceholderEx":
                     return Resources.description_no_placeholder;
@@ -154,6 +161,9 @@ namespace ChiaraMail
                 case "toggleNoPlaceholder":
                 case "toggleNoPlaceholderEx":
                     return Resources.description_no_placeholder;
+                case "toggleAllowForwarding":
+                case "toggleAllowForwardingEx":
+                    return Resources.description_allow_forwarding;
                 case "buttonEditContent":
                     return  Resources.screentip_edit_content;
                 case "buttonDeleteContent":
@@ -190,7 +200,9 @@ namespace ChiaraMail
                     case "toggleNoPlaceholderEx":
                         state = exWrapper.Dynamic && exWrapper.NoPlaceholder;
                         break;
-
+                    case "toggleAllowForwardingEx":
+                        state = exWrapper.Dynamic && exWrapper.AllowForwarding;
+                        break;
                 }
                 return state;
             }
@@ -216,6 +228,10 @@ namespace ChiaraMail
                     case "toggleNoPlaceholder":
                     case "toggleNoPlaceholderEx":
                         state = wrapper.Dynamic && wrapper.NoPlaceholder;
+                        break;
+                    case "toggleAllowForwarding":
+                    case "toggleAllowForwardingEx":
+                        state = wrapper.Dynamic && wrapper.AllowForwarding;
                         break;
                 }
             }
@@ -305,6 +321,29 @@ namespace ChiaraMail
                     case "toggleNoPlaceholder":
                         var wrapper = Globals.ThisAddIn.GetInspWrap(insp);
                         return wrapper != null && wrapper.Dynamic;
+                    case "toggleAllowForwarding":
+                        if (item == null) return false;
+                        
+                        var wrapper1 = Globals.ThisAddIn.GetInspWrap(insp);
+
+                        if (wrapper1 != null && wrapper1.Dynamic == false)
+                        {
+                            return false;
+                        }
+
+                        if (item.Subject == null) //While compose new, we will always enable “Allow forwarding” button
+                        {
+                            Win32.AllowForwarding(true);
+                            return true;
+                        }
+
+                        if (item.Subject != null) //While reply/reply all/forward, we will always disable “Allow forwarding” button
+                        {
+                            Win32.AllowForwarding(ThisAddIn.IsMailAllowForwarding);
+                            return false;
+                        }
+
+                        return false;
                     case "buttonEditContent":
                     case "buttonDeleteContent":
                         if (item == null) return false;
@@ -354,6 +393,7 @@ namespace ChiaraMail
                         {
                             //clear Encrypted
                             exWrapper.Encrypted = false;
+
                         }
                         //enabled/disabled status of Encrypted and NoPlaceholder are governed by Dynamic
                         _ribbon.InvalidateControl("toggleEncryptedEx");
@@ -374,6 +414,17 @@ namespace ChiaraMail
                         if (exWrapper.Dynamic)
                         {
                             exWrapper.NoPlaceholder = isPressed;
+                        }
+                        else
+                        {
+                            //disallow the press
+                            _ribbon.InvalidateControl(control.Id);
+                        }
+                        break;
+                    case "toggleAllowForwarding":
+                        if (exWrapper.Dynamic)
+                        {
+                            exWrapper.AllowForwarding = isPressed;
                         }
                         else
                         {
@@ -402,6 +453,7 @@ namespace ChiaraMail
                         //enabled/disabled status of Encrypted is governed by Dynamic
                         _ribbon.InvalidateControl("toggleEncrypted");
                         _ribbon.InvalidateControl("toggleNoPlaceholder");
+                        _ribbon.InvalidateControl("toggleAllowForwarding");
                         break;
                     case "toggleEncrypted":
                         if (wrapper.Dynamic)
@@ -418,6 +470,17 @@ namespace ChiaraMail
                         if (wrapper.Dynamic)
                         {
                             wrapper.NoPlaceholder = isPressed;
+                        }
+                        else
+                        {
+                            //disallow the press
+                            _ribbon.InvalidateControl(control.Id);
+                        }
+                        break;
+                    case "toggleAllowForwarding":
+                        if (wrapper.Dynamic)
+                        {
+                            wrapper.AllowForwarding = isPressed;
                         }
                         else
                         {
@@ -510,6 +573,7 @@ namespace ChiaraMail
             _ribbon.InvalidateControl("toggleDynamicEx");
             _ribbon.InvalidateControl("toggleEncryptedEx");
             _ribbon.InvalidateControl("toggleNoPlaceholderEx");
+            _ribbon.InvalidateControl("toggleAllowForwarding");
         }
         #endregion
 

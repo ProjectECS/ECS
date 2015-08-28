@@ -528,4 +528,13 @@ or Cancel to edit the message and remove the images.</value>
   <data name="user_agent_header" xml:space="preserve">
     <value>X-ChiaraMail-User-Agent</value>
   </data>
+  <data name="label_allow_forwarding" xml:space="preserve">
+    <value>Allow forwarding</value>
+  </data>
+  <data name="description_allow_forwarding" xml:space="preserve">
+    <value>Allow mail forwarding</value>
+  </data>
+  <data name="user_allow_forwarding_header" xml:space="preserve">
+    <value>X-ChiaraMail-Allow-Forwarding</value>
+  </data>
 </root>

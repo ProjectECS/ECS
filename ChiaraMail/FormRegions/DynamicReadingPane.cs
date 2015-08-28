@@ -28,6 +28,7 @@ namespace ChiaraMail.FormRegions
         private string _encryptKey2 = "";
         private string _duration = "";
         private string _userAgent = "";
+        private bool _allowForwarding = false;
         private Dictionary<string, Attachment> _attachList = new Dictionary<string, Attachment>();
         private string _recordKey = "";
         private string _content;
@@ -193,7 +194,9 @@ namespace ChiaraMail.FormRegions
 
                 Utils.ReadHeaders(item, ref _pointerString, ref _serverName,
                     ref _serverPort, ref _encryptKey, ref _encryptKey2, 
-                    ref _duration, ref _userAgent);
+                    ref _duration, ref _userAgent, ref _allowForwarding);
+
+                ThisAddIn.IsMailAllowForwarding = _allowForwarding;
                 
                 // check for missing/incomplete configuration first
                 //Logger.Verbose(SOURCE,string.Format("checking for store address; store: {0}, supplying {1}",

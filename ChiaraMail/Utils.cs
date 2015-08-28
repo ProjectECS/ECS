@@ -413,7 +413,7 @@ namespace ChiaraMail
 
         internal static void ReadHeaders(Outlook.MailItem item, ref string contentPointer,
             ref string serverName, ref string serverPort, ref string encryptKey, 
-            ref string encryptKey2, ref string duration, ref string userAgent)
+            ref string encryptKey2, ref string duration, ref string userAgent, ref bool allowForwarding)
         {
             const string SOURCE = CLASS_NAME + "ReadHeaders";
             try
@@ -438,7 +438,8 @@ namespace ChiaraMail
                             ThisAddIn.MAIL_HEADER_GUID + Resources.encrypt_key_header.ToLower(),
                             ThisAddIn.MAIL_HEADER_GUID + Resources.encrypt_key_header2.ToLower(),
                             ThisAddIn.MAIL_HEADER_GUID + Resources.duration_header.ToLower(),
-                            ThisAddIn.MAIL_HEADER_GUID + Resources.user_agent_header.ToLower()
+                            ThisAddIn.MAIL_HEADER_GUID + Resources.user_agent_header.ToLower(),
+                            ThisAddIn.MAIL_HEADER_GUID + Resources.user_allow_forwarding_header.ToLower()
                         });
                     if(props == null) return;
                     contentPointer = Convert.ToString(props[0]);
@@ -461,6 +462,9 @@ namespace ChiaraMail
                     userAgent = props[6] is string && !string.IsNullOrEmpty(props[6])
                         ? Convert.ToString(props[6])
                         : string.Empty;
+                    allowForwarding = props[7] is bool && !string.IsNullOrEmpty(props[7])
+                        ? Convert.ToBoolean(props[7])
+                        : false;
                     return;
                 }
                 var headerBlock = prop.ToString();
@@ -481,6 +485,14 @@ namespace ChiaraMail
                 headers.TryGetValue(Resources.duration_header.ToLower(), out duration);
                 //User Agent
                 headers.TryGetValue(Resources.user_agent_header.ToLower(), out userAgent);
+                //Allow Forwarding
+                string strAllowForwarding = string.Empty;
+                headers.TryGetValue(Resources.user_allow_forwarding_header.ToLower(), out strAllowForwarding);
+
+                if (!string.IsNullOrEmpty(strAllowForwarding))
+                {
+                    allowForwarding = Convert.ToBoolean(strAllowForwarding);
+                }
 
                 //use configured server and port if not supplied in a header
                 if (string.IsNullOrEmpty(serverName)) serverName = Resources.default_server;

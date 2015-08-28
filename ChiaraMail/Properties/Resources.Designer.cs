@@ -292,6 +292,15 @@ namespace ChiaraMail.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow mail forwarding.
+        /// </summary>
+        internal static string description_allow_forwarding {
+            get {
+                return ResourceManager.GetString("description_allow_forwarding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Message Content.
         /// </summary>
         internal static string description_delete_content {
@@ -735,6 +744,15 @@ namespace ChiaraMail.Properties {
         internal static string label_account_settings {
             get {
                 return ResourceManager.GetString("label_account_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow forwarding.
+        /// </summary>
+        internal static string label_allow_forwarding {
+            get {
+                return ResourceManager.GetString("label_allow_forwarding", resourceCulture);
             }
         }
         
@@ -1338,6 +1356,15 @@ namespace ChiaraMail.Properties {
         internal static string user_agent_header {
             get {
                 return ResourceManager.GetString("user_agent_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-ChiaraMail-Allow-Forwarding.
+        /// </summary>
+        internal static string user_allow_forwarding_header {
+            get {
+                return ResourceManager.GetString("user_allow_forwarding_header", resourceCulture);
             }
         }
         
