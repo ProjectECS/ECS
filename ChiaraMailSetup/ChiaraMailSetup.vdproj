@@ -738,15 +738,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChiaraMail for Outlook"
-        "ProductCode" = "8:{5658A9D9-11B8-432A-9A75-8DEE8AEBA47F}"
-        "PackageCode" = "8:{06B7095E-D46B-4E18-807E-2283871DC1ED}"
-        "UpgradeCode" = "8:{926DAC2D-E0D9-467C-A8C8-C819F925DC1E}"
+        "ProductCode" = "8:{4A11C9DC-486F-4C10-ACDE-1F17E28056EA}"
+        "PackageCode" = "8:{F0324F9E-0887-4A10-972E-7038147C7A3E}"
+        "UpgradeCode" = "8:{F7E7B65E-1BAC-4BEC-A9D6-7C30C52C95D2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.1.1"
         "Manufacturer" = "8:ChiaraMail Corp."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1392,7 +1392,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_87C0065942DC4A289C49576E56EEA6E8"
             {
-            "SourcePath" = "8:..\\ChiaraMail\\obj\\Release\\OutlookECS.dll"
+            "SourcePath" = "8:..\\ChiaraMail\\obj\\Debug\\OutlookECS.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_79BB9621FD3F4533A780EC170C862B13"
