@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_056D9151768A483980C81D13666E5A00"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3201F11ED3CF219D4737F80B4204DE5B"
         "OwnerKey" = "8:_87C0065942DC4A289C49576E56EEA6E8"
         "MsmSig" = "8:_UNDEFINED"
@@ -101,6 +107,12 @@
         {
         "MsmKey" = "8:_A837FDC24D92DA16E30252998BA23555"
         "OwnerKey" = "8:_787A9B9777EAC878C132E0536C7D16C6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B89F65C9AEC0405C93DADD862B588206"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -290,6 +302,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_056D9151768A483980C81D13666E5A00"
+            {
+            "SourcePath" = "8:..\\..\\ChiaraMail_for_Outlook_src_1.0.32 - Copy\\ChiaraMail\\Resources\\ChiaraMail.ico"
+            "TargetName" = "8:ChiaraMail.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_79BB9621FD3F4533A780EC170C862B13"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3201F11ED3CF219D4737F80B4204DE5B"
             {
             "AssemblyRegister" = "3:1"
@@ -589,6 +621,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B89F65C9AEC0405C93DADD862B588206"
+            {
+            "SourcePath" = "8:..\\ChiaraMail\\ref\\Redemption64.dll"
+            "TargetName" = "8:Redemption64.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_79BB9621FD3F4533A780EC170C862B13"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B8BDCF51E08C416EB3E7698351A87ADE"
             {
             "SourcePath" = "8:..\\ChiaraMail\\ref\\Redemption.dll"
@@ -686,13 +738,6 @@
             "Message" = "8:You must have Outlook 2007 or later to install [ProductName]"
             "InstallUrl" = "8:"
             }
-            "{836E08B8-0285-4809-BA42-01DB6754A45D}:_BAD2780E480C48BD97C0CD0F946A1805"
-            {
-            "Name" = "8:Outlook64"
-            "Condition" = "8:NOT OUTLOOK_BITNESS_14 =\"x64\" AND NOT OUTLOOK_BITNESS_15 =\"x64\""
-            "Message" = "8:This installer is for 32-bit versions of Outlook. A separate package is available for 64-bit Outlook."
-            "InstallUrl" = "8:"
-            }
         }
         "Locator"
         {
@@ -738,15 +783,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChiaraMail for Outlook"
-        "ProductCode" = "8:{4A11C9DC-486F-4C10-ACDE-1F17E28056EA}"
-        "PackageCode" = "8:{F0324F9E-0887-4A10-972E-7038147C7A3E}"
-        "UpgradeCode" = "8:{F7E7B65E-1BAC-4BEC-A9D6-7C30C52C95D2}"
+        "ProductCode" = "8:{C9306782-CB86-4917-BA27-D0271EBFAE6D}"
+        "PackageCode" = "8:{5C78FFAA-A6E4-4065-AF2C-21E9DE0F4DC2}"
+        "UpgradeCode" = "8:{85F73495-E874-4653-818B-D09335CC1CAD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.1.3"
         "Manufacturer" = "8:ChiaraMail Corp."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -754,9 +799,9 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:ChiaraMail"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:v.1.1.0.0"
+        "ARPCOMMENTS" = "8:v.1.1.3.0"
         "ARPURLINFOABOUT" = "8:http://www.chiaramail.com"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_056D9151768A483980C81D13666E5A00"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -1392,7 +1437,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_87C0065942DC4A289C49576E56EEA6E8"
             {
-            "SourcePath" = "8:..\\ChiaraMail\\obj\\Debug\\OutlookECS.dll"
+            "SourcePath" = "8:..\\ChiaraMail\\obj\\Release\\OutlookECS.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_79BB9621FD3F4533A780EC170C862B13"

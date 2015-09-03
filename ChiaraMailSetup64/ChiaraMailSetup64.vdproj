@@ -1395,7 +1395,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_89190CADB47C4DDEA4C09D445CD3866C"
             {
-            "SourcePath" = "8:..\\ChiaraMail\\obj\\Debug\\OutlookECS.dll"
+            "SourcePath" = "8:..\\ChiaraMail\\obj\\Release\\OutlookECS.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EB04254B59D1405F8608D8AB467C2B61"
