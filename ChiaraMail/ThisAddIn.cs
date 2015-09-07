@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Exception = System.Exception;
+using System.Diagnostics;
 
 namespace ChiaraMail
 {
@@ -172,6 +173,9 @@ namespace ChiaraMail
             const string SOURCE = CLASS_NAME + "Startup";
             try
             {
+                Stopwatch swStartUpTime = new Stopwatch();
+                swStartUpTime.Start();
+
                 Logger.Init();
                 var version = Application.Version;
                 AppVersion = Convert.ToInt32(version.Split(new[] { '.' })[0]);
@@ -196,28 +200,30 @@ namespace ChiaraMail
                 _explWrappers = new Dictionary<string, ExplWrap>();
 
                 Inspectors = Application.Inspectors;
-                Explorers = Application.Explorers;
-                if (Explorers.Count > 0)
-                {
-                    //may not be an ActiveExplorer on restart after a crash
-                    Explorer active;
-                    try
-                    {
-                        active = Application.ActiveExplorer();
-                    }
-                    catch
-                    {
-                        active = null;
-                    }
-                    if (active == null)
-                    {
-                        Logger.Info(SOURCE, "no ActiveExplorer");
-                    }
-                    else
-                    {
-                        AddWrapper(Application.ActiveExplorer());
-                    }
-                }
+                #region Commented below code as it takes more time to make Outlook ready if we have more mails in selected folder (Inbox)
+                //Explorers = Application.Explorers;
+                //if (Explorers.Count > 0)
+                //{
+                //    //may not be an ActiveExplorer on restart after a crash
+                //    Explorer active;
+                //    try
+                //    {
+                //        active = Application.ActiveExplorer();
+                //    }
+                //    catch
+                //    {
+                //        active = null;
+                //    }
+                //    if (active == null)
+                //    {
+                //        Logger.Info(SOURCE, "no ActiveExplorer");
+                //    }
+                //    else
+                //    {
+                //        AddWrapper(Application.ActiveExplorer());
+                //    }
+                //}
+                #endregion
                 //finish initialization in background, so we can exit startup immediately
                 ThreadPool.QueueUserWorkItem(InitHandler, gotStored);
 
@@ -232,6 +238,8 @@ namespace ChiaraMail
                 //    ListCurrentAccounts()));
                 //EvalAttachmentPreview();
                 ////CheckRegistrations();
+
+                Logger.Info(SOURCE, string.Format("Takes {0} seconds", swStartUpTime.Elapsed.TotalSeconds));
             }
             catch (Exception ex)
             {
@@ -954,6 +962,9 @@ namespace ChiaraMail
 
         private void InitHandler(object arg)
         {
+            Stopwatch swInitHandler = new Stopwatch();
+            swInitHandler.Start();
+
             const string SOURCE = CLASS_NAME + "InitHandler";
             //read the stored settings first            
             var gotStored = arg is bool && (bool) arg;
@@ -971,7 +982,9 @@ namespace ChiaraMail
                 "active accounts: {0}",
                 ListCurrentAccounts()));
             EvalAttachmentPreview();
-            var readingPane = new DynamicReadingPane.DynamicReadingPaneFactory();           
+            var readingPane = new DynamicReadingPane.DynamicReadingPaneFactory();
+
+            Logger.Info(SOURCE, string.Format("Takes {0} seconds", swInitHandler.Elapsed.TotalSeconds));
         }
 
         private static Account FindMatchingAccount(string smtpAddress)

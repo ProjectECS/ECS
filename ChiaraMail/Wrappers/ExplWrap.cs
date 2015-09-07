@@ -11,6 +11,7 @@ using Microsoft.Office.Core;
 using Redemption;
 using Exception = System.Exception;
 using Timer = System.Threading.Timer;
+using System.Diagnostics;
 
 namespace ChiaraMail.Wrappers
 {
@@ -326,6 +327,9 @@ namespace ChiaraMail.Wrappers
 
         private void ExplorerSelectionChange()
         {
+            Stopwatch swSelectionChange = new Stopwatch();
+            swSelectionChange.Start();
+
             const string SOURCE = CLASS_NAME + "SelectionChange";
             var selection = _explorer.Selection;
             if (selection.Count <= 0) return;
@@ -396,6 +400,8 @@ namespace ChiaraMail.Wrappers
                 }
                 if (change) mail.Save();
             }
+
+            Logger.Info(SOURCE, string.Format("Takes {0} seconds", swSelectionChange.Elapsed.TotalSeconds));
         }
 
         private void TimerCallback(object arg)
