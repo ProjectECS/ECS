@@ -151,7 +151,7 @@ namespace ChiaraMail
             RijndaelManaged aes = new RijndaelManaged();
             aes.BlockSize = 128;
             aes.KeySize = 128;
-            aes.Padding = PaddingMode.Zeros;
+            aes.Padding = PaddingMode.PKCS7;
             aes.Mode = CipherMode.CBC;
             aes.Key = System.Text.Encoding.UTF8.GetBytes(AesKey);
             aes.IV = System.Text.Encoding.UTF8.GetBytes( AesIV );

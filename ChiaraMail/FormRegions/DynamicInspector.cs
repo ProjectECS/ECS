@@ -538,8 +538,17 @@ namespace ChiaraMail.FormRegions
                     {
                         //content is raw base64 - decode first
                         var encrypted = Convert.FromBase64String(content);
-                        content = Encoding.UTF8.GetString(
+                        //if user-agent field have value then decrypt with CBC mode or decrypt with ECB mode (earlier solution)
+                        if (!string.IsNullOrEmpty(UserAgent))
+                        {
+                            content = Encoding.UTF8.GetString(
+                            AES_JS.DecryptCBC(encrypted, EncryptKey2));
+                        }
+                        else
+                        {
+                            content = Encoding.UTF8.GetString(
                             AES_JS.Decrypt(encrypted, EncryptKey2));
+                        }
                     }
                     else if (!string.IsNullOrEmpty(EncryptKey))
                     {
