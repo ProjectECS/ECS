@@ -1169,6 +1169,43 @@ namespace ChiaraMail
                                     serverName, serverPort, "", encryptKey2, userAgent);
                 }
                 //read the bytes, base64 encode 
+                //var data = Convert.ToBase64String(File.ReadAllBytes(path));
+                //var ext = Path.GetExtension(path);
+                //if (!string.IsNullOrEmpty(ext))
+                //    ext = ext.Replace(".", "");
+                //var dataUri = string.Format("data:video/{0};base64,{1}", ext, data);
+                ////update the src link with the local path
+                //content = content.Replace(filePath, dataUri);
+
+        internal static string LoadEmbeddedVideos(string content, List<Match> matches,
+            Dictionary<string, Attachment> attachList, string baseUrl, Account account,
+            EcsConfiguration configuration, string senderAddress,
+            string serverName, string serverPort, string encryptKey2, string userAgent)
+        {
+            //extract the src paths
+            foreach (var match in matches)
+            {
+                //extract the filename from the src 
+                var filePath = match.Groups[2].Value;
+                var fileName = HttpUtility.UrlDecode(filePath.Substring(filePath.LastIndexOf("/")).Replace("/", ""));
+                if (string.IsNullOrEmpty(fileName)) continue;
+                //find pointer for matching attachment
+                var pointer = GetAttachPointer(attachList, fileName);
+                if (string.IsNullOrEmpty(pointer)) continue;
+                //save to modified 'src' path
+                var path = Path.Combine(baseUrl, pointer);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                path = Path.Combine(path, fileName);
+                if (!File.Exists(path))
+                {
+                    //get the content and write it to the path
+                    GetEmbeddedFile(pointer, path, account, configuration, senderAddress,
+                                    serverName, serverPort, "", encryptKey2, userAgent);
+                }
+                //read the bytes, base64 encode 
                 var data = Convert.ToBase64String(File.ReadAllBytes(path));
                 var ext = Path.GetExtension(path);
                 if (!string.IsNullOrEmpty(ext))
