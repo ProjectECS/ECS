@@ -134,14 +134,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinFormHtmlEditor.dll" size="3409928">
-      <assemblyIdentity name="WinFormHtmlEditor" version="5.3.0.26" publicKeyToken="8CD3285C24067F7F" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinFormHtmlEditor.dll" size="4273664">
+      <assemblyIdentity name="WinFormHtmlEditor" version="6.1.17.0" publicKeyToken="8CD3285C24067F7F" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>k1BxV4rjOq/7LyWrNqAhRdfPmZinafjiJ2fhIQR9yes=</dsig:DigestValue>
+        <dsig:DigestValue>QdYvdp9BYsFad6XSmpoyf4TMlJFmrOThOSa64pLcKP4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

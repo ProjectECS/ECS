@@ -52,6 +52,7 @@ namespace ChiaraMail.FormRegions
         //private Timer _selfDestructTimer;
 
         //private delegate void SelfDestructHandler(string path);
+        private string strHtmlEditorBaseUrl = string.Empty;
 
         internal string[] Pointers
         {
@@ -70,7 +71,7 @@ namespace ChiaraMail.FormRegions
             get { return _content; }
             set
             {   _content = value;
-                htmlEditor1.DocumentHtml = value;
+                winFormHtmlEditor1.DocumentHtml = @"<!DOCTYPE html><html><head><meta content=""text/html; charset=unicode"" http-equiv=""Content-Type"" /></head><body>" + value + "</body></html>";
             }
         }
 
@@ -146,7 +147,7 @@ namespace ChiaraMail.FormRegions
             try
             {
                 //need this event handler to capture space key
-                htmlEditor1.KeyDown +=
+                winFormHtmlEditor1.KeyDown +=
                     HTMLEditor1KeyDown;
                 
                 btnEdit.Text = Resources.label_edit_content;
@@ -307,7 +308,7 @@ namespace ChiaraMail.FormRegions
                             ctl.Click += BtnMessageClick;
                         }
                     }
-                    htmlEditor1.Click += HTMLEditor1Click;
+                    winFormHtmlEditor1.Click += HTMLEditor1Click;
                     Click += BtnMessageClick;
                 }
                 var attachments = item.Attachments;
@@ -447,7 +448,11 @@ namespace ChiaraMail.FormRegions
                             content = Cryptography.DecryptAES(content, EncryptKey);
                         }
                     }
-                    htmlEditor1.BaseUrl = Path.Combine(
+
+                    strHtmlEditorBaseUrl = Path.Combine(
+                        Path.GetTempPath(), "ChiaraMail", _recordKey);
+
+                    winFormHtmlEditor1.BaseUrl = Path.Combine(
                         Path.GetTempPath(), "ChiaraMail", _recordKey);
                     var imageMap = Utils.MapAttachments(Pointers, attachments);
                     //fix any paths to embedded images
@@ -456,7 +461,7 @@ namespace ChiaraMail.FormRegions
                     if (imageLinks.Count > 0)
                     {
                         content = Utils.FetchEmbeddedFileImages(content, imageLinks, imageMap,
-                            htmlEditor1.BaseUrl, _account, _configuration, _senderAddress, 
+                            strHtmlEditorBaseUrl, _account, _configuration, _senderAddress, 
                             ServerName, ServerPort, EncryptKey2, UserAgent, ref embeddedFileNames);
                     }
                     else
@@ -477,7 +482,7 @@ namespace ChiaraMail.FormRegions
                     int upperWidth = 0;
                     int upperHeight = 0;
                     panelAttach.AutoScroll = false;
-                    Utils.LoadAttachments(item, Pointers, htmlEditor1.BaseUrl, _account, _senderAddress,
+                    Utils.LoadAttachments(item, Pointers, strHtmlEditorBaseUrl, _account, _senderAddress,
                         ServerName, ServerPort, EncryptKey, EncryptKey2, embeddedFileNames,
                         ref _attachList, ref _embedded, ref panelAttach, ref upperWidth, ref upperHeight);
                     if (ThisAddIn.NoPreviewer)
@@ -509,13 +514,13 @@ namespace ChiaraMail.FormRegions
                         btn.Height = upperHeight;
                     }
                     //handle emnbedded video
-                    //var videoLinks = Utils.GetVideoLinks(content);
-                    //if (videoLinks.Count > 0)
-                    //{
-                    //    content = Utils.LoadEmbeddedVideos(content, videoLinks, _attachList,
-                    //                                       htmlEditor1.BaseUrl, _account, _configuration,
-                    //                                       _senderAddress, ServerName, ServerPort, _encryptKey2, _userAgent);
-                    //}
+                    var videoLinks = Utils.GetVideoLinks(content);
+                    if (videoLinks.Count > 0)
+                    {
+                        content = Utils.LoadEmbeddedVideos(content, videoLinks, _attachList,
+                                                           strHtmlEditorBaseUrl, _account, _configuration,
+                                                           _senderAddress, ServerName, ServerPort, _encryptKey2, _userAgent);
+                    }
                 }
                 if(!string.IsNullOrEmpty(content))
                     Content = content;
@@ -547,19 +552,19 @@ namespace ChiaraMail.FormRegions
             Utils.CleanTempFolder(key);
         }
 
-        private void HTMLEditor1Click(object sender, SpiceLogic.WinHTMLEditor.EditorMouseEventArgs e)
+        private void HTMLEditor1Click(object sender, SpiceLogic.HtmlEditorControl.Domain.BOs.EditorEventArgs.EditorMouseEventArgs e)
         {
             OnClick(e);
         }
        
-        private void HTMLEditor1KeyDown(object sender, SpiceLogic.WinHTMLEditor.EditorKeyEventArgs e)
+        private void HTMLEditor1KeyDown(object sender, SpiceLogic.HtmlEditorControl.Domain.BOs.EditorEventArgs.EditorKeyEventArgs e)
         {
             //32 is space bar which for some reason doesn't convert to KeyPress
             //the event fires twice so only add space after second firing
             if (e.KeyCode.Equals(32) && _lastKeyPress.Equals(32))
             {
                 //insert space
-                htmlEditor1.InsertText(" ");
+                //winFormHtmlEditor1.InsertText(" ");
                 //reset the buffer
                 _lastKeyPress = 0;
                 return;
@@ -622,7 +627,7 @@ namespace ChiaraMail.FormRegions
                     panelVertLine.BackColor = Color.DarkGray;
                 }
                 //draw line at top of visible control
-                Control ctrl = htmlEditor1;
+                Control ctrl = winFormHtmlEditor1;
                 if (previewHandlerControl.Visible) ctrl = previewHandlerControl;
                 if (embeddedMsg1.Visible) ctrl = embeddedMsg1;
                 top = ctrl.Top - 2;
@@ -671,7 +676,7 @@ namespace ChiaraMail.FormRegions
                     {
                         LoadAttachmentHeader("", "", attach.DisplayName, Utils.FormatFileSize(attach.Size));
                         //hide the htmlEditor row
-                        htmlEditor1.Visible = false;
+                        winFormHtmlEditor1.Visible = false;
                         tableLayoutPanelMain.RowStyles[4].Height = 0;
                         tableLayoutPanelMain.RowStyles[5].Height = 0;
                         previewHandlerControl.Visible = false;
@@ -889,7 +894,7 @@ namespace ChiaraMail.FormRegions
             try
             {
                 //grab the current content
-                var content = htmlEditor1.BodyHtml;
+                var content = winFormHtmlEditor1.BodyHtml;
                 var updated = false;
                 //has message changed?
                 if (content != Content)
@@ -1000,15 +1005,15 @@ namespace ChiaraMail.FormRegions
 
         private void EnableEdits(bool enable)
         {
-            htmlEditor1.Toolbar1.Visible = enable;
-            htmlEditor1.Toolbar2.Visible = enable && !_plainText;
-            htmlEditor1.ReadOnly = !enable;
+            winFormHtmlEditor1.Toolbar1.Visible = enable;
+            winFormHtmlEditor1.Toolbar2.Visible = enable && !_plainText;
+            //winFormHtmlEditor1.ReadOnly = !enable;
             btnDelete.Enabled = enable;
             btnEdit.Enabled = enable;
             if (enable && _plainText)
             {
                 //hide HTML formatting controls
-                Utils.ConfigureEditorForPlainText(htmlEditor1.Toolbar1);
+                Utils.ConfigureEditorForPlainText(winFormHtmlEditor1.Toolbar1);
             }
         }
 
@@ -1028,7 +1033,7 @@ namespace ChiaraMail.FormRegions
         {
             //previewHandlerHost.Visible = preview;
             previewHandlerControl.Visible = preview;
-            htmlEditor1.Visible = !preview;
+            winFormHtmlEditor1.Visible = !preview;
             embeddedMsg1.Visible = false;
             tableLayoutPanelMain.RowStyles[6].Height = 0;
             if (preview)
@@ -1325,8 +1330,8 @@ namespace ChiaraMail.FormRegions
 
         private void ShowContent(string content)
         {
-            htmlEditor1.BodyHtml = content;
-            htmlEditor1.DisableEditorRightClick = true;
+            winFormHtmlEditor1.BodyHtml = content;
+            //winFormHtmlEditor1.DisableEditorRightClick = true;
             tableLayoutAttach.Visible = false;
             previewHandlerControl.Visible = false;
         }
