@@ -947,23 +947,13 @@ namespace ChiaraMail
                                     serverName, serverPort, "", encryptKey2, userAgent);
                 }
                 //read the bytes, base64 encode 
-                //var data = Convert.ToBase64String(File.ReadAllBytes(path));
-                //var ext = Path.GetExtension(path);
-                //if (!string.IsNullOrEmpty(ext))
-                //    ext = ext.Replace(".", "");
-                //var dataUri = string.Format("data:video/{0};base64,{1}", ext, data);
-                ////update the src link with the local path
-                //content = content.Replace(filePath, dataUri);
-
-                //replace the path
-                var newPath = "file:///" + path.Replace("\\", "/");
-                //make sure the src value is wrapped with quotes
-                if (content.Contains("src=" + filePath))
-                {
-                    //no - wrap with single quotes
-                    newPath = "'" + newPath + "'";
-                }
-                content = content.Replace(filePath, newPath);
+                var data = Convert.ToBase64String(File.ReadAllBytes(path));
+                var ext = Path.GetExtension(path);
+                if (!string.IsNullOrEmpty(ext))
+                    ext = ext.Replace(".", "");
+                var dataUri = string.Format("data:video/{0};base64,{1}", ext, data);
+                //update the src link with the local path
+                content = content.Replace(filePath, dataUri);
             }
             return content;
         }
