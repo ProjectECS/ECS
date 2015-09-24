@@ -537,4 +537,7 @@ or Cancel to edit the message and remove the images.</value>
   <data name="user_allow_forwarding_header" xml:space="preserve">
     <value>X-ChiaraMail-Allow-Forwarding</value>
   </data>
+  <data name="label_group_name" xml:space="preserve">
+    <value>Sending options</value>
+  </data>
 </root>

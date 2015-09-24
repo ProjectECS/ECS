@@ -109,8 +109,8 @@ namespace ChiaraMail
                     return Resources.label_delete_content;
                 case "groupChiaraAccount":
                     return Resources.label_config_group;
-                case "groupChiaraMail":                    
-                    return Resources.label_help_group;
+                case "groupChiaraMail":
+                    return Resources.label_group_name;
                 case "groupChiaraMailRead":
                     return Resources.ecs;
             }

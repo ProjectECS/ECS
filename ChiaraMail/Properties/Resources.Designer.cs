@@ -811,6 +811,15 @@ namespace ChiaraMail.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sending options.
+        /// </summary>
+        internal static string label_group_name {
+            get {
+                return ResourceManager.GetString("label_group_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChiaraMail for Outlook Help.
         /// </summary>
         internal static string label_help {
