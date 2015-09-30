@@ -301,6 +301,15 @@ namespace ChiaraMail.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available ECS storage on current account.
+        /// </summary>
+        internal static string description_available_storage {
+            get {
+                return ResourceManager.GetString("description_available_storage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Message Content.
         /// </summary>
         internal static string description_delete_content {
@@ -521,9 +530,9 @@ namespace ChiaraMail.Properties {
         ///      &lt;tabSet idMso=&quot;TabComposeTools&quot;&gt;
         ///        &lt;tab idMso=&quot;TabMessage&quot;&gt;
         ///          &lt;group id=&quot;groupChiaraMail&quot;  getLabel=&quot;GetLabel&quot;&gt;
+        ///            &lt;labelControl id=&quot;labelSpaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; /&gt;
         ///            &lt;toggleButton id=&quot;toggleDynamicEx&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///               onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; getImage=&quot;GetImage&quot;
-        ///                getScreentip=&quot;GetScreentip&quot; getDe [rest of string was truncated]&quot;;.
+        ///               onAction=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExplorerRibbon2013 {
             get {
@@ -593,9 +602,9 @@ namespace ChiaraMail.Properties {
         ///        &lt;tabs&gt;
         ///            &lt;tab idMso=&quot;TabNewMailMessage&quot;&gt;
         ///                &lt;group id=&quot;groupChiaraMail&quot; getLabel=&quot;GetLabel&quot;&gt;
+        ///                    &lt;labelControl id=&quot;labelSpaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; /&gt;
         ///                    &lt;toggleButton id=&quot;toggleDynamic&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///                       onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; getImage=&quot;GetImage&quot;
-        ///                        getScreentip=&quot;GetScreentip&quot; getDescript [rest of string was truncated]&quot;;.
+        ///                       onAction=&quot;OnPres [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InspectorRibbonCompose {
             get {
@@ -610,10 +619,9 @@ namespace ChiaraMail.Properties {
         ///    &lt;tabs&gt;
         ///      &lt;tab idMso=&quot;TabNewMailMessage&quot;&gt;
         ///        &lt;group id=&quot;groupChiaraMail&quot;  getLabel=&quot;GetLabel&quot;&gt;
+        ///          &lt;button id=&quot;spaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; size=&quot;large&quot; getImage=&quot;GetImage&quot; /&gt;
         ///          &lt;toggleButton id=&quot;toggleDynamic&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///             onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; getImage=&quot;GetImage&quot;
-        ///              getScreentip=&quot;GetScreentip&quot; getDescription=&quot;GetDescription&quot;
-        ///              getEnabled=&quot; [rest of string was truncated]&quot;;.
+        ///             onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InspectorRibbonCompose2010 {
             get {
@@ -753,6 +761,15 @@ namespace ChiaraMail.Properties {
         internal static string label_allow_forwarding {
             get {
                 return ResourceManager.GetString("label_allow_forwarding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available ECS storage.
+        /// </summary>
+        internal static string label_available_storage {
+            get {
+                return ResourceManager.GetString("label_available_storage", resourceCulture);
             }
         }
         

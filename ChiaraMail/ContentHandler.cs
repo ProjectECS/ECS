@@ -1681,6 +1681,50 @@ namespace ChiaraMail
             }
         }
 
+        /// <summary>
+        /// to get response data as Storage data in bytes from server for passed account
+        /// </summary>
+        /// <param name="smtpAddress">email address</param>
+        /// <param name="Password">password</param>
+        /// <param name="server">server name</param>
+        /// <param name="port">port number</param>
+        /// <returns></returns>
+        public static string GetDataResponse(string smtpAddress, string Password, string server, string port)
+        {
+            const string SOURCE = CLASS_NAME + "GetData";
+            try
+            {
+                string post = AssembleLoginParams(smtpAddress, Password) +
+                    string.Format("{0}", "GET%20DATA");
+                byte[] postData = Encoding.UTF8.GetBytes(post);
+                var request = CreateRequest(server, port, postData);
+                if (request == null)
+                {
+                }
+                var response = request.GetResponse() as HttpWebResponse;
+                if (!request.HaveResponse)
+                {
+                    request.Abort();
+                }
+                if (response == null)
+                {
+                }
+                var stream = response.GetResponseStream();
+                if (stream == null)
+                {
+                }
+                var reader = new StreamReader(stream);
+                string responseText = reader.ReadToEnd();
+                
+                return responseText;
+            }
+            catch (Exception e)
+            {
+                Logger.Error(SOURCE, e.ToString());
+            }
+            return string.Empty;
+        }
+
         private static void EvalResponse(string responseText, out string code, out string error)
         {
             var delim = responseText.IndexOf(' ');

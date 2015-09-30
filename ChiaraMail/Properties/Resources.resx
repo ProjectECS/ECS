@@ -540,4 +540,10 @@ or Cancel to edit the message and remove the images.</value>
   <data name="label_group_name" xml:space="preserve">
     <value>Sending options</value>
   </data>
+  <data name="label_available_storage" xml:space="preserve">
+    <value>Available ECS storage</value>
+  </data>
+  <data name="description_available_storage" xml:space="preserve">
+    <value>Available ECS storage on current account</value>
+  </data>
 </root>

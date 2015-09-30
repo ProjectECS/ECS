@@ -201,28 +201,28 @@ namespace ChiaraMail
 
                 Inspectors = Application.Inspectors;
                 #region Commented below code as it takes more time to make Outlook ready if we have more mails in selected folder (Inbox)
-                //Explorers = Application.Explorers;
-                //if (Explorers.Count > 0)
-                //{
-                //    //may not be an ActiveExplorer on restart after a crash
-                //    Explorer active;
-                //    try
-                //    {
-                //        active = Application.ActiveExplorer();
-                //    }
-                //    catch
-                //    {
-                //        active = null;
-                //    }
-                //    if (active == null)
-                //    {
-                //        Logger.Info(SOURCE, "no ActiveExplorer");
-                //    }
-                //    else
-                //    {
-                //        AddWrapper(Application.ActiveExplorer());
-                //    }
-                //}
+                Explorers = Application.Explorers;
+                if (Explorers.Count > 0)
+                {
+                    //may not be an ActiveExplorer on restart after a crash
+                    Explorer active;
+                    try
+                    {
+                        active = Application.ActiveExplorer();
+                    }
+                    catch
+                    {
+                        active = null;
+                    }
+                    if (active == null)
+                    {
+                        Logger.Info(SOURCE, "no ActiveExplorer");
+                    }
+                    else
+                    {
+                        AddWrapper(Application.ActiveExplorer());
+                    }
+                }
                 #endregion
                 //finish initialization in background, so we can exit startup immediately
                 ThreadPool.QueueUserWorkItem(InitHandler, gotStored);
@@ -956,6 +956,17 @@ namespace ChiaraMail
             }
             return registered;
         }
+
+        internal static Account FindMatchingAccount(string smtpAddress)
+        {
+            if (Accounts.ContainsKey(smtpAddress)) return Accounts[smtpAddress];
+            //could also match on proxy address
+            return AccountProxies.Keys
+                .Where(proxy => AccountProxies[proxy]
+                    .Contains(smtpAddress) &&
+                    Accounts.ContainsKey(proxy))
+                    .Select(proxy => Accounts[proxy]).FirstOrDefault();
+        }
         #endregion
 
         #region Private methods
@@ -985,17 +996,6 @@ namespace ChiaraMail
             var readingPane = new DynamicReadingPane.DynamicReadingPaneFactory();
 
             Logger.Info(SOURCE, string.Format("Takes {0} seconds", swInitHandler.Elapsed.TotalSeconds));
-        }
-
-        private static Account FindMatchingAccount(string smtpAddress)
-        {
-            if (Accounts.ContainsKey(smtpAddress)) return Accounts[smtpAddress];
-            //could also match on proxy address
-            return AccountProxies.Keys
-                .Where(proxy => AccountProxies[proxy]
-                    .Contains(smtpAddress) && 
-                    Accounts.ContainsKey(proxy))
-                    .Select(proxy => Accounts[proxy]).FirstOrDefault();
         }
 
         private static bool EvalRecip(Recipient recip, ref Dictionary<string, Recipient> selections)
@@ -1526,6 +1526,18 @@ namespace ChiaraMail
                         "removing account with key {0}", key));
                     Accounts.Remove(key);
                 }
+
+                //set storage data
+                foreach (KeyValuePair<string, Account> acc in Accounts)
+                {
+                    string strResponseData = ContentHandler.GetDataResponse(acc.Value.SMTPAddress, acc.Value.Configurations[0].Password, acc.Value.Configurations[0].Server, acc.Value.Configurations[0].Port);
+
+                    if (strResponseData.StartsWith("6 "))
+                    {
+                        acc.Value.Storage = strResponseData.Substring(strResponseData.IndexOf("= ") + 2);
+                    }
+                }
+
                 return true;
             }
             catch (Exception ex)

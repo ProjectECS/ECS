@@ -69,6 +69,29 @@ namespace ChiaraMail
                     var img = Resources.delete_content;
                     img.MakeTransparent();
                     return img;
+                case "spaceAvailable":
+                case "spaceAvailableEx":
+                    Account acct = ThisAddIn.FindMatchingAccount(Globals.ThisAddIn.ActiveAccount.SMTPAddress);
+                    string strSpaceUsedAndDiskQuota = acct.Storage;
+
+                    if (!string.IsNullOrEmpty(strSpaceUsedAndDiskQuota))
+                    {
+                        string[] duParms = strSpaceUsedAndDiskQuota.Split(' ');
+
+                        if (duParms.Length >= 2)
+                        {
+                            long spaceUsed = Convert.ToInt64(duParms[0]);
+                            long diskQuota = Convert.ToInt64(duParms[1]);
+                            long lngSpaceAvailable = diskQuota - spaceUsed;
+                            long lngPercentageUsed = spaceUsed / diskQuota;
+
+                            var imgSpaceAvailable = Utils.GetImage(lngSpaceAvailable, lngPercentageUsed);
+                            imgSpaceAvailable.MakeTransparent();
+                            return imgSpaceAvailable;
+                        }
+                    }
+
+                    return null;
                 default:
                     return null;
             }
@@ -79,6 +102,9 @@ namespace ChiaraMail
             Logger.Info("GetLabel", control.Id);
             switch (control.Id)
             {
+                case "spaceAvailable":
+                case "spaceAvailableEx":
+                    return Resources.label_available_storage;
                 case "toggleDynamic":
                 case "toggleDynamicEx":
                     return Resources.label_dynamic_content;
@@ -121,6 +147,9 @@ namespace ChiaraMail
         {
             switch (control.Id)
             {
+                case "spaceAvailable":
+                case "spaceAvailableEx":
+                    return Resources.description_available_storage;
                 case "toggleDynamic":
                 case "toggleDynamicEx":
                     return  Resources.description_dynamic_content;
@@ -152,6 +181,9 @@ namespace ChiaraMail
         {          
             switch (control.Id)
             {
+                case "spaceAvailable":
+                case "spaceAvailableEx":
+                    return Resources.description_available_storage;
                 case "toggleDynamic":
                 case "toggleDynamicEx":
                     return  Resources.screentip_dynamic_content;
@@ -567,7 +599,10 @@ namespace ChiaraMail
         public void ResetInspButtons()
         {
             if(_ribbon == null) return;
+            _ribbon.InvalidateControl("spaceAvailable");
+            _ribbon.InvalidateControl("spaceAvailableEx");
             _ribbon.InvalidateControl("toggleDynamic");
+            _ribbon.InvalidateControl("toggleDynamicEx");
             _ribbon.InvalidateControl("toggleEncrypted");
             _ribbon.InvalidateControl("toggleNoPlaceholder");
             _ribbon.InvalidateControl("toggleDynamicEx");

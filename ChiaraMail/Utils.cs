@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Drawing;
 
 namespace ChiaraMail
 {
@@ -1718,6 +1719,92 @@ namespace ChiaraMail
             }
         }
 
+        public static String BytesToString(long byteCount)
+        {
+            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" }; //Longs run out around EB
+            if (byteCount == 0)
+                return "0" + suf[0];
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Floor(bytes / Math.Pow(1024, place));
+            return (Math.Sign(byteCount) * num).ToString() + suf[place];
+        }
+
+        internal static Bitmap GetImage(long lngSpaceAvailable, long lngPercentageUsed)
+        {
+            const string SOURCE = CLASS_NAME + "GetImage";
+
+            //first, create a dummy bitmap just to get a graphics object
+            Bitmap img = new Bitmap(1, 1);
+            try
+            {
+                Font font = new Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold);
+                var color = Utils.GetColorByPercentage(lngPercentageUsed);
+                var text = Utils.BytesToString(lngSpaceAvailable);
+
+                Graphics drawing = Graphics.FromImage(img);
+
+                //measure the string to see how big the image needs to be
+                SizeF textSize = drawing.MeasureString(text, font);
+
+                //free up the dummy image and old graphics object
+                img.Dispose();
+                drawing.Dispose();
+
+                //create a new image of the right size
+                img = new Bitmap((int)textSize.Width, (int)textSize.Width);
+
+                drawing = Graphics.FromImage(img);
+
+                //paint the background
+                drawing.Clear(Color.White);
+
+                //create a brush for the text
+                Brush textBrush = new SolidBrush(color);
+
+                StringFormat sf = new StringFormat();
+                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Center;
+
+                drawing.DrawString(text, font, textBrush, new PointF(textSize.Width / 2, textSize.Width / 2), sf);
+
+                drawing.Save();
+
+                textBrush.Dispose();
+                drawing.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+            }
+            
+            return img;
+        }
+
+        public static Color GetColorByPercentage(double percentage)
+        {
+            // Calculate the percentage of storage remaining and set the corresponding color.
+            if (percentage < .50)
+            {
+                return Color.Green;
+            }
+            else if (percentage >= .50 && percentage < .75)
+            {
+                return Color.Yellow;
+            }
+            else if (percentage >= .75 && percentage < .90)
+            {
+                return Color.Orange;
+            }
+            else if (percentage >= .90)
+            {
+                return Color.Red;
+            }
+            else
+            {
+                return Color.Black;
+            }
+        }
         #region Private methods
 
         private static string ConnectedAddIns(Outlook._Application app)

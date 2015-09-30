@@ -18,5 +18,6 @@ namespace ChiaraMail
         internal string Port = "";
         internal string Protocol = "";
         internal string LoginName = "";
+        internal string Storage = "";
     }
 }
