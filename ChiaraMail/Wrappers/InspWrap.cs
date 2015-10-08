@@ -91,9 +91,9 @@ namespace ChiaraMail.Wrappers
                 if (value != null)
                 {
                     _inspector = value;
-                    ((InspectorEvents_Event) Inspector).Close += InspectorClose;
+                    ((InspectorEvents_Event)Inspector).Close += InspectorClose;
                     //assign
-                    MailItem = (MailItem) _inspector.CurrentItem;
+                    MailItem = (MailItem)_inspector.CurrentItem;
                 }
             }
         }
@@ -112,8 +112,8 @@ namespace ChiaraMail.Wrappers
                     //preset Dynamic based on SendUsingAccount
                     // that could be null on 2K7, so initialize with default account
                     var olAcct = _mailItem.SendUsingAccount;
-                    var account = olAcct != null 
-                        ? ThisAddIn.Accounts[olAcct.SmtpAddress] 
+                    var account = olAcct != null
+                        ? ThisAddIn.Accounts[olAcct.SmtpAddress]
                         : GetStoreAccount();
                     var config = account.Configurations[account.DefaultConfiguration];
                     if (!String.IsNullOrEmpty(config.Password))
@@ -133,8 +133,8 @@ namespace ChiaraMail.Wrappers
                         safItem.Item = MailItem;
                         RecordKey = Utils.GetRecordKey(safItem);
                     }
-                    ((ItemEvents_Event) MailItem).Send += MailItemSend;
-                    ((ItemEvents_Event) MailItem).Close += MailItemClose;
+                    ((ItemEvents_Event)MailItem).Send += MailItemSend;
+                    ((ItemEvents_Event)MailItem).Close += MailItemClose;
                     if (ThisAddIn.AppVersion < 14)
                     {
                         //fire timer every 1/2 second to check for Account change
@@ -142,9 +142,9 @@ namespace ChiaraMail.Wrappers
                         _timer.Elapsed += TimerElapsed;
                     }
                     //Ephemeral
-                    if(!MailItem.Sent) return;
+                    if (!MailItem.Sent) return;
                     var sender = Utils.GetSenderAddress(MailItem);
-                    if(sender == account.SMTPAddress) return;
+                    if (sender == account.SMTPAddress) return;
                     var pointer = "";
                     var server = "";
                     var port = "";
@@ -153,7 +153,7 @@ namespace ChiaraMail.Wrappers
                     var duration = "";
                     var user_agent = "";
                     var allow_forwarding = false;
-                    Utils.ReadHeaders(MailItem, ref pointer,ref server, ref port,
+                    Utils.ReadHeaders(MailItem, ref pointer, ref server, ref port,
                         ref key, ref key2, ref duration, ref user_agent, ref allow_forwarding);
                     if (!string.IsNullOrEmpty(duration) && duration != "0")
                     {
@@ -213,8 +213,8 @@ namespace ChiaraMail.Wrappers
                 var rawContent = GetBody(originalHTML);
                 var originalContent = rawContent;
                 //SendUsingAccount could be null in 2K7
-                var account = MailItem.SendUsingAccount != null 
-                                      ? ThisAddIn.Accounts[MailItem.SendUsingAccount.SmtpAddress] 
+                var account = MailItem.SendUsingAccount != null
+                                      ? ThisAddIn.Accounts[MailItem.SendUsingAccount.SmtpAddress]
                                       : GetStoreAccount();
                 var config = account.Configurations[account.DefaultConfiguration];
                 var encryptKey = Encrypted
@@ -231,7 +231,7 @@ namespace ChiaraMail.Wrappers
                         foreach (var attachment in embedded)
                         {
                             //build the replacement path
-                            
+
                             var data = Convert.ToBase64String(attachment.Content);
                             var imageType = Regex.Match(attachment.Name, @"\.(\S{3,4})").Groups[1].Value;
                             var src = string.Format("data:image/{0};base64,{1}",
@@ -247,7 +247,7 @@ namespace ChiaraMail.Wrappers
 
                 //encode it (use JS compatible method for encryption)
                 var content = ContentHandler.EncodeContent(rawContent, "", encryptKey);
-                ContentHandler.PostContent(account.SMTPAddress, config, 
+                ContentHandler.PostContent(account.SMTPAddress, config,
                     content, recips, ref contentPointer, out error);
                 if (String.IsNullOrEmpty(contentPointer))
                 {
@@ -272,7 +272,7 @@ namespace ChiaraMail.Wrappers
                 var attachments = MailItem.Attachments;
                 if (attachments.Count > 0)
                 {
-                    
+
                     if (!PostAttachments(account, config, encryptKey, recips, ref pointers))
                     {
                         Logger.Warning(SOURCE, String.Format(
@@ -286,7 +286,7 @@ namespace ChiaraMail.Wrappers
                     }
                 }
                 if (!NoPlaceholder)
-                {                
+                {
                     //swap in placeholder to replace original body
                     MailItem.HTMLBody = MailItem.HTMLBody.Replace(
                         originalContent, Resources.placeholder_html);
@@ -396,8 +396,8 @@ namespace ChiaraMail.Wrappers
                 try
                 {
                     //could fail if attachment is too big
-                    var content = rdoAttach.AsArray !=null 
-                        ? rdoAttach.AsArray as byte[] 
+                    var content = rdoAttach.AsArray != null
+                        ? rdoAttach.AsArray as byte[]
                         : null; //.Fields[ThisAddIn.PR_ATTACH_DATA_BIN]);
                     if (content == null) continue;
                     {
@@ -430,7 +430,7 @@ namespace ChiaraMail.Wrappers
             }
         }
 
-        private bool PostAttachments(Account account, EcsConfiguration configuration, 
+        private bool PostAttachments(Account account, EcsConfiguration configuration,
             string encryptKey, string recips, ref List<string> pointers)
         {
             var source = CLASS_NAME + "PostAttachments";
@@ -496,16 +496,16 @@ namespace ChiaraMail.Wrappers
                         }
                     }
                 }
-               
+
                 //now loop through and collect the content (except for embedded messages)
                 var attachList = new List<Attachment>();
                 bool showForm = false;
                 foreach (Redemption.Attachment rdoAttach in colAttach)
                 {
-                    var attach = new Attachment {Type = rdoAttach.Type};
+                    var attach = new Attachment { Type = rdoAttach.Type };
                     switch (rdoAttach.Type)
                     {
-                        case (int) OlAttachmentType.olEmbeddeditem:
+                        case (int)OlAttachmentType.olEmbeddeditem:
                             //is this an ECS attachment?
                             var msg = rdoAttach.EmbeddedMsg;
                             if (Utils.HasChiaraHeader(msg))
@@ -515,11 +515,11 @@ namespace ChiaraMail.Wrappers
                             //always add
                             attachList.Add(attach);
                             break;
-                        case (int) OlAttachmentType.olByReference:
-                        case (int) OlAttachmentType.olOLE:
+                        case (int)OlAttachmentType.olByReference:
+                        case (int)OlAttachmentType.olOLE:
                             attachList.Add(attach);
                             break;
-                        case (int) OlAttachmentType.olByValue:
+                        case (int)OlAttachmentType.olByValue:
                             showForm = true;
                             //we may have already gotten the bytes
                             if (savedAttach.Count > 0 && savedAttach.ContainsKey(rdoAttach.Index))
@@ -532,9 +532,9 @@ namespace ChiaraMail.Wrappers
                                 //this could fail if the attachment is too big
                                 try
                                 {
-                                attach.Content = rdoAttach.AsArray != null
-                                    ? rdoAttach.AsArray as byte[]
-                                    : null;//.Fields[ThisAddIn.PR_ATTACH_DATA_BIN]);
+                                    attach.Content = rdoAttach.AsArray != null
+                                        ? rdoAttach.AsArray as byte[]
+                                        : null;//.Fields[ThisAddIn.PR_ATTACH_DATA_BIN]);
                                 }
                                 catch
                                 {
@@ -668,7 +668,7 @@ namespace ChiaraMail.Wrappers
             foreach (var pointer in pointers)
             {
                 string error;
-                ContentHandler.DeleteContent(account.SMTPAddress, 
+                ContentHandler.DeleteContent(account.SMTPAddress,
                     configuration, pointer, out error, true);
             }
         }
@@ -680,8 +680,8 @@ namespace ChiaraMail.Wrappers
             return (from Microsoft.Office.Interop.Outlook.Attachment attachment in attachments
                     where attachment.Type == OlAttachmentType.olByValue
                     select attachment.PropertyAccessor
-                    into pa
-                    select pa.GetProperty(ThisAddIn.DASL_ATTACH_CONTENT_ID))
+                        into pa
+                        select pa.GetProperty(ThisAddIn.DASL_ATTACH_CONTENT_ID))
                 .Any(cid => (cid != null && !string.IsNullOrEmpty(cid)));
         }
 
@@ -695,20 +695,20 @@ namespace ChiaraMail.Wrappers
             Utils.GetChiaraHeaders(msg, out pointerString, out serverName, out serverPort, out encryptKey2, out userAgent);
             var sender = msg.Sender.SMTPAddress;
             var config = account.Configurations.Values.
-                First(cfg => cfg.Server.Equals(serverName, 
+                First(cfg => cfg.Server.Equals(serverName,
                     StringComparison.CurrentCultureIgnoreCase));
             if (string.IsNullOrEmpty(sender))
             {
-                Logger.Warning("ForwardEmbeddedECS",string.Format(
-                    "failed to retrieve sender for {0}, skipping call to AddRecipients", 
+                Logger.Warning("ForwardEmbeddedECS", string.Format(
+                    "failed to retrieve sender for {0}, skipping call to AddRecipients",
                     msg.Subject));
                 return;
             }
-            
+
             if (string.IsNullOrEmpty(pointerString))
             {
-                Logger.Warning("ForwardEmbeddedECS",string.Format(
-                    "failed to retrieve pointer(s) for {0}, skipping call to AddRecipients", 
+                Logger.Warning("ForwardEmbeddedECS", string.Format(
+                    "failed to retrieve pointer(s) for {0}, skipping call to AddRecipients",
                     msg.Subject));
                 return;
             }
@@ -744,39 +744,45 @@ namespace ChiaraMail.Wrappers
 
         private void EvalSendUsingAccount(Microsoft.Office.Interop.Outlook.Account sendUsingAccount)
         {
+            var SOURCE = CLASS_NAME + "EvalSendUsingAccount";
             Logger.Verbose("EvalSendUsingAccount", "");
-            //SendUsingAccount could be null in 2K7 so find the account associated with this store
-            var account = GetStoreAccount();
-            if (sendUsingAccount != null)
+            try
             {
-                var thisSendUsing = MailItem.SendUsingAccount;
-                account = ThisAddIn.Accounts[thisSendUsing.SmtpAddress];
-            }
-            if (account == null || 
-                String.IsNullOrEmpty(account.Configurations[account.DefaultConfiguration].Password))
-            {
-                //not configured
-                Dynamic = false;
-                Encrypted = false;
-                NoPlaceholder = false;
-            }
-            else
-            {
-                var config = account.Configurations[account.DefaultConfiguration];
-                //switch On if default is true
-                //but don't switch Off if it isn't
-                if (config.DefaultOn) Dynamic = true;
-                if (Dynamic && !Inherited)
+                //SendUsingAccount could be null in 2K7 so find the account associated with this store
+                var account = GetStoreAccount();
+                if (sendUsingAccount != null)
                 {
-                    Encrypted = config.Encrypt;
-                    NoPlaceholder = config.NoPlaceholder;
+                    var thisSendUsing = MailItem.SendUsingAccount;
+                    account = ThisAddIn.Accounts[thisSendUsing.SmtpAddress];
                 }
+                if (account == null ||
+                    String.IsNullOrEmpty(account.Configurations[account.DefaultConfiguration].Password))
+                {
+                    //not configured
+                    Dynamic = false;
+                    Encrypted = false;
+                    NoPlaceholder = false;
+                }
+                else
+                {
+                    var config = account.Configurations[account.DefaultConfiguration];
+                    //switch On if default is true
+                    //but don't switch Off if it isn't
+                    if (config.DefaultOn) Dynamic = true;
+                    if (Dynamic && !Inherited)
+                    {
+                        Encrypted = config.Encrypt;
+                        NoPlaceholder = config.NoPlaceholder;
+                    }
+                }
+                //invalidate the ribbon controls
+                ThisAddIn.ResetInspButtons();
             }
-            //invalidate the ribbon controls
-            ThisAddIn.ResetInspButtons();
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+            }
         }
-
-
         #endregion
     }
 }

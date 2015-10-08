@@ -720,14 +720,6 @@
             "Value" = "8:Version"
             "Property" = "8:VSTORUNTIMEREDIST"
             }
-            "{CF66B7F7-B7DA-4B08-A67A-233430638C9C}:_A8962EA0A3EE4BDAAACA2F369CF5B7E5"
-            {
-            "Name" = "8:OutlookInstalled"
-            "Root" = "2:1"
-            "RegKey" = "8:SOFTWARE\\Classes\\Outlook.Application\\CurVer"
-            "Value" = "8:"
-            "Property" = "8:OUTLOOK_INSTALLED"
-            }
         }
         "MsiBootstrapper"
         {
@@ -738,15 +730,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChiaraMail for Outlook"
-        "ProductCode" = "8:{863CA53C-E4A2-4466-9907-E5AEA68347D3}"
-        "PackageCode" = "8:{1661004F-6E20-4E69-BEB1-A01B8488E385}"
-        "UpgradeCode" = "8:{5DA630C5-DB63-4763-8056-CDFEEF567DA2}"
+        "ProductCode" = "8:{E669072A-CCF5-4AAB-9554-BDB7C5146C95}"
+        "PackageCode" = "8:{12D56A2A-1363-4817-B391-71E5FB8B7FC6}"
+        "UpgradeCode" = "8:{20ECE1FC-4D2B-4C13-A37C-1DB8E3D8A716}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.5"
+        "ProductVersion" = "8:1.1.7"
         "Manufacturer" = "8:ChiaraMail Corp."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -754,7 +746,7 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:ChiaraMail"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:v.1.1.5.0"
+        "ARPCOMMENTS" = "8:v.1.1.7.0"
         "ARPURLINFOABOUT" = "8:http://www.chiaramail.com"
         "ARPPRODUCTICON" = "8:_056D9151768A483980C81D13666E5A00"
         "ARPIconIndex" = "3:0"
@@ -800,6 +792,184 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_8EB198ACA6AC4EA5A0718DC218843184"
+                            {
+                            "Name" = "8:Microsoft"
+                            "Condition" = "8:"
+                            "AlwaysCreate" = "11:FALSE"
+                            "DeleteAtUninstall" = "11:FALSE"
+                            "Transitive" = "11:FALSE"
+                                "Keys"
+                                {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_BE54864979084B4B8F12885448A978E4"
+                                    {
+                                    "Name" = "8:Office"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_2415E68C844443C2917C027E2D4AB6E5"
+                                            {
+                                            "Name" = "8:15.0"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7F24D7A643ED4137889F43A5E61566BB"
+                                                    {
+                                                    "Name" = "8:Outlook"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_9C1E0F437B4C43E08FB5998C0D848CF3"
+                                                            {
+                                                            "Name" = "8:Preferences"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D7D31394D4E047A4A2A91CB648B87A79"
+                                                                    {
+                                                                    "Name" = "8:MaximumAttachmentSize"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:3"
+                                                                    "Value" = "3:0"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_8B5075A21CE3428DB1D343D20B6E2D05"
+                                            {
+                                            "Name" = "8:14.0"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_D2EE4E75222D4FCB9B5E775B642F7093"
+                                                    {
+                                                    "Name" = "8:Outlook"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_22982CE6CD8D4F118FE24A86B848C8F0"
+                                                            {
+                                                            "Name" = "8:Preferences"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B1958AF2454D4394904C2B3E8176629C"
+                                                                    {
+                                                                    "Name" = "8:MaximumAttachmentSize"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:3"
+                                                                    "Value" = "3:0"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_CD4C269C21844A118F4CABA75AF82F40"
+                                            {
+                                            "Name" = "8:12.0"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_4A9891FFD304471AB95D9884BB2C1034"
+                                                    {
+                                                    "Name" = "8:Outlook"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_6A27AB47C99F492A8F6C5424B9422602"
+                                                            {
+                                                            "Name" = "8:Preferences"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_21DEE13AEBA54BEE8D41F6727BE991AD"
+                                                                    {
+                                                                    "Name" = "8:MaximumAttachmentSize"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:3"
+                                                                    "Value" = "3:0"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                }
+                            }
                         }
                         "Values"
                         {
