@@ -83,7 +83,7 @@ namespace ChiaraMail
                             long spaceUsed = Convert.ToInt64(duParms[0]);
                             long diskQuota = Convert.ToInt64(duParms[1]);
                             long lngSpaceAvailable = diskQuota - spaceUsed;
-                            long lngPercentageUsed = spaceUsed / diskQuota;
+                            double lngPercentageUsed = (Convert.ToDouble(spaceUsed) / Convert.ToDouble(diskQuota));
 
                             var imgSpaceAvailable = Utils.GetImage(lngSpaceAvailable, lngPercentageUsed);
                             imgSpaceAvailable.MakeTransparent();

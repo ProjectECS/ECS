@@ -1730,7 +1730,7 @@ namespace ChiaraMail
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
 
-        internal static Bitmap GetImage(long lngSpaceAvailable, long lngPercentageUsed)
+        internal static Bitmap GetImage(long lngSpaceAvailable, double lngPercentageUsed)
         {
             const string SOURCE = CLASS_NAME + "GetImage";
 

@@ -30,7 +30,7 @@ namespace ChiaraMail
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "RECEIVE%20CONTENT", recips, chunks[0]);
+                    "RECEIVE%20CONTENT", HttpUtility.UrlEncode(recips), HttpUtility.UrlEncode(chunks[0]));
                 var postData = Encoding.UTF8.GetBytes(post);
                                 
                 var request = CreateRequest(configuration.Server, configuration.Port, postData);
@@ -97,7 +97,7 @@ namespace ChiaraMail
                 //assemble the post
                 string post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "UPDATE%20CONTENT", id, chunks[0]);
+                    "UPDATE%20CONTENT", id, HttpUtility.UrlEncode(chunks[0]));
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequest(configuration.Server, configuration.Port, postData);
                 if (request == null)
@@ -160,7 +160,7 @@ namespace ChiaraMail
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1} {2}",
                     "FETCH%20CONTENT",
-                    senderAddress,
+                    HttpUtility.UrlEncode(senderAddress),
                     id);
                 byte[] postData = Encoding.UTF8.GetBytes(post);
                 if (string.IsNullOrEmpty(server)) server = configuration.Server;
@@ -215,7 +215,7 @@ namespace ChiaraMail
                 //assemble the post
                 string post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "RECEIVE%20SEGMENT", id, segment);
+                    "RECEIVE%20SEGMENT", id, HttpUtility.UrlEncode(segment));
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequest(configuration.Server, configuration.Port, postData);
                 if (request == null)
@@ -316,7 +316,7 @@ namespace ChiaraMail
             {
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}",
-                    "USER%20REGISTERED", senderAddresses);
+                    "USER%20REGISTERED", HttpUtility.UrlEncode(senderAddresses));
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequest(configuration.Server, configuration.Port, postData);
                 if (request == null)
@@ -494,9 +494,9 @@ namespace ChiaraMail
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1} {2} {3}",
                     "ADD%20RECIPIENTS",
-                    senderAddress,
+                    HttpUtility.UrlEncode(senderAddress),
                     id, 
-                    newRecips);
+                    HttpUtility.UrlEncode(newRecips));
                 byte[] postData = Encoding.UTF8.GetBytes(post);
                 if (string.IsNullOrEmpty(server)) server = configuration.Server;
                 if (string.IsNullOrEmpty(port)) port = configuration.Port;
@@ -552,7 +552,7 @@ namespace ChiaraMail
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1} {2}",
                     "REMOVE%20RECIPIENT",
-                    senderAddress,
+                    HttpUtility.UrlEncode(senderAddress),
                     id);
                 byte[] postData = Encoding.UTF8.GetBytes(post);
                 if (string.IsNullOrEmpty(server)) server = configuration.Server;
@@ -673,7 +673,7 @@ namespace ChiaraMail
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "RECEIVE%20CONTENT", recips, chunks[0]);
+                    "RECEIVE%20CONTENT", HttpUtility.UrlEncode(recips), HttpUtility.UrlEncode(chunks[0]));
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequestAsync(configuration.Server, configuration.Port, postData,
                     ref bw, ref e);
@@ -716,7 +716,7 @@ namespace ChiaraMail
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "UPDATE%20CONTENT", id, chunks[0]);
+                    "UPDATE%20CONTENT", id, HttpUtility.UrlEncode(chunks[0]));
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequestAsync(configuration.Server, configuration.Port, postData,
                     ref bw, ref e);
@@ -756,7 +756,8 @@ namespace ChiaraMail
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                            string.Format("{0}&parms={1} {2}",
-                                         "RECEIVE SEGMENT", id, segment);
+                                         "RECEIVE%20SEGMENT", id, HttpUtility.UrlEncode(segment));
+
                 var postData = Encoding.UTF8.GetBytes(post);
                 var request = CreateRequestAsync(configuration.Server, configuration.Port, postData,
                                                  ref bw, ref e);
@@ -1327,7 +1328,7 @@ namespace ChiaraMail
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(password)));
             ////assemble the parameters
             return string.Format("email_addr={0}&passwd={1}&cmd=",
-                email, passwordBase64);
+                HttpUtility.UrlEncode(email), passwordBase64);
         }
 
         private static void Compress(ref byte[] input)
