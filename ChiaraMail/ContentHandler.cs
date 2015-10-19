@@ -30,7 +30,7 @@ namespace ChiaraMail
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
-                    "RECEIVE%20CONTENT", HttpUtility.UrlEncode(recips), HttpUtility.UrlEncode(chunks[0]));
+                    "RECEIVE%20CONTENT", HttpUtility.UrlEncode(recips), chunks[0]);
                 var postData = Encoding.UTF8.GetBytes(post);
                                 
                 var request = CreateRequest(configuration.Server, configuration.Port, postData);
@@ -495,7 +495,7 @@ namespace ChiaraMail
                     string.Format("{0}&parms={1} {2} {3}",
                     "ADD%20RECIPIENTS",
                     senderAddress,
-                    id, 
+                    id,
                     newRecips);
                 byte[] postData = Encoding.UTF8.GetBytes(post);
                 if (string.IsNullOrEmpty(server)) server = configuration.Server;
