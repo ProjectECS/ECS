@@ -530,9 +530,9 @@ namespace ChiaraMail.Properties {
         ///      &lt;tabSet idMso=&quot;TabComposeTools&quot;&gt;
         ///        &lt;tab idMso=&quot;TabMessage&quot;&gt;
         ///          &lt;group id=&quot;groupChiaraMail&quot;  getLabel=&quot;GetLabel&quot;&gt;
-        ///            &lt;labelControl id=&quot;labelSpaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; /&gt;
+        ///            &lt;button id=&quot;spaceAvailableEx&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; size=&quot;large&quot; getImage=&quot;GetImage&quot; /&gt;
         ///            &lt;toggleButton id=&quot;toggleDynamicEx&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///               onAction=&quot; [rest of string was truncated]&quot;;.
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExplorerRibbon2013 {
             get {
@@ -602,9 +602,9 @@ namespace ChiaraMail.Properties {
         ///        &lt;tabs&gt;
         ///            &lt;tab idMso=&quot;TabNewMailMessage&quot;&gt;
         ///                &lt;group id=&quot;groupChiaraMail&quot; getLabel=&quot;GetLabel&quot;&gt;
-        ///                    &lt;labelControl id=&quot;labelSpaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; /&gt;
+        ///                  &lt;button id=&quot;spaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; size=&quot;large&quot; getImage=&quot;GetImage&quot; /&gt;
         ///                    &lt;toggleButton id=&quot;toggleDynamic&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///                       onAction=&quot;OnPres [rest of string was truncated]&quot;;.
+        ///                    [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InspectorRibbonCompose {
             get {
@@ -1133,6 +1133,15 @@ namespace ChiaraMail.Properties {
         internal static string prompt_delete_content_confirm {
             get {
                 return ResourceManager.GetString("prompt_delete_content_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you also want to delete the content in this message?.
+        /// </summary>
+        internal static string prompt_delete_content_confirm_outlook {
+            get {
+                return ResourceManager.GetString("prompt_delete_content_confirm_outlook", resourceCulture);
             }
         }
         

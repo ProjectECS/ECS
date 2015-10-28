@@ -322,7 +322,7 @@ namespace ChiaraMail.Wrappers
 
         private void ExplorerFolderSwitch()
         {
-               
+
         }
 
         private void ExplorerSelectionChange()
@@ -349,8 +349,14 @@ namespace ChiaraMail.Wrappers
                 var hasHeader = Utils.HasChiaraHeader(mail);
 
                 if (!hasHeader)
+                {
                     ThisAddIn.IsMailAllowForwarding = true;
-
+                    ThisAddIn.IsCurrentItemChiaraMail = false;
+                }
+                else
+                {
+                    ThisAddIn.IsCurrentItemChiaraMail = true;
+                }
                 var change = false;
                 if (hasHeader)
                 {

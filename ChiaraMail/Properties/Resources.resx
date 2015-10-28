@@ -546,4 +546,7 @@ or Cancel to edit the message and remove the images.</value>
   <data name="description_available_storage" xml:space="preserve">
     <value>Available ECS storage on current account</value>
   </data>
+  <data name="prompt_delete_content_confirm_outlook" xml:space="preserve">
+    <value>Do you also want to delete the content in this message?</value>
+  </data>
 </root>

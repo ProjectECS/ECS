@@ -39,6 +39,7 @@ namespace ChiaraMail
         private static readonly Dictionary<string, RegistrationCheck> RegistrationChecks = new Dictionary<string, RegistrationCheck>(0); 
         private readonly Dictionary<string, string> _storeAddresses = new Dictionary<string, string>();
         private readonly Dictionary<string, SearchFolderWrap> _searchFolderWrappers = new Dictionary<string, SearchFolderWrap>();
+        Outlook.Items _items;
 
         static ThisAddIn()
         {
@@ -113,6 +114,20 @@ namespace ChiaraMail
         }
 
         public static bool IsMailAllowForwarding { get; set; }
+        public static bool  IsCurrentItemChiaraMail { get; set; }
+        public static string _pointerString { get; set; }
+
+        internal string[] Pointers
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_pointerString))
+                {
+                    return null;
+                }
+                return _pointerString.Split(' ');
+            }
+        }
 
         internal static string PublicKey { get; set; }
 
@@ -195,13 +210,17 @@ namespace ChiaraMail
                 //read the stored settings first            
                 var gotStored = GetStoredSettings();
                 //add new mail handler
-                Application.NewMailEx += ApplicationNewMailEx;
+                Application.NewMailEx += ApplicationNewMailEx;                
                 _inspWrappers = new Dictionary<string, InspWrap>();
                 _explWrappers = new Dictionary<string, ExplWrap>();
 
                 Inspectors = Application.Inspectors;
                 #region Commented below code as it takes more time to make Outlook ready if we have more mails in selected folder (Inbox)
                 Explorers = Application.Explorers;
+                _items = Application.ActiveExplorer().CurrentFolder.Items;
+                lstFolderIds.Add(Application.ActiveExplorer().CurrentFolder.EntryID);
+                _items.ItemRemove += Items_ItemRemove;
+                Application.ActiveExplorer().BeforeFolderSwitch += ThisAddIn_BeforeFolderSwitch;
                 if (Explorers.Count > 0)
                 {
                     //may not be an ActiveExplorer on restart after a crash
@@ -247,6 +266,57 @@ namespace ChiaraMail
             }
         }
 
+        List<string> lstFolderIds = new List<string>();
+
+        void ThisAddIn_BeforeFolderSwitch(object NewFolder, ref bool Cancel)
+        {
+            var folder = NewFolder as Folder;
+
+            if (lstFolderIds.Contains(folder.EntryID)) return;
+
+            lstFolderIds.Add(folder.EntryID);
+            _items = folder.Items;
+            _items.ItemRemove += Items_ItemRemove;
+        }
+
+        void Items_ItemRemove()
+        {
+            const string SOURCE = CLASS_NAME + "Items_ItemRemove";
+
+            try
+            {
+                //if current selected mail is ChiaraMail
+                if (IsCurrentItemChiaraMail)
+                {
+                    //prompt for confirmation
+                    if (MessageBox.Show(Resources.prompt_delete_content_confirm_outlook,
+                           Resources.product_name,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        foreach (var pointer in Pointers)
+                        {
+                            string error;
+                            ContentHandler.DeleteContent(ActiveAccount.SMTPAddress,
+                                                            ActiveAccount.Configurations[0], pointer, out error, false);
+                            
+                            if (error.Equals("success")) continue;
+                            MessageBox.Show(string.Format(
+                                Resources.error_deleting_content,
+                                Environment.NewLine, error),
+                                            Resources.product_name,
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+            }
+        }
         #endregion
 
         #region Shutdown

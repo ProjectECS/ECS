@@ -197,6 +197,7 @@ namespace ChiaraMail.FormRegions
                     ref _duration, ref _userAgent, ref _allowForwarding);
 
                 ThisAddIn.IsMailAllowForwarding = _allowForwarding;
+                ThisAddIn._pointerString = _pointerString;
                 
                 // check for missing/incomplete configuration first
                 //Logger.Verbose(SOURCE,string.Format("checking for store address; store: {0}, supplying {1}",
