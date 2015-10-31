@@ -123,6 +123,7 @@ namespace ChiaraMail.Wrappers
                         {
                             Encrypted = config.Encrypt;
                             NoPlaceholder = config.NoPlaceholder;
+                            AllowForwarding = config.AllowForwarding;
                         }
                     }
                     MailItem.PropertyChange += MailItemPropertyChange;
@@ -773,6 +774,7 @@ namespace ChiaraMail.Wrappers
                     {
                         Encrypted = config.Encrypt;
                         NoPlaceholder = config.NoPlaceholder;
+                        AllowForwarding = config.AllowForwarding;
                     }
                 }
                 //invalidate the ribbon controls

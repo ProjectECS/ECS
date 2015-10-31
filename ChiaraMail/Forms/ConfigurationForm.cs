@@ -233,6 +233,7 @@ namespace ChiaraMail.Forms
                 txtSend.Text = "";
                 txtEncrypt.Text = "";
                 txtInclude.Text = "";
+                txtAllow.Text = "";
                 btnRemove.Enabled = false;
                 btnEdit.Enabled = false;
                 btnDefault.Enabled = false;
@@ -256,6 +257,7 @@ namespace ChiaraMail.Forms
             txtSend.Text = config.DefaultOn ? "Yes" : "No";
             txtEncrypt.Text = config.Encrypt ? "Yes" : "No";
             txtInclude.Text = config.NoPlaceholder ? "Yes" : "No";
+            txtAllow.Text = config.AllowForwarding ? "Yes" : "No";
         }
 
         private void LvwConfigDoubleClick(object sender, EventArgs e)

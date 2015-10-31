@@ -45,6 +45,7 @@
             this.chkDefaultOn = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkAllowForwarding = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udPort)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -172,12 +173,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkAllowForwarding);
             this.groupBox2.Controls.Add(this.chkNoPlaceholder);
             this.groupBox2.Controls.Add(this.chkEncrypt);
             this.groupBox2.Controls.Add(this.chkDefaultOn);
             this.groupBox2.Location = new System.Drawing.Point(13, 181);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(265, 101);
+            this.groupBox2.Size = new System.Drawing.Size(265, 123);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "When this configuration is the account default";
@@ -186,7 +188,7 @@
             // 
             this.chkNoPlaceholder.AutoSize = true;
             this.chkNoPlaceholder.Enabled = false;
-            this.chkNoPlaceholder.Location = new System.Drawing.Point(7, 69);
+            this.chkNoPlaceholder.Location = new System.Drawing.Point(7, 68);
             this.chkNoPlaceholder.Name = "chkNoPlaceholder";
             this.chkNoPlaceholder.Size = new System.Drawing.Size(107, 17);
             this.chkNoPlaceholder.TabIndex = 2;
@@ -207,7 +209,7 @@
             // chkDefaultOn
             // 
             this.chkDefaultOn.AutoSize = true;
-            this.chkDefaultOn.Location = new System.Drawing.Point(7, 21);
+            this.chkDefaultOn.Location = new System.Drawing.Point(7, 22);
             this.chkDefaultOn.Name = "chkDefaultOn";
             this.chkDefaultOn.Size = new System.Drawing.Size(88, 17);
             this.chkDefaultOn.TabIndex = 0;
@@ -218,7 +220,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOK.Location = new System.Drawing.Point(67, 288);
+            this.btnOK.Location = new System.Drawing.Point(67, 318);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -230,12 +232,23 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(148, 288);
+            this.btnCancel.Location = new System.Drawing.Point(148, 318);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // chkAllowForwarding
+            // 
+            this.chkAllowForwarding.AutoSize = true;
+            this.chkAllowForwarding.Enabled = false;
+            this.chkAllowForwarding.Location = new System.Drawing.Point(7, 91);
+            this.chkAllowForwarding.Name = "chkAllowForwarding";
+            this.chkAllowForwarding.Size = new System.Drawing.Size(116, 17);
+            this.chkAllowForwarding.TabIndex = 3;
+            this.chkAllowForwarding.Text = "&Allow forwarding";
+            this.chkAllowForwarding.UseVisualStyleBackColor = true;
             // 
             // ContentServerForm
             // 
@@ -244,7 +257,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(290, 325);
+            this.ClientSize = new System.Drawing.Size(290, 355);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox2);
@@ -286,5 +299,6 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox chkDisplay;
+        internal System.Windows.Forms.CheckBox chkAllowForwarding;
     }
 }

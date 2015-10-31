@@ -1284,7 +1284,8 @@ namespace ChiaraMail
                                                 Port = Resources.default_port,
                                                 DefaultOn = false,
                                                 Encrypt = false,
-                                                NoPlaceholder = false
+                                                NoPlaceholder = false,
+                                                AllowForwarding = false
                                             }
                                     }
                                 }
@@ -1362,7 +1363,8 @@ namespace ChiaraMail
                                                         Port = Resources.default_port,
                                                         DefaultOn = false,
                                                         Encrypt = false,
-                                                        NoPlaceholder = false
+                                                        NoPlaceholder = false,
+                                                        AllowForwarding = false
                                                     }
                                             }
                                         }
@@ -1437,7 +1439,8 @@ namespace ChiaraMail
                                                         Port = Resources.default_port,
                                                         DefaultOn = false,
                                                         Encrypt = false,
-                                                        NoPlaceholder = false
+                                                        NoPlaceholder = false,
+                                                        AllowForwarding = false
                                                     }
                                             }
                                         }
@@ -1481,7 +1484,8 @@ namespace ChiaraMail
                                                         Port = "443",
                                                         DefaultOn = false,
                                                         Encrypt = false,
-                                                        NoPlaceholder = false
+                                                        NoPlaceholder = false,
+                                                        AllowForwarding = false
                                                     }
                                             }
                                         }
@@ -1522,7 +1526,8 @@ namespace ChiaraMail
                                                     Port = Resources.default_port,
                                                     DefaultOn = false,
                                                     Encrypt = false,
-                                                    NoPlaceholder = false
+                                                    NoPlaceholder = false,
+                                                    AllowForwarding = false
                                                 }}
                                         }
                                 });
@@ -1563,7 +1568,8 @@ namespace ChiaraMail
                                                     Port = Resources.default_port,
                                                     DefaultOn = false,
                                                     Encrypt = false,
-                                                    NoPlaceholder = false
+                                                    NoPlaceholder = false,
+                                                    AllowForwarding = false
                                                 }}
                                         }
                                 });
@@ -1659,7 +1665,8 @@ namespace ChiaraMail
                                     Port = "443",
                                     DefaultOn = false,
                                     Encrypt = false,
-                                    NoPlaceholder = false
+                                    NoPlaceholder = false,
+                                    AllowForwarding = false
                                 }
                         }
                     };
@@ -2157,7 +2164,8 @@ namespace ChiaraMail
                                             Port = "443",
                                             DefaultOn = Convert.ToBoolean(acct[4]),
                                             Encrypt = acct.Length > 5 && Convert.ToBoolean(acct[5]),
-                                            NoPlaceholder = (acct.Length > 6) && Convert.ToBoolean(acct[6])
+                                            NoPlaceholder = (acct.Length > 6) && Convert.ToBoolean(acct[6]),
+                                            AllowForwarding = (acct.Length > 7) && Convert.ToBoolean(acct[7])
                                         }
                                 }
                             };

@@ -33,6 +33,7 @@ namespace ChiaraMail.Forms
             chkDefaultOn.Checked = _configuration.DefaultOn;
             chkEncrypt.Checked = _configuration.Encrypt;
             chkNoPlaceholder.Checked = _configuration.NoPlaceholder;
+            chkAllowForwarding.Checked = _configuration.AllowForwarding;
         }
 
         private void BtnOKClick(object sender, EventArgs e)
@@ -110,7 +111,8 @@ namespace ChiaraMail.Forms
                     Password = txtPassword.Text,
                     DefaultOn = chkDefaultOn.Checked,
                     Encrypt = chkEncrypt.Checked,
-                    NoPlaceholder = chkNoPlaceholder.Checked
+                    NoPlaceholder = chkNoPlaceholder.Checked,
+                    AllowForwarding = chkAllowForwarding.Checked
                 };
             if (!Account.Configurations.ContainsKey(Key))
             {
@@ -127,6 +129,7 @@ namespace ChiaraMail.Forms
         {
             chkEncrypt.Enabled = chkDefaultOn.Checked;
             chkNoPlaceholder.Enabled = chkDefaultOn.Checked;
+            chkAllowForwarding.Enabled = chkDefaultOn.Checked;
         }
 
         private void ChkDisplayCheckedChanged(object sender, EventArgs e)

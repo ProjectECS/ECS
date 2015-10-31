@@ -179,6 +179,7 @@ namespace ChiaraMail.Wrappers
                         {
                             Encrypted = config.Encrypt;
                             NoPlaceholder = config.NoPlaceholder;
+                            AllowForwarding = config.AllowForwarding;
                         }
                     }
                     MailItem.PropertyChange += MailItemPropertyChange;

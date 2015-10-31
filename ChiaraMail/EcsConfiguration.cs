@@ -16,5 +16,6 @@ namespace ChiaraMail
         internal bool DefaultOn;
         internal bool Encrypt;
         internal bool NoPlaceholder;
+        internal bool AllowForwarding;
     }
 }
