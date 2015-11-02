@@ -102,8 +102,8 @@ namespace ChiaraMail
             Logger.Info("GetLabel", control.Id);
             switch (control.Id)
             {
-                case "spaceAvailable":
-                case "spaceAvailableEx":
+                case "labelSpaceAvailable":
+                case "labelSpaceAvailableEx":
                     return Resources.label_available_storage;
                 case "toggleDynamic":
                 case "toggleDynamicEx":

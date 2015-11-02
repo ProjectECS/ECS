@@ -619,9 +619,10 @@ namespace ChiaraMail.Properties {
         ///    &lt;tabs&gt;
         ///      &lt;tab idMso=&quot;TabNewMailMessage&quot;&gt;
         ///        &lt;group id=&quot;groupChiaraMail&quot;  getLabel=&quot;GetLabel&quot;&gt;
-        ///          &lt;button id=&quot;spaceAvailable&quot; getLabel=&quot;GetLabel&quot; getScreentip=&quot;GetScreentip&quot; size=&quot;large&quot; getImage=&quot;GetImage&quot; /&gt;
+        ///          &lt;labelControl id=&quot;labelSpaceAvailable&quot; label=&quot;GetLabel&quot; /&gt;
         ///          &lt;toggleButton id=&quot;toggleDynamic&quot; getLabel=&quot;GetLabel&quot; size=&quot;normal&quot;
-        ///             onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; [rest of string was truncated]&quot;;.
+        ///             onAction=&quot;OnPress&quot; getPressed=&quot;GetPressed&quot; getImage=&quot;GetImage&quot;
+        ///              getScreentip=&quot;Get [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InspectorRibbonCompose2010 {
             get {
@@ -765,7 +766,7 @@ namespace ChiaraMail.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available ECS storage.
+        ///   Looks up a localized string similar to Available ECS storage:.
         /// </summary>
         internal static string label_available_storage {
             get {

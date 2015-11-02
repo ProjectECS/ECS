@@ -1764,7 +1764,7 @@ namespace ChiaraMail
 
                 StringFormat sf = new StringFormat();
                 sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Far;
 
                 drawing.DrawString(text, font, textBrush, new PointF(textSize.Width / 2, textSize.Width / 2), sf);
 
