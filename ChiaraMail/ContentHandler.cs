@@ -851,7 +851,7 @@ namespace ChiaraMail
             const string SOURCE = CLASS_NAME + "SaveAttachment";
             try
             {
-                byte[] buf = Convert.FromBase64String(content);
+                byte[] buf = Convert.FromBase64String(HttpUtility.UrlDecode(content));
                 //optional encryption
                 if (!string.IsNullOrEmpty(encryptKey))
                 {
@@ -908,7 +908,7 @@ namespace ChiaraMail
                 //optional decryption
                 if (!string.IsNullOrEmpty(encryptKey))
                 {
-                    //decode as "UTF8" first
+                    //decode as "UTF8" first    
                     buf = Utf8Decode(buf);
                     //decrypt bytes
                     buf = Cryptography.DecryptAES(buf, encryptKey);
