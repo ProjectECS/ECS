@@ -117,7 +117,21 @@ namespace ChiaraMail
                 if(PreviewInBrowser(filename))
                 {
                     var browser = new WebBrowser {Dock = DockStyle.Fill};
-                    browser.Navigate("file://" + filename);
+                    if (!Utils.IsFileImage(filename))
+                    {
+                        browser.Navigate("file://" + filename);
+                    }
+                    else
+                    {
+                        var data = Convert.ToBase64String(File.ReadAllBytes(filename));
+                        var newValue = string.Format("data:image/{0};base64,{1}", Path.GetExtension(filename), data);
+
+                        browser.DocumentText = "0";
+                        browser.Document.OpenNew(true);
+                        browser.Document.Write("<img src='" + newValue + "'>");
+                        browser.Refresh();
+                    }
+
                     Controls.Add(browser);
                     return;
                 }

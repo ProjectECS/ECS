@@ -878,7 +878,7 @@ namespace ChiaraMail
                     }
                 }
 
-                if (Path.GetExtension(path) == ".bmp" || Path.GetExtension(path) == ".jpg" || Path.GetExtension(path) == ".jpeg" || Path.GetExtension(path) == ".gif" || Path.GetExtension(path) == ".png")
+                if (Utils.IsFileImage(path))
                 {
                     using (Image image = Image.FromStream(new MemoryStream(buf)))
                     {

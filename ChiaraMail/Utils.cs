@@ -1805,6 +1805,23 @@ namespace ChiaraMail
                 return Color.Black;
             }
         }
+
+        /// <summary>
+        /// to check if the given path is Image or not
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        internal static bool IsFileImage(string path)
+        {
+            if (Path.GetExtension(path) == ".bmp" || Path.GetExtension(path) == ".jpg" || Path.GetExtension(path) == ".jpeg" || Path.GetExtension(path) == ".gif" || Path.GetExtension(path) == ".png")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #region Private methods
 
         private static string ConnectedAddIns(Outlook._Application app)
