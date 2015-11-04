@@ -676,6 +676,13 @@ namespace ChiaraMail.Wrappers
                 Logger.Verbose(SOURCE,"calling Assign Headers");
                 Utils.AssignHeaders(MailItem, account, pointers, encryptKey, Encrypted);
 
+                //update storage data
+                string strResponseData = ContentHandler.GetDataResponse(account.SMTPAddress, account.Configurations[0].Password, account.Configurations[0].Server, account.Configurations[0].Port);
+                if (strResponseData.StartsWith("6 "))
+                {
+                    account.Storage = strResponseData.Substring(strResponseData.IndexOf("= ") + 2);
+                }
+
                 //change message class
                 _mailItem.MessageClass = Resources.message_class_CM;
                 //save changes
