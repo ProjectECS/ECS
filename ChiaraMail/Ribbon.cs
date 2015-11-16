@@ -363,22 +363,17 @@ namespace ChiaraMail
                             return false;
                         }
 
-                        //While compose new, we will always enable “Allow forwarding” button
-                        if ((item.CreationTime > DateTime.Now && item.Recipients.Count == 0) || 
-                            item.CreationTime <= DateTime.Now)
+                        //While reply/reply all/forward, we will always disable “Allow forwarding” button
+                        if (item.Body.Contains(AppConstants.FromString))
+                        {
+                            Win32.AllowForwarding(ThisAddIn.IsMailAllowForwarding);
+                            return false; 
+                        }
+                        else //While compose new, we will always enable “Allow forwarding” button
                         {
                             Win32.AllowForwarding(true);
                             return true;
                         }
-
-                        //While reply/reply all/forward, we will always disable “Allow forwarding” button
-                        if (item.CreationTime > DateTime.Now)
-                        {
-                            Win32.AllowForwarding(ThisAddIn.IsMailAllowForwarding);
-                            return false;
-                        }
-
-                        return false;
                     case "buttonEditContent":
                     case "buttonDeleteContent":
                         if (item == null) return false;
