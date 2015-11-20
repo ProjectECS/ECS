@@ -58,5 +58,29 @@ namespace ChiaraMail.Properties {
                 return ((int)(this["UpdateBatch"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double UploadSpeed {
+            get {
+                return ((double)(this["UploadSpeed"]));
+            }
+            set {
+                this["UploadSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double DownloadSpeed {
+            get {
+                return ((double)(this["DownloadSpeed"]));
+            }
+            set {
+                this["DownloadSpeed"] = value;
+            }
+        }
     }
 }

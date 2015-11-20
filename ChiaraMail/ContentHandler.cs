@@ -157,6 +157,7 @@ namespace ChiaraMail
             content = "";
             try
             {
+                DateTime dtStartDownloadTime = DateTime.Now; 
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1} {2}",
                     "FETCH%20CONTENT",
@@ -197,7 +198,77 @@ namespace ChiaraMail
                 }
                 var reader = new StreamReader(stream);
                 string responseText = reader.ReadToEnd();
-                ParseFetchResponse(responseText, returnRaw, ref content, out error);                
+                ParseFetchResponse(responseText, returnRaw, ref content, out error);
+                DateTime dtEndDownloadTime = DateTime.Now;
+
+                //if DownloadSpeed is 0 then it means we are going to measure Download speed and then storing for future use.
+                if (Properties.Settings.Default.DownloadSpeed == 0)
+                {
+                    double sizeInKb = content.Length / 1024;
+                    TimeSpan ts = dtEndDownloadTime.Subtract(dtStartDownloadTime);
+                    double speed = sizeInKb / ts.TotalSeconds;
+
+                    Properties.Settings.Default.DownloadSpeed = speed;
+                    Properties.Settings.Default.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+                error = "Internal error";
+            }
+        }
+
+        internal static void FetchSegment(string smtpAddress, EcsConfiguration configuration, string senderAddress, string id,
+            string server, string port, bool returnRaw, string filePointer, out string content, out string error)
+        {
+            const string SOURCE = CLASS_NAME + "FetchSegment";
+            content = "";
+            try
+            {
+                var post = AssembleLoginParams(smtpAddress, configuration.Password) +
+                    string.Format("{0}&parms={1} {2} {3}",
+                    "FETCH%20SEGMENT",
+                    senderAddress,
+                    id,
+                    filePointer);
+                byte[] postData = Encoding.UTF8.GetBytes(post);
+                if (string.IsNullOrEmpty(server)) server = configuration.Server;
+                if (string.IsNullOrEmpty(port)) port = configuration.Port;
+                HttpWebRequest request = CreateRequest(server, port, postData);
+                if (request == null)
+                {
+                    Logger.Error(SOURCE, "failed to create HttpWebRequest object");
+                    error = "Internal error";
+                    return;
+                }
+                var response = request.GetResponse() as HttpWebResponse;
+                if (!request.HaveResponse)
+                {
+                    Logger.Error(SOURCE, "server did not respond");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                if (response == null)
+                {
+                    Logger.Error(SOURCE, "response is null");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                var stream = response.GetResponseStream();
+                if (stream == null)
+                {
+                    Logger.Error(SOURCE, "ResponseStream == null");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                var reader = new StreamReader(stream);
+                string responseText = reader.ReadToEnd();
+
+                ParseFetchSegmentResponse(responseText, returnRaw, ref content, out error);
             }
             catch (Exception ex)
             {
@@ -670,6 +741,7 @@ namespace ChiaraMail
             {
                 //1 MB is the max for RECEIVE CONTENT, so split into chunks         
                 var chunks = SegmentContent(encodedContent);
+                DateTime dtStartUploadTime = DateTime.Now;
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
@@ -684,6 +756,19 @@ namespace ChiaraMail
                     return;
                 }
                 GetResponseAsync(request, "ReceiveContent", ref bw, ref e, out pointer, out error);
+                DateTime dtEndUploadTime = DateTime.Now;
+
+                //if UploadSpeed is 0 then it means we are going to measure Upload speed and then storing for future use.
+                if (Properties.Settings.Default.UploadSpeed == 0)
+                {
+                    double sizeInKb = (chunks[0].Length * 8) / 1024;
+                    TimeSpan ts = dtEndUploadTime.Subtract(dtStartUploadTime);
+                    double speed = sizeInKb / ts.TotalSeconds;
+
+                    Properties.Settings.Default.UploadSpeed = speed;
+                    Properties.Settings.Default.Save();
+                }
+
                 if(chunks.Count <= 1 || string.IsNullOrEmpty(pointer)) return;
                 for (var j = 1; j < chunks.Count; j++)
                 {
@@ -1522,6 +1607,52 @@ namespace ChiaraMail
             }
         }
 
+        private static void ParseFetchSegmentResponse(string responseText, bool returnRaw,
+            ref string content, out string error)
+        {
+            const string SOURCE = CLASS_NAME + "ParseFetchSegmentResponse";
+            try
+            {
+                if (string.IsNullOrEmpty(responseText))
+                {
+                    Logger.Warning(SOURCE, "missing responseText");
+                    error = "Server did not respond";
+                    return;
+                }
+                string code;
+                EvalFetchSegmentResponse(responseText, out code, out error);
+                //handle error codes
+                if (code.Equals("13")) //Content segment fetched
+                {
+                }
+                else
+                {
+                    /*
+                        "-29 Content file missing, possibly deleted "  
+                        “-26 Misleading e-mail address” 
+                        "-15 Not a number, key: " 
+                        "-11 Not a recipient, e-mail address: " 
+                        "-6 Error reading content file" 
+                        "-4 Error opening content file" 
+                        "-3 Error deleting file "  
+                        "-2 Login not complete" 
+                        "13 Content segment fetched, file pointer=<pointer>, total content size=<length>, segment = " 
+                     */
+                    double result;
+                    if (!Double.TryParse(code, out result))
+                    {
+                        //missing code
+                        error = "Unknown error";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+                error = "Internal error";
+            }
+        }
+
         private static void ParseFetchResponse(string responseText, bool returnRaw,
             ref string content, out string error)
         {
@@ -1732,6 +1863,18 @@ namespace ChiaraMail
             code = responseText.Substring(0, delim);
             if (!string.IsNullOrEmpty(code)) code = code.Trim();
             error = responseText.Substring(delim);
+            if (!string.IsNullOrEmpty(error)) error = error.Trim();
+        }
+
+        private static void EvalFetchSegmentResponse(string responseText, out string code, out string error)
+        {
+            var delim = responseText.IndexOf(' ');
+            code = responseText.Substring(0, delim);
+            if (!string.IsNullOrEmpty(code)) code = code.Trim();
+            delim = responseText.IndexOf(AppConstants.TotalContentSize) + AppConstants.TotalContentSize.Length;
+            error = responseText.Substring(delim);
+            delim = error.IndexOf(',');
+            error = error.Substring(0, delim);
             if (!string.IsNullOrEmpty(error)) error = error.Trim();
         }
 
