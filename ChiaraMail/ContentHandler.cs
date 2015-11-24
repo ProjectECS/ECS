@@ -913,7 +913,7 @@ namespace ChiaraMail
                 else if (!string.IsNullOrEmpty(encryptKey2))
                 {
                     //encrypt
-                    buf = AES_JS.Encrypt(buf, encryptKey2);
+                    buf = AES_JS.EnCryptCBC(buf, encryptKey2);
                     //then compress
                     //Compress(ref buf);
                 }
@@ -947,7 +947,7 @@ namespace ChiaraMail
                     Decompress(ref buf);
                 }
                 else if (!string.IsNullOrEmpty(encryptKey2))
-                {
+                { 
                     //if user-agent field have value then decrypt with CBC mode or decrypt with ECB mode (earlier solution)
                     if (!string.IsNullOrEmpty(userAgent))
                     {
