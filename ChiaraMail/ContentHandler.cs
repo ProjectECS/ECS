@@ -936,7 +936,10 @@ namespace ChiaraMail
             const string SOURCE = CLASS_NAME + "SaveAttachment";
             try
             {
-                byte[] buf = Convert.FromBase64String(HttpUtility.UrlDecode(content));
+                string strUrlDecoded = HttpUtility.UrlDecode(content);
+
+            WithoutUrlDecode:
+                byte[] buf = Convert.FromBase64String(strUrlDecoded);
                 //optional encryption
                 if (!string.IsNullOrEmpty(encryptKey))
                 {
@@ -953,7 +956,18 @@ namespace ChiaraMail
                     {
                         //no UTF8 decoding
                         //just decrypt
-                        buf = AES_JS.DecryptCBC(buf, encryptKey2);
+                        try
+                        {
+                            buf = AES_JS.DecryptCBC(buf, encryptKey2);
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex.ToString().Contains("Length of the data to decrypt is invalid"))
+                            {
+                                strUrlDecoded = content;
+                                goto WithoutUrlDecode;
+                            }
+                        }
                     }
                     else
                     {
