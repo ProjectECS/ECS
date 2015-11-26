@@ -380,6 +380,7 @@ namespace ChiaraMail.FormRegions
                                             out error);
                 if (string.IsNullOrEmpty(content))
                 {
+                    ThisAddIn.IsCurrentItemHasContent = false;
                     Logger.Warning(SOURCE, string.Format(
                         "FetchContent request for {0} from {1} returned {2}",
                         Pointers[0], _senderAddress, error));
@@ -391,6 +392,7 @@ namespace ChiaraMail.FormRegions
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
                 }
+
                 //self-destruct
                 //if (!string.IsNullOrEmpty(_duration))
                 //{
@@ -412,6 +414,7 @@ namespace ChiaraMail.FormRegions
                 var embeddedFileNames = new List<string>();
                 if (!string.IsNullOrEmpty(content))
                 {
+                    ThisAddIn.IsCurrentItemHasContent = true;
                     if (string.IsNullOrEmpty(EncryptKey + EncryptKey2))
                     {
                         Logger.Verbose(SOURCE, string.Format(

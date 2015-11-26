@@ -115,6 +115,7 @@ namespace ChiaraMail
 
         public static bool IsMailAllowForwarding { get; set; }
         public static bool  IsCurrentItemChiaraMail { get; set; }
+        public static bool IsCurrentItemHasContent { get; set; }
         public static string _pointerString { get; set; }
 
         internal string[] Pointers
@@ -286,7 +287,7 @@ namespace ChiaraMail
             try
             {
                 //if current selected mail is ChiaraMail
-                if (IsCurrentItemChiaraMail)
+                if (IsCurrentItemChiaraMail && IsCurrentItemHasContent)
                 {
                     //prompt for confirmation
                     if (MessageBox.Show(Resources.prompt_delete_content_confirm_outlook,
