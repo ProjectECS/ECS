@@ -919,9 +919,7 @@ namespace ChiaraMail
                 }
 
                 //convert to base64
-                string base64 = Convert.ToBase64String(buf);
-                //UrlEncode (to handle embedded reserved characters like +0
-                return HttpUtility.UrlEncode(base64);
+                return Convert.ToBase64String(buf);
             }
             catch (Exception ex)
             {
@@ -936,7 +934,7 @@ namespace ChiaraMail
             const string SOURCE = CLASS_NAME + "SaveAttachment";
             try
             {
-                string strUrlDecoded = HttpUtility.UrlDecode(content);
+                string strUrlDecoded = content;
 
             WithoutUrlDecode:
                 byte[] buf = Convert.FromBase64String(strUrlDecoded);
