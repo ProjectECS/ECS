@@ -117,6 +117,7 @@ namespace ChiaraMail
         public static bool  IsCurrentItemChiaraMail { get; set; }
         public static bool IsCurrentItemHasContent { get; set; }
         public static string _pointerString { get; set; }
+        public static bool IsLoad { get; set; }
 
         internal string[] Pointers
         {
@@ -193,6 +194,7 @@ namespace ChiaraMail
                 swStartUpTime.Start();
 
                 Logger.Init();
+                IsLoad = true;
                 var version = Application.Version;
                 AppVersion = Convert.ToInt32(version.Split(new[] { '.' })[0]);
 
@@ -258,7 +260,7 @@ namespace ChiaraMail
                 //    ListCurrentAccounts()));
                 //EvalAttachmentPreview();
                 ////CheckRegistrations();
-
+                
                 Logger.Info(SOURCE, string.Format("Takes {0} seconds", swStartUpTime.Elapsed.TotalSeconds));
             }
             catch (Exception ex)
@@ -1066,7 +1068,59 @@ namespace ChiaraMail
             EvalAttachmentPreview();
             var readingPane = new DynamicReadingPane.DynamicReadingPaneFactory();
 
+            UpdateMessageClass();
+
             Logger.Info(SOURCE, string.Format("Takes {0} seconds", swInitHandler.Elapsed.TotalSeconds));
+        }
+
+        private void UpdateMessageClass()
+        {
+            const string SOURCE = CLASS_NAME + "UpdateMessageClass";
+            try
+            {
+                var session = RedemptionLoader.new_RDOSession();
+                session.MAPIOBJECT = Session.MAPIOBJECT;
+                var folder = session.GetFolderFromID(ExplWrap.FolderId, ExplWrap.StoreId);
+                if (folder == null) return;
+                if (folder.DefaultItemType != (int)OlItemType.olMailItem) return;
+                var items = folder.Items;
+                if (items == null || items.Count == 0) return;
+                Logger.Verbose(SOURCE, "updating items in " + folder.Name);
+                var filter = string.Format(
+                    "SELECT * FROM Folder WHERE \"{0}\" = 'IPM.Note'" +
+                    "ORDER BY ReceivedTime DESC",
+                    "http://schemas.microsoft.com/mapi/proptag/0x001A001F");
+                var item = items.Find(filter);
+                if (item == null) return;
+                Logger.Verbose(SOURCE, "updating items in " + folder.Name);
+                var counter = 0;
+                while (item != null)
+                {
+                    string strHeaderText = item.get_Fields("http://schemas.microsoft.com/mapi/proptag/0x007D001F");
+
+                    if (strHeaderText.ToLower().Contains("x-chiaramail-content-pointer"))
+                    {
+                        item.MessageClass = Resources.message_class_CM;
+                        item.Save();
+                        counter += 1;
+                        item = items.FindNext();
+                        if (item != null && counter == Settings.Default.UpdateBatch)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                        item = items.FindNext();
+                }
+
+                Logger.Verbose(SOURCE, string.Format(
+                    "updated {0} items in {1}",
+                    counter, folder.Name));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.Message);
+            }
         }
 
         private static bool EvalRecip(Recipient recip, ref Dictionary<string, Recipient> selections)

@@ -106,9 +106,9 @@ namespace ChiaraMail.Wrappers
 
         internal string Key { get; set; }
 
-        internal string FolderId { get; set; }
+        internal static string FolderId { get; set; }
 
-        internal string StoreId { get; set; }
+        internal static string StoreId { get; set; }
         
         internal CommandBarButton ConfigButton
         {
@@ -418,7 +418,13 @@ namespace ChiaraMail.Wrappers
                 //stop the timer
                 _timer.Change(Timeout.Infinite, 0);
                 //launch the process
-                UpdateMessageClass();
+
+                if (ThisAddIn.IsLoad == false)
+                {
+                    UpdateMessageClass();
+                }
+
+                ThisAddIn.IsLoad = false;
             }
             catch (Exception ex)
             {
@@ -487,7 +493,7 @@ namespace ChiaraMail.Wrappers
             }
         }
 
-        private void UpdateMessageClass() 
+        private void UpdateMessageClass()
         {
             const string SOURCE = CLASS_NAME + "UpdateMessageClass";
             try
@@ -527,7 +533,7 @@ namespace ChiaraMail.Wrappers
                 Logger.Verbose(SOURCE, string.Format(
                     "updated {0} items in {1}",
                     counter, folder.Name));
-                if (fireTimer) 
+                if (fireTimer)
                     _timer.Change(Settings.Default.TimerDelay, Settings.Default.TimerDelay);
             }
             catch (Exception ex)
