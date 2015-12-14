@@ -1822,6 +1822,20 @@ namespace ChiaraMail
                 return false;
             }
         }
+
+        /// <summary>
+        /// to update account storage value as how much space account is left
+        /// </summary>
+        /// <param name="account"></param>
+        public static void UpdateAccountStorage(Account account)
+        {
+            string strResponseData = ContentHandler.GetDataResponse(account.SMTPAddress, account.Configurations[0].Password, account.Configurations[0].Server, account.Configurations[0].Port);
+            if (strResponseData.StartsWith("6 "))
+            {
+                account.Storage = strResponseData.Substring(strResponseData.IndexOf("= ") + 2);
+            }
+        }
+
         #region Private methods
 
         private static string ConnectedAddIns(Outlook._Application app)

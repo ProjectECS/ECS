@@ -302,7 +302,7 @@ namespace ChiaraMail
                             string error;
                             ContentHandler.DeleteContent(ActiveAccount.SMTPAddress,
                                                             ActiveAccount.Configurations[0], pointer, out error, false);
-                            
+
                             if (error.Equals("success")) continue;
                             MessageBox.Show(string.Format(
                                 Resources.error_deleting_content,
@@ -312,6 +312,8 @@ namespace ChiaraMail
                                             MessageBoxIcon.Error);
                             return;
                         }
+
+                        Utils.UpdateAccountStorage(ActiveAccount);
                     }
                 }
             }

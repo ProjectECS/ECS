@@ -295,13 +295,8 @@ namespace ChiaraMail.Wrappers
                 //assign the headers
                 AssignHeaders(account, pointers, encryptKey, AllowForwarding);
 
-                //update storage data
-                string strResponseData = ContentHandler.GetDataResponse(account.SMTPAddress, account.Configurations[0].Password, account.Configurations[0].Server, account.Configurations[0].Port);
-                if (strResponseData.StartsWith("6 "))
-                {
-                    account.Storage = strResponseData.Substring(strResponseData.IndexOf("= ") + 2);
-                }
-
+                Utils.UpdateAccountStorage(account);
+                
                 //change message class
                 _mailItem.MessageClass = Resources.message_class_CM;
                 //save changes

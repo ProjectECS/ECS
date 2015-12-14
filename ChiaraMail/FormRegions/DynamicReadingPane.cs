@@ -863,6 +863,9 @@ namespace ChiaraMail.FormRegions
                                     MessageBoxIcon.Error);
                     return;
                 }
+
+                Utils.UpdateAccountStorage(_account);
+
                 //clear the content
                 Content = "";
 
