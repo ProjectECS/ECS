@@ -685,27 +685,15 @@ namespace ChiaraMail.FormRegions
                 {
                     ShowPreview(true);
                     //do we already have the attachment?
-                    var waitForm = new WaitForm
-                                   {
-                                       Pointer = pointer,
-                                       AttachList = AttachList,
-                                       RecordKey = _recordKey,
-                                       CurrentAccount = _account,
-                                       CurrentConfiguration = _configuration,
-                                       SenderAddress = _senderAddress,
-                                       ServerName = ServerName,
-                                       ServerPort = ServerPort,
-                                       EncryptKey = EncryptKey,
-                                       EncryptKey2 = EncryptKey2,
-                                       UserAgent =  UserAgent,
-                                       CallType = DownloadUpload.Download
-                                   };
-
-                    waitForm.ShowDialog();
-                    _currentFilePath = WaitForm.Path;
-                    AttachList[pointer].Hash = WaitForm.Hash;
+                    string hash;
+                    string path;
+                    Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
+                                  _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
+                                  EncryptKey, EncryptKey2, UserAgent, out path, out hash);
+                    _currentFilePath = path;
+                    AttachList[pointer].Hash = hash;
                     LoadAttachmentHeader(pointer, _currentFilePath, "", "");
-                    if (File.Exists(_currentFilePath))
+                    if (File.Exists(path))
                     {
                         previewHandlerControl.Open(_currentFilePath);
                         //state = path;
@@ -1144,31 +1132,13 @@ namespace ChiaraMail.FormRegions
                 //string path = GetFile(pointer);
                 string path;
                 string hash;
-                var waitForm = new WaitForm
-                {
-                    Pointer = pointer,
-                    AttachList = AttachList,
-                    RecordKey = _recordKey,
-                    CurrentAccount = _account,
-                    CurrentConfiguration = _configuration,
-                    SenderAddress = _senderAddress,
-                    ServerName = ServerName,
-                    ServerPort = ServerPort,
-                    EncryptKey = EncryptKey,
-                    EncryptKey2 = EncryptKey2,
-                    UserAgent = UserAgent,
-                    CallType = DownloadUpload.Download
-                };
-
-                waitForm.ShowDialog();
-                path = WaitForm.Path;
-                hash = WaitForm.Hash;
-
+                Utils.GetFile(pointer, AttachList[pointer].Name, AttachList[pointer].Index,
+                    _recordKey, _account, _configuration, _senderAddress, ServerName, ServerPort,
+                    EncryptKey, EncryptKey2, UserAgent, out path, out hash);
                 if (string.IsNullOrEmpty(path))
                 {
                     return;
                 }
-
                 AttachList[pointer].Hash = hash;
                 //raise Save Dialog
                 saveFileDialog.FileName = Path.GetFileName(path);

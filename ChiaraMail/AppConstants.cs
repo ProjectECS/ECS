@@ -9,12 +9,5 @@ namespace ChiaraMail
     class AppConstants
     {
         public const string FromString = "From: ";
-        public const string TotalContentSize = "total content size=";
-    }
-
-    public enum DownloadUpload
-    {
-        Download,
-        Upload
     }
 }
