@@ -106,9 +106,9 @@ namespace ChiaraMail.Wrappers
 
         internal string Key { get; set; }
 
-        internal static string FolderId { get; set; }
+        internal string FolderId { get; set; }
 
-        internal static string StoreId { get; set; }
+        internal string StoreId { get; set; }
         
         internal CommandBarButton ConfigButton
         {
@@ -418,13 +418,7 @@ namespace ChiaraMail.Wrappers
                 //stop the timer
                 _timer.Change(Timeout.Infinite, 0);
                 //launch the process
-
-                if (ThisAddIn.IsLoad == false)
-                {
-                    UpdateMessageClass();
-                }
-
-                ThisAddIn.IsLoad = false;
+                UpdateMessageClass();
             }
             catch (Exception ex)
             {

@@ -206,6 +206,64 @@ namespace ChiaraMail
             }
         }
 
+        internal static void FetchSegment(string smtpAddress, EcsConfiguration configuration, string senderAddress, string id,
+            string server, string port, bool returnRaw, string filePointer, out string content, out string error)
+        {
+            const string SOURCE = CLASS_NAME + "FetchSegment";
+            content = "";
+            try
+            {
+                var post = AssembleLoginParams(smtpAddress, configuration.Password) +
+                    string.Format("{0}&parms={1} {2} {3}",
+                    "FETCH%20SEGMENT",
+                    senderAddress,
+                    id,
+                    filePointer);
+                byte[] postData = Encoding.UTF8.GetBytes(post);
+                if (string.IsNullOrEmpty(server)) server = configuration.Server;
+                if (string.IsNullOrEmpty(port)) port = configuration.Port;
+                HttpWebRequest request = CreateRequest(server, port, postData);
+                if (request == null)
+                {
+                    Logger.Error(SOURCE, "failed to create HttpWebRequest object");
+                    error = "Internal error";
+                    return;
+                }
+                var response = request.GetResponse() as HttpWebResponse;
+                if (!request.HaveResponse)
+                {
+                    Logger.Error(SOURCE, "server did not respond");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                if (response == null)
+                {
+                    Logger.Error(SOURCE, "response is null");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                var stream = response.GetResponseStream();
+                if (stream == null)
+                {
+                    Logger.Error(SOURCE, "ResponseStream == null");
+                    request.Abort();
+                    error = "Internal error";
+                    return;
+                }
+                var reader = new StreamReader(stream);
+                string responseText = reader.ReadToEnd();
+
+                ParseFetchSegmentResponse(responseText, returnRaw, ref content, out error);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+                error = "Internal error";
+            }
+        }
+
         internal static void ReceiveSegment(string smtpAddress, EcsConfiguration configuration, string segment,
             string id, out string error)
         {
@@ -670,6 +728,7 @@ namespace ChiaraMail
             {
                 //1 MB is the max for RECEIVE CONTENT, so split into chunks         
                 var chunks = SegmentContent(encodedContent);
+                AppConstants.TotalChunks = chunks.Count;
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
@@ -687,6 +746,7 @@ namespace ChiaraMail
                 if(chunks.Count <= 1 || string.IsNullOrEmpty(pointer)) return;
                 for (var j = 1; j < chunks.Count; j++)
                 {
+                    AppConstants.CurrentChunk = j;
                     if (e.Cancel || bw.CancellationPending) return;                   
                     Logger.Info(SOURCE, string.Format("sending segment #{0} of {1} segments",
                                                      j + 1, chunks.Count));
@@ -696,7 +756,7 @@ namespace ChiaraMail
                                                       j + 1, error));
                     break;
                 }
-
+                AppConstants.CurrentChunk = AppConstants.TotalChunks;
             }
             catch (Exception ex)
             {
@@ -950,7 +1010,7 @@ namespace ChiaraMail
 
         #region Helper methods
 
-        private static HttpWebRequest CreateRequest(string server, string port, byte[] postData)
+        public static HttpWebRequest CreateRequest(string server, string port, byte[] postData)
         {
             const string SOURCE = CLASS_NAME + "CreateRequest";
             HttpWebRequest request = null;
@@ -1333,7 +1393,7 @@ namespace ChiaraMail
             return result;
         }
         
-        private static string AssembleLoginParams(string email, string password)
+        public static string AssembleLoginParams(string email, string password)
         {
             var passwordBase64 =
                 HttpUtility.UrlEncode(
@@ -1534,7 +1594,53 @@ namespace ChiaraMail
             }
         }
 
-        private static void ParseFetchResponse(string responseText, bool returnRaw,
+        private static void ParseFetchSegmentResponse(string responseText, bool returnRaw,
+            ref string content, out string error)
+        {
+            const string SOURCE = CLASS_NAME + "ParseFetchSegmentResponse";
+            try
+            {
+                if (string.IsNullOrEmpty(responseText))
+                {
+                    Logger.Warning(SOURCE, "missing responseText");
+                    error = "Server did not respond";
+                    return;
+                }
+                string code;
+                EvalFetchSegmentResponse(responseText, out code, out error);
+                //handle error codes
+                if (code.Equals("13")) //Content segment fetched
+                {
+                }
+                else
+                {
+                    /*
+                        "-29 Content file missing, possibly deleted "  
+                        “-26 Misleading e-mail address” 
+                        "-15 Not a number, key: " 
+                        "-11 Not a recipient, e-mail address: " 
+                        "-6 Error reading content file" 
+                        "-4 Error opening content file" 
+                        "-3 Error deleting file "  
+                        "-2 Login not complete" 
+                        "13 Content segment fetched, file pointer=<pointer>, total content size=<length>, segment = " 
+                     */
+                    double result;
+                    if (!Double.TryParse(code, out result))
+                    {
+                        //missing code
+                        error = "Unknown error";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(SOURCE, ex.ToString());
+                error = "Internal error";
+            }
+        }
+
+        public static void ParseFetchResponse(string responseText, bool returnRaw,
             ref string content, out string error)
         {
             const string SOURCE = CLASS_NAME + "ParseFetchResponse";
@@ -1744,6 +1850,18 @@ namespace ChiaraMail
             code = responseText.Substring(0, delim);
             if (!string.IsNullOrEmpty(code)) code = code.Trim();
             error = responseText.Substring(delim);
+            if (!string.IsNullOrEmpty(error)) error = error.Trim();
+        }
+
+        private static void EvalFetchSegmentResponse(string responseText, out string code, out string error)
+        {
+            var delim = responseText.IndexOf(' ');
+            code = responseText.Substring(0, delim);
+            if (!string.IsNullOrEmpty(code)) code = code.Trim();
+            delim = responseText.IndexOf(AppConstants.TotalContentSize) + AppConstants.TotalContentSize.Length;
+            error = responseText.Substring(delim);
+            delim = error.IndexOf(',');
+            error = error.Substring(0, delim);
             if (!string.IsNullOrEmpty(error)) error = error.Trim();
         }
 
