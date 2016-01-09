@@ -869,7 +869,7 @@
                                                             "DeleteAtUninstall" = "11:FALSE"
                                                             "Transitive" = "11:FALSE"
                                                                 "Keys"
-                                                                {
+                        {
                                                                 }
                                                                 "Values"
                                                                 {
@@ -901,7 +901,7 @@
                                 }
                                 "Values"
                                 {
-                                }
+                        }
                             }
                         }
                         "Values"
@@ -1017,7 +1017,7 @@
                                                             "DeleteAtUninstall" = "11:FALSE"
                                                             "Transitive" = "11:FALSE"
                                                                 "Keys"
-                        {
+                                                                {
                                                                 }
                                                                 "Values"
                                                                 {
@@ -1031,16 +1031,16 @@
                                                                     }
                                                                 }
                                                             }
-                        }
-                        "Values"
-                        {
-                        }
-                    }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                        }
+                                                    }
                                                 }
                                                 "Values"
                                                 {
-                }
-            }
+                                                }
+                                            }
                                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_9F30C4807C0741D4BF4C074A190CF17A"
                                             {
                                             "Name" = "8:14.0"
