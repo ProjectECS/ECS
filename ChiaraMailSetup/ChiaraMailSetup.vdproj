@@ -333,7 +333,7 @@
                     {
                     "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
-                    }
+                }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -364,7 +364,7 @@
                     {
                     "Name" = "8:Ionic.Zip.dll"
                     "Attributes" = "3:512"
-                    }
+                }
                 }
             "SourcePath" = "8:Ionic.Zip.dll"
             "TargetName" = "8:"
@@ -395,7 +395,7 @@
                     {
                     "Name" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
                     "Attributes" = "3:512"
-                    }
+                }
                 }
             "SourcePath" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
             "TargetName" = "8:"
@@ -426,7 +426,7 @@
                     {
                     "Name" = "8:Microsoft.Office.Tools.v4.0.Framework.dll"
                     "Attributes" = "3:512"
-                    }
+                }
                 }
             "SourcePath" = "8:Microsoft.Office.Tools.v4.0.Framework.dll"
             "TargetName" = "8:"
@@ -479,6 +479,7 @@
                     "Attributes" = "3:512"
                     }
                 }
+                }
             "SourcePath" = "8:WinHTMLEditorControl.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
@@ -509,6 +510,7 @@
                     "Name" = "8:Microsoft.VisualStudio.Tools.Applications.Runtime.dll"
                     "Attributes" = "3:512"
                     }
+                }
                 }
             "SourcePath" = "8:Microsoft.VisualStudio.Tools.Applications.Runtime.dll"
             "TargetName" = "8:"
@@ -870,9 +872,9 @@
                                                             "Transitive" = "11:FALSE"
                                                                 "Keys"
                                                                 {
-                                                                }
-                                                                "Values"
-                                                                {
+                        }
+                        "Values"
+                        {
                                                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_315F03A642C242EE866D34D0951F1B9A"
                                                                     {
                                                                     "Name" = "8:OUTLOOK.EXE"
@@ -880,10 +882,10 @@
                                                                     "Transitive" = "11:FALSE"
                                                                     "ValueTypes" = "3:3"
                                                                     "Value" = "3:9000"
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
+                        }
+                    }
+                }
+            }
                                                         "Values"
                                                         {
                                                         }
@@ -931,7 +933,7 @@
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
-                                {
+                        {
                                     "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_C16529FAD7DB4E7A93E3AFBF414193CF"
                                     {
                                     "Name" = "8:Office"
