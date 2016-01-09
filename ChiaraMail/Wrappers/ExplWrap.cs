@@ -358,6 +358,7 @@ namespace ChiaraMail.Wrappers
                 {
                     ThisAddIn.IsCurrentItemChiaraMail = true;
                 }
+
                 var change = false;
                 if (hasHeader)
                 {
