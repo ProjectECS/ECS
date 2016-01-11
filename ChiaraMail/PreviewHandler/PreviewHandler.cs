@@ -254,6 +254,8 @@ namespace ChiaraMail
         {
             try
             {
+                return true;
+
                 string ext = Path.GetExtension(filename);
                 if (string.IsNullOrEmpty(ext)) return false;
                 switch (ext.ToLower())
