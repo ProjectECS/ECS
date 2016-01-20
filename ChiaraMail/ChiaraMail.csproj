@@ -50,7 +50,7 @@
     <PublishUrl>C:\Users\David Kane\Documents\Visual Studio 2010\Projects\ChiaraMail\ChiaraMailSetup\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.2.4.0</ApplicationVersion>
+    <ApplicationVersion>1.2.5.0</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
