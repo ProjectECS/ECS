@@ -43,12 +43,20 @@ namespace ChiaraMail.Forms
                 BwRunWorkerCompleted;
             Shown += WaitFormShown;
             lblSize.Text = "";
-            progressBar.Value = 0;
+            SetProgress(0);
+            AppConstants.CurrentChunk = 0;
+        }
+
+        private void SetProgress(int per)
+        {
+            progressBar.Value = per;
+            lblPercentage.Text = per + "%";
+            lblProgress.Text = per + "/100";
         }
 
         private void WaitFormShown(object sender, EventArgs e)
         {
-            progressBar.Value = 0;
+            SetProgress(0);
             if (CallType == DownloadUpload.Upload)
             {
                 tmrProgressBar.Enabled = true;
@@ -153,12 +161,9 @@ namespace ChiaraMail.Forms
                     try
                     {
                         path = Utils.GetFilePath(RecordKey, AttachList[Pointer].Index, AttachList[Pointer].Name);
-                        if (!File.Exists(path))
-                        {
+                        //if (!File.Exists(path))
+                        //{
                             //fetch the content
-                            string content1;
-                            string error1;
-                            
                             var post = ContentHandler.AssembleLoginParams(CurrentAccount.SMTPAddress, CurrentConfiguration.Password) +
                             string.Format("{0}&parms={1} {2}",
                             "FETCH%20CONTENT",
@@ -197,11 +202,7 @@ namespace ChiaraMail.Forms
                                 error = "Internal error";
                                 return;
                             }
-                            //var reader = new StreamReader(stream);
-                            //string responseText = reader.ReadToEnd();
-
-                            //-----------
-
+                            
                             int byteSize;
                             byte[] downBuffer = new byte[BUFFER_SIZE];
 
@@ -216,7 +217,7 @@ namespace ChiaraMail.Forms
                                     progressBar.Invoke(
                                         (MethodInvoker)delegate()
                                         {
-                                            progressBar.Value = intPerValue;
+                                            SetProgress(intPerValue);
                                         }
                                     );
                                 }
@@ -225,7 +226,7 @@ namespace ChiaraMail.Forms
                             progressBar.Invoke(
                                 (MethodInvoker)delegate()
                                 {
-                                    progressBar.Value = 100;
+                                    SetProgress(100);
                                 }
                             );
                             System.Threading.Thread.Sleep(500);
@@ -248,7 +249,7 @@ namespace ChiaraMail.Forms
                             }
                             ContentHandler.SaveAttachment(
                                 content, EncryptKey, EncryptKey2, UserAgent, path);
-                        }
+                        //}
                         //return the hash
                         byte[] buf = File.ReadAllBytes(path);
                         hash = Cryptography.GetHash(buf);
@@ -394,11 +395,11 @@ namespace ChiaraMail.Forms
             {
                 if (AppConstants.CurrentChunk < AppConstants.TotalChunks && perValue <= 100)
                 {
-                    progressBar.Value = Convert.ToInt16(perValue);
+                    SetProgress(Convert.ToInt16(perValue));
                 }
                 else
                 {
-                    progressBar.Value = 100;
+                    SetProgress(100);
                     System.Threading.Thread.Sleep(500);
                     tmrProgressBar.Enabled = false;
                 }

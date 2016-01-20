@@ -40,8 +40,9 @@ namespace ChiaraMail.FormRegions
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DynamicReadingPane));
-            SpiceLogic.HtmlEditorControl.Domain.DesignTime.DictionaryFileInfo dictionaryFileInfo2 = new SpiceLogic.HtmlEditorControl.Domain.DesignTime.DictionaryFileInfo();
+            SpiceLogic.HtmlEditorControl.Domain.DesignTime.DictionaryFileInfo dictionaryFileInfo1 = new SpiceLogic.HtmlEditorControl.Domain.DesignTime.DictionaryFileInfo();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.winFormHtmlEditor1 = new SpiceLogic.WinHTMLEditor.WinForm.WinFormHtmlEditor();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.previewHandlerControl = new ChiaraMail.PreviewHandlerControl();
@@ -61,14 +62,13 @@ namespace ChiaraMail.FormRegions
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.winFormHtmlEditor1 = new SpiceLogic.WinHTMLEditor.WinForm.WinFormHtmlEditor();
             this.tableLayoutPanelMain.SuspendLayout();
-            this.tableLayoutAttach.SuspendLayout();
-            this.panelAttach.SuspendLayout();
-            this.mnuAttach.SuspendLayout();
             this.winFormHtmlEditor1.Toolbar1.SuspendLayout();
             this.winFormHtmlEditor1.Toolbar2.SuspendLayout();
             this.winFormHtmlEditor1.SuspendLayout();
+            this.tableLayoutAttach.SuspendLayout();
+            this.panelAttach.SuspendLayout();
+            this.mnuAttach.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
@@ -103,213 +103,10 @@ namespace ChiaraMail.FormRegions
             this.tableLayoutPanelMain.TabIndex = 0;
             this.tableLayoutPanelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.TableLayoutPanel1Paint);
             // 
-            // btnEdit
-            // 
-            this.btnEdit.AutoSize = true;
-            this.btnEdit.Enabled = false;
-            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Image = global::ChiaraMail.Properties.Resources.edit_content;
-            this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEdit.Location = new System.Drawing.Point(599, 3);
-            this.btnEdit.Name = "btnEdit";
-            this.tableLayoutPanelMain.SetRowSpan(this.btnEdit, 3);
-            this.btnEdit.Size = new System.Drawing.Size(62, 80);
-            this.btnEdit.TabIndex = 2;
-            this.btnEdit.Text = "Update Content";
-            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEdit.UseVisualStyleBackColor = false;
-            this.btnEdit.Click += new System.EventHandler(this.BtnEditClick);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.AutoSize = true;
-            this.btnDelete.Enabled = false;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Image = global::ChiaraMail.Properties.Resources.delete_content;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDelete.Location = new System.Drawing.Point(667, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.tableLayoutPanelMain.SetRowSpan(this.btnDelete, 3);
-            this.btnDelete.Size = new System.Drawing.Size(62, 80);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete Content";
-            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.BtnDeleteClick);
-            // 
-            // previewHandlerControl
-            // 
-            this.previewHandlerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.previewHandlerControl.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanelMain.SetColumnSpan(this.previewHandlerControl, 3);
-            this.previewHandlerControl.Location = new System.Drawing.Point(3, 416);
-            this.previewHandlerControl.Name = "previewHandlerControl";
-            this.previewHandlerControl.Size = new System.Drawing.Size(726, 1);
-            this.previewHandlerControl.TabIndex = 19;
-            this.previewHandlerControl.Visible = false;
-            // 
-            // embeddedMsg1
-            // 
-            this.embeddedMsg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.embeddedMsg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanelMain.SetColumnSpan(this.embeddedMsg1, 3);
-            this.embeddedMsg1.Location = new System.Drawing.Point(3, 423);
-            this.embeddedMsg1.Name = "embeddedMsg1";
-            this.embeddedMsg1.Size = new System.Drawing.Size(726, 2);
-            this.embeddedMsg1.TabIndex = 20;
-            this.embeddedMsg1.Visible = false;
-            // 
-            // tableLayoutAttach
-            // 
-            this.tableLayoutAttach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutAttach.ColumnCount = 2;
-            this.tableLayoutPanelMain.SetColumnSpan(this.tableLayoutAttach, 3);
-            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutAttach.Controls.Add(this.btnMessage, 0, 0);
-            this.tableLayoutAttach.Controls.Add(this.panelAttach, 1, 0);
-            this.tableLayoutAttach.Location = new System.Drawing.Point(2, 217);
-            this.tableLayoutAttach.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutAttach.Name = "tableLayoutAttach";
-            this.tableLayoutAttach.RowCount = 2;
-            this.tableLayoutAttach.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutAttach.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutAttach.Size = new System.Drawing.Size(728, 22);
-            this.tableLayoutAttach.TabIndex = 17;
-            // 
-            // btnMessage
-            // 
-            this.btnMessage.AutoSize = true;
-            this.btnMessage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMessage.BackColor = System.Drawing.Color.Transparent;
-            this.btnMessage.Caption = null;
-            this.btnMessage.Location = new System.Drawing.Point(0, 0);
-            this.btnMessage.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMessage.Name = "btnMessage";
-            this.btnMessage.Picture = null;
-            this.btnMessage.Pointer = null;
-            this.btnMessage.Selected = false;
-            this.btnMessage.Size = new System.Drawing.Size(75, 20);
-            this.btnMessage.TabIndex = 0;
-            // 
-            // panelAttach
-            // 
-            this.panelAttach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAttach.AutoScroll = true;
-            this.panelAttach.Controls.Add(this.panelVertLine);
-            this.panelAttach.Location = new System.Drawing.Point(75, 0);
-            this.panelAttach.Margin = new System.Windows.Forms.Padding(0);
-            this.panelAttach.Name = "panelAttach";
-            this.panelAttach.Size = new System.Drawing.Size(653, 20);
-            this.panelAttach.TabIndex = 1;
-            // 
-            // panelVertLine
-            // 
-            this.panelVertLine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelVertLine.BackColor = System.Drawing.Color.DarkGray;
-            this.panelVertLine.Location = new System.Drawing.Point(0, 0);
-            this.panelVertLine.Margin = new System.Windows.Forms.Padding(0);
-            this.panelVertLine.Name = "panelVertLine";
-            this.panelVertLine.Size = new System.Drawing.Size(1, 20);
-            this.panelVertLine.TabIndex = 0;
-            // 
-            // messageHdr14
-            // 
-            this.messageHdr14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.messageHdr14.AutoSize = true;
-            this.messageHdr14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.messageHdr14.Location = new System.Drawing.Point(3, 5);
-            this.messageHdr14.MinimumSize = new System.Drawing.Size(400, 60);
-            this.messageHdr14.Name = "messageHdr14";
-            this.messageHdr14.Size = new System.Drawing.Size(590, 81);
-            this.messageHdr14.TabIndex = 21;
-            // 
-            // messageHdr15
-            // 
-            this.messageHdr15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.messageHdr15.AutoSize = true;
-            this.messageHdr15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.messageHdr15.Location = new System.Drawing.Point(3, 92);
-            this.messageHdr15.MinimumSize = new System.Drawing.Size(400, 0);
-            this.messageHdr15.Name = "messageHdr15";
-            this.messageHdr15.Size = new System.Drawing.Size(590, 120);
-            this.messageHdr15.TabIndex = 22;
-            // 
-            // mnuAttach
-            // 
-            this.mnuAttach.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.previewToolStripMenuItem,
-            this.mnuSep1,
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
-            this.mnuAttach.Name = "mnuAttach";
-            this.mnuAttach.Size = new System.Drawing.Size(116, 76);
-            // 
-            // previewToolStripMenuItem
-            // 
-            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.previewToolStripMenuItem.Text = "Preview";
-            this.previewToolStripMenuItem.Click += new System.EventHandler(this.PreviewToolStripMenuItemClick);
-            // 
-            // mnuSep1
-            // 
-            this.mnuSep1.Name = "mnuSep1";
-            this.mnuSep1.Size = new System.Drawing.Size(112, 6);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.useDefaultApplicationToolStripMenuItem,
-            this.browseForEditorToolStripMenuItem});
-            this.openToolStripMenuItem.Image = global::ChiaraMail.Properties.Resources.Open;
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemClick);
-            // 
-            // useDefaultApplicationToolStripMenuItem
-            // 
-            this.useDefaultApplicationToolStripMenuItem.Name = "useDefaultApplicationToolStripMenuItem";
-            this.useDefaultApplicationToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.useDefaultApplicationToolStripMenuItem.Text = "Use default application";
-            this.useDefaultApplicationToolStripMenuItem.Click += new System.EventHandler(this.UseDefaultApplicationToolStripMenuItemClick);
-            // 
-            // browseForEditorToolStripMenuItem
-            // 
-            this.browseForEditorToolStripMenuItem.Name = "browseForEditorToolStripMenuItem";
-            this.browseForEditorToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.browseForEditorToolStripMenuItem.Text = "Browse for editor...";
-            this.browseForEditorToolStripMenuItem.Click += new System.EventHandler(this.BrowseForEditorToolStripMenuItemClick);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = global::ChiaraMail.Properties.Resources.SaveAs;
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.saveToolStripMenuItem.Text = "Save As";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItemClick);
-            // 
             // winFormHtmlEditor1
             // 
-            this.winFormHtmlEditor1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.winFormHtmlEditor1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.winFormHtmlEditor1.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.winFormHtmlEditor1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
@@ -707,11 +504,11 @@ namespace ChiaraMail.FormRegions
             this.winFormHtmlEditor1.Options.FTPSettingsForRemoteResources.UserName = null;
             this.winFormHtmlEditor1.Size = new System.Drawing.Size(726, 166);
             this.winFormHtmlEditor1.SpellCheckOptions.CurlyUnderlineImageFilePath = null;
-            dictionaryFileInfo2.AffixFilePath = null;
-            dictionaryFileInfo2.DictionaryFilePath = "en-US.dic";
-            dictionaryFileInfo2.EnableUserDictionary = true;
-            dictionaryFileInfo2.UserDictionaryFilePath = "user.dic";
-            this.winFormHtmlEditor1.SpellCheckOptions.DictionaryFile = dictionaryFileInfo2;
+            dictionaryFileInfo1.AffixFilePath = null;
+            dictionaryFileInfo1.DictionaryFilePath = "en-US.dic";
+            dictionaryFileInfo1.EnableUserDictionary = true;
+            dictionaryFileInfo1.UserDictionaryFilePath = "user.dic";
+            this.winFormHtmlEditor1.SpellCheckOptions.DictionaryFile = dictionaryFileInfo1;
             this.winFormHtmlEditor1.SpellCheckOptions.WaitAlertMessage = "Searching next misspelled word..... (please wait)";
             this.winFormHtmlEditor1.TabIndex = 1;
             // 
@@ -834,6 +631,209 @@ namespace ChiaraMail.FormRegions
             this.winFormHtmlEditor1.VerticalScroll = null;
             this.winFormHtmlEditor1.z__ignore = false;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.AutoSize = true;
+            this.btnEdit.Enabled = false;
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.Image = global::ChiaraMail.Properties.Resources.edit_content;
+            this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnEdit.Location = new System.Drawing.Point(599, 3);
+            this.btnEdit.Name = "btnEdit";
+            this.tableLayoutPanelMain.SetRowSpan(this.btnEdit, 3);
+            this.btnEdit.Size = new System.Drawing.Size(62, 80);
+            this.btnEdit.TabIndex = 2;
+            this.btnEdit.Text = "Update Content";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.BtnEditClick);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.AutoSize = true;
+            this.btnDelete.Enabled = false;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Image = global::ChiaraMail.Properties.Resources.delete_content;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnDelete.Location = new System.Drawing.Point(667, 3);
+            this.btnDelete.Name = "btnDelete";
+            this.tableLayoutPanelMain.SetRowSpan(this.btnDelete, 3);
+            this.btnDelete.Size = new System.Drawing.Size(62, 80);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete Content";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDeleteClick);
+            // 
+            // previewHandlerControl
+            // 
+            this.previewHandlerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.previewHandlerControl.BackColor = System.Drawing.Color.White;
+            this.tableLayoutPanelMain.SetColumnSpan(this.previewHandlerControl, 3);
+            this.previewHandlerControl.Location = new System.Drawing.Point(3, 416);
+            this.previewHandlerControl.Name = "previewHandlerControl";
+            this.previewHandlerControl.Size = new System.Drawing.Size(726, 1);
+            this.previewHandlerControl.TabIndex = 19;
+            this.previewHandlerControl.Visible = false;
+            // 
+            // embeddedMsg1
+            // 
+            this.embeddedMsg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.embeddedMsg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanelMain.SetColumnSpan(this.embeddedMsg1, 3);
+            this.embeddedMsg1.Location = new System.Drawing.Point(3, 423);
+            this.embeddedMsg1.Name = "embeddedMsg1";
+            this.embeddedMsg1.Size = new System.Drawing.Size(726, 2);
+            this.embeddedMsg1.TabIndex = 20;
+            this.embeddedMsg1.Visible = false;
+            // 
+            // tableLayoutAttach
+            // 
+            this.tableLayoutAttach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutAttach.ColumnCount = 2;
+            this.tableLayoutPanelMain.SetColumnSpan(this.tableLayoutAttach, 3);
+            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutAttach.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutAttach.Controls.Add(this.btnMessage, 0, 0);
+            this.tableLayoutAttach.Controls.Add(this.panelAttach, 1, 0);
+            this.tableLayoutAttach.Location = new System.Drawing.Point(2, 217);
+            this.tableLayoutAttach.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutAttach.Name = "tableLayoutAttach";
+            this.tableLayoutAttach.RowCount = 2;
+            this.tableLayoutAttach.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutAttach.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutAttach.Size = new System.Drawing.Size(728, 22);
+            this.tableLayoutAttach.TabIndex = 17;
+            // 
+            // btnMessage
+            // 
+            this.btnMessage.AutoSize = true;
+            this.btnMessage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMessage.BackColor = System.Drawing.Color.Transparent;
+            this.btnMessage.Caption = null;
+            this.btnMessage.Location = new System.Drawing.Point(0, 0);
+            this.btnMessage.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMessage.Name = "btnMessage";
+            this.btnMessage.Picture = null;
+            this.btnMessage.Pointer = null;
+            this.btnMessage.Selected = false;
+            this.btnMessage.Size = new System.Drawing.Size(75, 20);
+            this.btnMessage.TabIndex = 0;
+            // 
+            // panelAttach
+            // 
+            this.panelAttach.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelAttach.AutoScroll = true;
+            this.panelAttach.Controls.Add(this.panelVertLine);
+            this.panelAttach.Location = new System.Drawing.Point(75, 0);
+            this.panelAttach.Margin = new System.Windows.Forms.Padding(0);
+            this.panelAttach.Name = "panelAttach";
+            this.panelAttach.Size = new System.Drawing.Size(653, 20);
+            this.panelAttach.TabIndex = 1;
+            // 
+            // panelVertLine
+            // 
+            this.panelVertLine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelVertLine.BackColor = System.Drawing.Color.DarkGray;
+            this.panelVertLine.Location = new System.Drawing.Point(0, 0);
+            this.panelVertLine.Margin = new System.Windows.Forms.Padding(0);
+            this.panelVertLine.Name = "panelVertLine";
+            this.panelVertLine.Size = new System.Drawing.Size(1, 20);
+            this.panelVertLine.TabIndex = 0;
+            // 
+            // messageHdr14
+            // 
+            this.messageHdr14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.messageHdr14.AutoSize = true;
+            this.messageHdr14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.messageHdr14.Location = new System.Drawing.Point(3, 5);
+            this.messageHdr14.MinimumSize = new System.Drawing.Size(400, 60);
+            this.messageHdr14.Name = "messageHdr14";
+            this.messageHdr14.Size = new System.Drawing.Size(590, 81);
+            this.messageHdr14.TabIndex = 21;
+            // 
+            // messageHdr15
+            // 
+            this.messageHdr15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.messageHdr15.AutoSize = true;
+            this.messageHdr15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.messageHdr15.Location = new System.Drawing.Point(3, 92);
+            this.messageHdr15.MinimumSize = new System.Drawing.Size(400, 0);
+            this.messageHdr15.Name = "messageHdr15";
+            this.messageHdr15.Size = new System.Drawing.Size(590, 120);
+            this.messageHdr15.TabIndex = 22;
+            // 
+            // mnuAttach
+            // 
+            this.mnuAttach.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.previewToolStripMenuItem,
+            this.mnuSep1,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.mnuAttach.Name = "mnuAttach";
+            this.mnuAttach.Size = new System.Drawing.Size(116, 76);
+            // 
+            // previewToolStripMenuItem
+            // 
+            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.previewToolStripMenuItem.Text = "Preview";
+            this.previewToolStripMenuItem.Click += new System.EventHandler(this.PreviewToolStripMenuItemClick);
+            // 
+            // mnuSep1
+            // 
+            this.mnuSep1.Name = "mnuSep1";
+            this.mnuSep1.Size = new System.Drawing.Size(112, 6);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.useDefaultApplicationToolStripMenuItem,
+            this.browseForEditorToolStripMenuItem});
+            this.openToolStripMenuItem.Image = global::ChiaraMail.Properties.Resources.Open;
+            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemClick);
+            // 
+            // useDefaultApplicationToolStripMenuItem
+            // 
+            this.useDefaultApplicationToolStripMenuItem.Name = "useDefaultApplicationToolStripMenuItem";
+            this.useDefaultApplicationToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.useDefaultApplicationToolStripMenuItem.Text = "Use default application";
+            this.useDefaultApplicationToolStripMenuItem.Click += new System.EventHandler(this.UseDefaultApplicationToolStripMenuItemClick);
+            // 
+            // browseForEditorToolStripMenuItem
+            // 
+            this.browseForEditorToolStripMenuItem.Name = "browseForEditorToolStripMenuItem";
+            this.browseForEditorToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.browseForEditorToolStripMenuItem.Text = "Browse for editor...";
+            this.browseForEditorToolStripMenuItem.Click += new System.EventHandler(this.BrowseForEditorToolStripMenuItemClick);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = global::ChiaraMail.Properties.Resources.SaveAs;
+            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.saveToolStripMenuItem.Text = "Save As";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItemClick);
+            // 
             // DynamicReadingPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -846,16 +846,16 @@ namespace ChiaraMail.FormRegions
             this.FormRegionClosed += new System.EventHandler(this.DynamicReadingPaneFormRegionClosed);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
-            this.tableLayoutAttach.ResumeLayout(false);
-            this.tableLayoutAttach.PerformLayout();
-            this.panelAttach.ResumeLayout(false);
-            this.mnuAttach.ResumeLayout(false);
             this.winFormHtmlEditor1.Toolbar1.ResumeLayout(false);
             this.winFormHtmlEditor1.Toolbar1.PerformLayout();
             this.winFormHtmlEditor1.Toolbar2.ResumeLayout(false);
             this.winFormHtmlEditor1.Toolbar2.PerformLayout();
             this.winFormHtmlEditor1.ResumeLayout(false);
             this.winFormHtmlEditor1.PerformLayout();
+            this.tableLayoutAttach.ResumeLayout(false);
+            this.tableLayoutAttach.PerformLayout();
+            this.panelAttach.ResumeLayout(false);
+            this.mnuAttach.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

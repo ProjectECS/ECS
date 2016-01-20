@@ -74,7 +74,6 @@ namespace ChiaraMail.Controls
         private void ControlClick(object sender, EventArgs e)
         {
             Logger.Info("ControlClick","");
-            Selected = true;
             PanelClick(this, e);
         }
 

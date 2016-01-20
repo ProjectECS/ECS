@@ -656,7 +656,6 @@ namespace ChiaraMail.FormRegions
             //clear all other button backgrounds
             btnMessage.Selected = false;
             ResetButtons(btn.Pointer);
-            btn.Selected = true;
             if (ThisAddIn.NoPreviewer) return;
             try
             {
@@ -688,23 +687,27 @@ namespace ChiaraMail.FormRegions
                 {
                     ShowPreview(true);
                     //do we already have the attachment?
-                    var waitForm = new WaitForm
-                                   {
-                                       Pointer = pointer,
-                                       AttachList = AttachList,
-                                       RecordKey = _recordKey,
-                                       CurrentAccount = _account,
-                                       CurrentConfiguration = _configuration,
-                                       SenderAddress = _senderAddress,
-                                       ServerName = ServerName,
-                                       ServerPort = ServerPort,
-                                       EncryptKey = EncryptKey,
-                                       EncryptKey2 = EncryptKey2,
-                                       UserAgent =  UserAgent,
-                                       CallType = DownloadUpload.Download
-                                   };
+                    if (btn.Selected == false)
+                    {
+                        var waitForm = new WaitForm
+                                       {
+                                           Pointer = pointer,
+                                           AttachList = AttachList,
+                                           RecordKey = _recordKey,
+                                           CurrentAccount = _account,
+                                           CurrentConfiguration = _configuration,
+                                           SenderAddress = _senderAddress,
+                                           ServerName = ServerName,
+                                           ServerPort = ServerPort,
+                                           EncryptKey = EncryptKey,
+                                           EncryptKey2 = EncryptKey2,
+                                           UserAgent = UserAgent,
+                                           CallType = DownloadUpload.Download
+                                       };
 
-                    waitForm.ShowDialog();
+                        waitForm.ShowDialog();
+                    }
+
                     _currentFilePath = WaitForm.Path;
                     AttachList[pointer].Hash = WaitForm.Hash;
                     LoadAttachmentHeader(pointer, _currentFilePath, "", "");
@@ -714,6 +717,8 @@ namespace ChiaraMail.FormRegions
                         //state = path;
                     }
                 }
+
+                btn.Selected = true;
             }
             finally
             {

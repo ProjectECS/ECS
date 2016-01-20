@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.IO;
 using System.ComponentModel;
 using System.Drawing;
+using Microsoft.Win32;
 
 namespace ChiaraMail
 {   
@@ -110,7 +111,7 @@ namespace ChiaraMail
             try
             {
                 //cleanup existing domain if it exists
-                ReleaseHost();
+                //ReleaseHost();
                 Controls.Clear();
                 //sending a blank filename just releases the handler
                 if (string.IsNullOrEmpty(filename)) return;
@@ -254,8 +255,6 @@ namespace ChiaraMail
         {
             try
             {
-                return true;
-
                 string ext = Path.GetExtension(filename);
                 if (string.IsNullOrEmpty(ext)) return false;
                 switch (ext.ToLower())
@@ -544,6 +543,24 @@ namespace ChiaraMail
                 var handler = ei.Handler;
                 if (handler != null) return new Guid(handler.Id);
             }
+            
+            // open the registry key corresponding to the file extension
+            RegistryKey ext = Registry.ClassesRoot.OpenSubKey(Path.GetExtension(filename));
+            if (ext != null)
+            {
+                // open the key that indicates the GUID of the preview handler type
+                RegistryKey test = ext.OpenSubKey("shellex\\{8895b1c6-b41f-4c1c-a562-0d564250836f}");
+                if (test != null) return new Guid(Convert.ToString(test.GetValue(null)));
+
+                // sometimes preview handlers are declared on key for the class
+                string className = Convert.ToString(ext.GetValue(null));
+                if (className != null)
+                {
+                    test = Registry.ClassesRoot.OpenSubKey(className + "\\shellex\\{8895b1c6-b41f-4c1c-a562-0d564250836f}");
+                    if (test != null) return new Guid(Convert.ToString(test.GetValue(null)));
+                }
+            }
+
             return Guid.Empty;
         }
 
