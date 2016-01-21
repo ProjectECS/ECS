@@ -729,6 +729,7 @@ namespace ChiaraMail
                 //1 MB is the max for RECEIVE CONTENT, so split into chunks         
                 var chunks = SegmentContent(encodedContent);
                 AppConstants.TotalChunks = chunks.Count;
+                AppConstants.TotalSize = encodedContent.Length;
                 //assemble the post
                 var post = AssembleLoginParams(smtpAddress, configuration.Password) +
                     string.Format("{0}&parms={1}%20{2}",
@@ -743,6 +744,7 @@ namespace ChiaraMail
                     return;
                 }
                 GetResponseAsync(request, "ReceiveContent", ref bw, ref e, out pointer, out error);
+                AppConstants.UploadedSize = chunks[0].Length;
                 if(chunks.Count <= 1 || string.IsNullOrEmpty(pointer)) return;
                 for (var j = 1; j < chunks.Count; j++)
                 {
@@ -751,6 +753,7 @@ namespace ChiaraMail
                     Logger.Info(SOURCE, string.Format("sending segment #{0} of {1} segments",
                                                      j + 1, chunks.Count));
                     ReceiveSegment(smtpAddress, configuration, chunks[j], pointer, ref bw, ref e, out error);
+                    AppConstants.UploadedSize += chunks[j].Length;
                     if (error == "success") continue;
                     Logger.Error(SOURCE, string.Format("exiting on error at chunk #{0}: {1}",
                                                       j + 1, error));

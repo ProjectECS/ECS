@@ -45,13 +45,22 @@ namespace ChiaraMail.Forms
             lblSize.Text = "";
             SetProgress(0);
             AppConstants.CurrentChunk = 0;
+            AppConstants.UploadedSize = 0;
         }
 
-        private void SetProgress(int per)
+        private void SetProgress(int per, double currentBytes = 0, double totalBytes = 0)
         {
             progressBar.Value = per;
             lblPercentage.Text = per + "%";
-            lblProgress.Text = per + "/100";
+
+            if (currentBytes > 0 && totalBytes > 0)
+            {
+                lblProgress.Text = currentBytes + "/" + totalBytes;
+            }
+            else
+            {
+                lblProgress.Text = "0/100";
+            }
         }
 
         private void WaitFormShown(object sender, EventArgs e)
@@ -217,7 +226,7 @@ namespace ChiaraMail.Forms
                                     progressBar.Invoke(
                                         (MethodInvoker)delegate()
                                         {
-                                            SetProgress(intPerValue);
+                                            SetProgress(intPerValue, bytes.Length, size);
                                         }
                                     );
                                 }
@@ -226,7 +235,7 @@ namespace ChiaraMail.Forms
                             progressBar.Invoke(
                                 (MethodInvoker)delegate()
                                 {
-                                    SetProgress(100);
+                                    SetProgress(100, size, size);
                                 }
                             );
                             System.Threading.Thread.Sleep(500);
@@ -395,7 +404,7 @@ namespace ChiaraMail.Forms
             {
                 if (AppConstants.CurrentChunk < AppConstants.TotalChunks && perValue <= 100)
                 {
-                    SetProgress(Convert.ToInt16(perValue));
+                    SetProgress(Convert.ToInt16(perValue), AppConstants.UploadedSize, AppConstants.TotalSize);
                 }
                 else
                 {
